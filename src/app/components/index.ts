@@ -14,3 +14,7 @@ export * from './06-component-w-input-output/user-list/user-list.component';
 export * from './06-component-w-input-output/user-list/user-list.service';
 export * from './06-component-w-input-output/user-list/user/user.component';
 
+export * from './07-component-inside-host/task-list/task-list.component';
+export * from './07-component-inside-host/task-list/task-list.service';
+export * from './07-component-inside-host/task-list/task/task.component';
+

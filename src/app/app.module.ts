@@ -12,9 +12,12 @@ import {
   UserProfileComponent,
   UserListComponent,
   UserComponent,
+  TaskListComponent,
+  TaskComponent,
   UserService,
   UserProfileService,
-  UserListService
+  UserListService,
+  TaskListService
 } from './components';
 
 @NgModule({
@@ -26,7 +29,9 @@ import {
     WelcomeComponent,
     UserProfileComponent,
     UserListComponent,
-    UserComponent
+    UserComponent,
+    TaskListComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +41,8 @@ import {
   providers: [
     UserService,
     UserProfileService,
-    UserListService
+    UserListService,
+    TaskListService
   ],
   bootstrap: [AppComponent]
 })

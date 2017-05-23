@@ -1,0 +1,4 @@
+<app-task *ngFor="let task of tasks"
+  [task]="task"
+  (selected)="showDetails($event)">
+</app-task>
