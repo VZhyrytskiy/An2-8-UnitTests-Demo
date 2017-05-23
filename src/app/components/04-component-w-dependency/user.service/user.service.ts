@@ -6,8 +6,4 @@ export class UserService {
   user = {
     name: 'Vitaliy'
   };
-  constructor() { }
-
-
-
 }

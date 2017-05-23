@@ -30,6 +30,7 @@ describe('WelcomeComponent', () => {
     fixture = TestBed.createComponent(WelcomeComponent);
     component = fixture.componentInstance;
 
+    // Service is injected in module
     userService = TestBed.get(UserService);
 
     de = fixture.debugElement.query(By.css('.welcome'));

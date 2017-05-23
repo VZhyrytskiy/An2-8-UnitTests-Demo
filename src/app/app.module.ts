@@ -4,8 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { HeaderInlineComponent, HeaderInlineAutoCdComponent, HeaderComponent, WelcomeComponent } from './components';
-import { UserService } from './components';
+import {
+  HeaderInlineComponent,
+  HeaderInlineAutoCdComponent,
+  HeaderComponent,
+  WelcomeComponent,
+  UserProfileComponent,
+  UserService,
+  UserProfileService
+} from './components';
 
 @NgModule({
   declarations: [
@@ -13,7 +20,8 @@ import { UserService } from './components';
     HeaderInlineComponent,
     HeaderInlineAutoCdComponent,
     HeaderComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +29,8 @@ import { UserService } from './components';
     HttpModule
   ],
   providers: [
-    UserService
+    UserService,
+    UserProfileService
   ],
   bootstrap: [AppComponent]
 })
