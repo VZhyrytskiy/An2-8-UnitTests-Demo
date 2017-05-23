@@ -1,0 +1,4 @@
+<app-user *ngFor="let user of users"
+  [user]="user"
+  (selected)="showDetails($event)">
+</app-user>

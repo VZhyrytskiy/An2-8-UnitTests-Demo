@@ -10,8 +10,11 @@ import {
   HeaderComponent,
   WelcomeComponent,
   UserProfileComponent,
+  UserListComponent,
+  UserComponent,
   UserService,
-  UserProfileService
+  UserProfileService,
+  UserListService
 } from './components';
 
 @NgModule({
@@ -21,7 +24,9 @@ import {
     HeaderInlineAutoCdComponent,
     HeaderComponent,
     WelcomeComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    UserListComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +35,8 @@ import {
   ],
   providers: [
     UserService,
-    UserProfileService
+    UserProfileService,
+    UserListService
   ],
   bootstrap: [AppComponent]
 })
