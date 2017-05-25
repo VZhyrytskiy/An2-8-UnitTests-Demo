@@ -23,6 +23,7 @@ import {
   ProductListComponent,
   ProductComponent,
   ProductListService,
+  ProductDetailsComponent,
   PageNotFoundComponent
 } from './components';
 
@@ -40,6 +41,7 @@ import {
     TaskComponent,
     ProductListComponent,
     ProductComponent,
+    ProductDetailsComponent,
     PageNotFoundComponent
   ],
   imports: [

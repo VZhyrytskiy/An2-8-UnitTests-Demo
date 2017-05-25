@@ -21,5 +21,6 @@ export * from './07-component-inside-host/task-list/task/task.component';
 export * from './08-routed-component/product-list/product-list.component';
 export * from './08-routed-component/product-list/product-list.service';
 export * from './08-routed-component/product-list/product/product.component';
+export * from './08-routed-component/product-details/product-details.component';
 export * from './08-routed-component/page-not-found/page-not-found.component';
 

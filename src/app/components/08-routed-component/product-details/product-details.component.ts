@@ -1,0 +1,41 @@
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { ProductListService } from './../..';
+
+@Component({
+  selector: 'app-product-details',
+  templateUrl: './product-details.component.html',
+  styleUrls: ['./product-details.component.css']
+})
+export class ProductDetailsComponent implements OnInit {
+  product: any;
+
+  constructor(
+    private productListService: ProductListService,
+    private route: ActivatedRoute,
+    private router: Router) {
+  }
+
+  ngOnInit(): void {
+    this.route.params.subscribe(p => this.getProduct(p && p['id']));
+  }
+
+  gotoList() {
+    this.router.navigate(['/']);
+  }
+
+  private getProduct(id: string) {
+    // when no id or id===0, create new Product
+    if (!id) {
+      this.product = { 'id': 0, 'name': 'no name' };
+      return;
+    }
+
+    this.product = this.productListService.getProduct(+id);
+    if (!this.product) {
+      this.gotoList(); // id not found; navigate to list
+    }
+  }
+
+}

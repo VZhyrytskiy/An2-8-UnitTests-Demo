@@ -1,0 +1,8 @@
+<p>
+  product-details works!
+</p>
+<div *ngIf="product">
+  <span>{{product.id}}</span>
+  <span>{{product.name | titlecase}}</span>
+</div>
+{{product | json}}

@@ -1,6 +1,7 @@
 import { DebugElement } from '@angular/core';
 import { tick, ComponentFixture } from '@angular/core/testing';
 
+export * from './router-stubs';
 
 // See https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
 /** Button events to pass to `DebugElement.triggerEventHandler` for RouterLink event handler */
