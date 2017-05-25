@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { AppRoutingModule } from './app.routing.module';
+
 import { AppComponent } from './app.component';
 import {
   HeaderInlineComponent,
@@ -17,7 +19,11 @@ import {
   UserService,
   UserProfileService,
   UserListService,
-  TaskListService
+  TaskListService,
+  ProductListComponent,
+  ProductComponent,
+  ProductListService,
+  PageNotFoundComponent
 } from './components';
 
 @NgModule({
@@ -31,18 +37,23 @@ import {
     UserListComponent,
     UserComponent,
     TaskListComponent,
-    TaskComponent
+    TaskComponent,
+    ProductListComponent,
+    ProductComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AppRoutingModule
   ],
   providers: [
     UserService,
     UserProfileService,
     UserListService,
-    TaskListService
+    TaskListService,
+    ProductListService
   ],
   bootstrap: [AppComponent]
 })
