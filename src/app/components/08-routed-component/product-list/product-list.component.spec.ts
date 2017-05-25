@@ -11,11 +11,11 @@ class RouterStub {
   navigateByUrl(url: string) { return url; }
 }
 
-let component: ProductListComponent;
-let fixture: ComponentFixture<ProductListComponent>;
-let productEl: DebugElement;
-
 describe('ProductListComponent', () => {
+  let component: ProductListComponent;
+  let fixture: ComponentFixture<ProductListComponent>;
+  let productEl: DebugElement;
+
   beforeEach(async(() => {
     TestBed
       .configureTestingModule({
@@ -28,14 +28,15 @@ describe('ProductListComponent', () => {
           { provide: Router, useClass: RouterStub }
         ]
       })
-      .compileComponents()
-      .then(() => {
-        fixture = TestBed.createComponent(ProductListComponent);
-        component = fixture.componentInstance;
-        productEl = fixture.debugElement.query(By.css('.product'));
-        console.log(fixture);
-      });
+      .compileComponents();
   }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ProductListComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges(); // trigger initial data binding
+    productEl = fixture.debugElement.query(By.css('app-product'));
+  });
 
   it('should tell ROUTER to navigate when product clicked',
     // inject function injects services into the test function
