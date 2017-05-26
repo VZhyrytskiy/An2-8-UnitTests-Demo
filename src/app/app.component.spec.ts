@@ -1,88 +1,86 @@
-// /* tslint:disable:no-unused-variable */
+import { TestBed, ComponentFixture, ComponentFixtureAutoDetect, async } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement, Component, Directive, Input } from '@angular/core';
 
-// import { TestBed, ComponentFixture, ComponentFixtureAutoDetect, async } from '@angular/core/testing';
-// import { By } from '@angular/platform-browser';
-// import { DebugElement } from '@angular/core';
+import { AppComponent } from './app.component';
 
-// import { AppComponent } from './app.component';
+let app: AppComponent;
+let component: AppComponent;
+let fixture: ComponentFixture<AppComponent>;
+let de: DebugElement;
+let el: HTMLElement;
 
-// let app: AppComponent;
-// let fixture: ComponentFixture<AppComponent>;
-// let de: DebugElement;
-// let el: HTMLElement;
+@Component({ selector: 'app-msg-list', template: '' })
+class MsgListStubComponent { }
 
-// describe('App: An2XTests', () => {
-//   beforeEach(() => {
-//     // refine the test module by declaring the test component
-//     TestBed.configureTestingModule({
-//       declarations: [
-//         AppComponent // declare the test component
-//       ],
-//       // Automatic change detection
-//       // providers: [
-//       //   { provide: ComponentFixtureAutoDetect, useValue: true }
-//       // ]
-//     });
+@Directive({
+  // tslint:disable-next-line:directive-selector
+  selector: '[routerLink]',
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    '(click)': 'onClick()'
+  }
+})
+export class RouterLinkStubDirective {
+  // tslint:disable-next-line:no-input-rename
+  @Input('routerLink') linkParams: any;
+  navigatedTo: any = null;
 
-//     // create component and test fixture
-//     fixture = TestBed.createComponent(AppComponent);
+  onClick() {
+    this.navigatedTo = this.linkParams;
+  }
+}
 
-//     // AppComponent test instance
-//     app = fixture.componentInstance;
-//   });
+// tslint:disable-next-line:component-selector
+@Component({ selector: 'router-outlet', template: '' })
+export class RouterOutletStubComponent { }
 
-//   it('should create the app 0', async(() => {
-//     expect(app).toBeTruthy();
-//   }));
+describe('AppComponent', () => {
+  beforeEach(() => {
+    TestBed
+      .configureTestingModule({
+        declarations: [
+          AppComponent,
+          MsgListStubComponent,
+          RouterLinkStubDirective, RouterOutletStubComponent
+        ]
+      })
+      .compileComponents();
+  });
 
-//   it('should create the app', async(() => {
-//      // get test component from the fixture
-//     app = fixture.debugElement.componentInstance;
-//     expect(app).toBeTruthy();
-//   }));
+  let links: RouterLinkStubDirective[];
+  let linkDes: DebugElement[];
 
-//   it(`should have as title 'app works!'`, async(() => {
-//     app = fixture.debugElement.componentInstance;
-//     expect(app.title).toEqual('app works!');
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    // trigger initial data binding
+    fixture.detectChanges();
 
-//   }));
+    // find DebugElements with an attached RouterLinkStubDirective
+    linkDes = fixture.debugElement
+      .queryAll(By.directive(RouterLinkStubDirective));
 
-//  it('should render title in a h1 tag', async(() => {
-//     // trigger change detection to update the view
-//     fixture.detectChanges();
+    // get the attached link directive instances using the DebugElement injectors
+    links = linkDes
+      .map(de => de.injector.get(RouterLinkStubDirective) as RouterLinkStubDirective);
+  });
 
-//     el = fixture.debugElement.nativeElement;
+  it('can get RouterLinks from template', () => {
+    expect(links.length).toBe(2, 'should have 2 links');
+    expect(links[0].linkParams).toBe('/products', '1st link should go to Products');
+    expect(links[1].linkParams).toBe('/about', '2nd link should go to About');
+  });
 
-//     // confirm the element's content
-//     expect(el.querySelector('h1').textContent).toContain('app works!');
-//   }));
+  it('can click Products link in template', () => {
+  const productLinkDe = linkDes[0];
+  const productLink = links[0];
 
-//   it('should render title in a h1 tag 0', async(() => {
-//     // trigger change detection to update the view
-//     fixture.detectChanges();
+  expect(productLink.navigatedTo).toBeNull('link should not have navigated yet');
 
-//     de = fixture.debugElement.query(By.css('h1'));
-//     el = de.nativeElement;
+  productLinkDe.triggerEventHandler('click', null);
+  fixture.detectChanges();
 
-//     // confirm the element's content
-//     expect(el.textContent).toContain('app works!');
-//   }));
-
-//   it('should still see original title after app.title change', () => {
-//       const oldTitle = app.title;
-//       app.title = 'Test Title';
-
-//       // Displayed title is old because Angular didn't hear the change :(
-//       expect(el.textContent).toContain(oldTitle);
-//   });
-
-//   it('should display updated title after detectChanges', () => {
-//     app.title = 'Test Title';
-
-//     el = fixture.debugElement.nativeElement;
-//     fixture.detectChanges(); // detect changes explicitly
-//     expect(el.textContent).toContain(app.title);
-//   });
-
-
-// });
+  expect(productLink.navigatedTo).toBe('/products');
+});
+});

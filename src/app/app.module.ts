@@ -27,6 +27,7 @@ import {
   PageNotFoundComponent,
   MsgListComponent
 } from './components';
+import { AboutComponent } from './components/10-router-outlet-component/about/about.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {
     ProductComponent,
     ProductDetailsComponent,
     PageNotFoundComponent,
-    MsgListComponent
+    MsgListComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

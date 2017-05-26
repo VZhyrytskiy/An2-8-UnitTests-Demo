@@ -26,3 +26,5 @@ export * from './08-routed-component/page-not-found/page-not-found.component';
 
 export * from './09-override-component-providers/msg-list/msg-list.component';
 
+export * from './10-router-outlet-component/about/about.component';
+
