@@ -24,7 +24,8 @@ import {
   ProductComponent,
   ProductListService,
   ProductDetailsComponent,
-  PageNotFoundComponent
+  PageNotFoundComponent,
+  MsgListComponent
 } from './components';
 
 @NgModule({
@@ -42,7 +43,8 @@ import {
     ProductListComponent,
     ProductComponent,
     ProductDetailsComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    MsgListComponent
   ],
   imports: [
     BrowserModule,
