@@ -25,9 +25,10 @@ import {
   ProductListService,
   ProductDetailsComponent,
   PageNotFoundComponent,
-  MsgListComponent
+  MsgListComponent,
+  AboutComponent,
 } from './components';
-import { AboutComponent } from './components/10-router-outlet-component/about/about.component';
+import { HighlightDirective } from './directives';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AboutComponent } from './components/10-router-outlet-component/about/ab
     ProductDetailsComponent,
     PageNotFoundComponent,
     MsgListComponent,
-    AboutComponent
+    AboutComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
