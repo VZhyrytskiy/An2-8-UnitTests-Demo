@@ -1,4 +1,4 @@
-export * from './01-header-inline/header-inline.component';
+export * from './01-component-w-inline-template/header-inline.component';
 
 export * from './02-header-inline-auto-cd/header-inline-auto-cd.component';
 
