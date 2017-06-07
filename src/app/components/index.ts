@@ -2,7 +2,7 @@ export * from './01-component-w-inline-template/header-inline.component';
 
 export * from './02-component-w-auto-change-detection/header-inline-auto-cd.component';
 
-export * from './03-header/header.component';
+export * from './03-component-w-external-template/header.component';
 
 export * from './04-component-w-dependency/welcome/welcome.component';
 export * from './04-component-w-dependency/user.service/user.service';
