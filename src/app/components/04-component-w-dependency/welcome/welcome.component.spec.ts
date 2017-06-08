@@ -5,24 +5,27 @@ import { DebugElement } from '@angular/core';
 import { WelcomeComponent } from './welcome.component';
 import { WelcomeService } from './welcome.service';
 
-describe('WelcomeComponent', () => {
-  let component: WelcomeComponent;
-  let fixture: ComponentFixture<WelcomeComponent>;
-  let welcomeService: WelcomeService;
-  let de: DebugElement;
-  let el: HTMLElement;
+// stub WelcomeService для тестирования компонента
+const welcomeServiceStub = {
+  isLoggedIn: true,
+  user: { name: 'Test User' }
+};
 
-  // stub WelcomeService for test purposes
-  const welcomeServiceStub = {
-    isLoggedIn: true,
-    user: { name: 'Test User' }
-  };
+describe('WelcomeComponent', () => {
+  let component: WelcomeComponent,
+      fixture: ComponentFixture<WelcomeComponent>,
+      welcomeService: WelcomeService,
+      de: DebugElement,
+      el: HTMLElement;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [WelcomeComponent],
-      providers: [{ provide: WelcomeService, useValue: welcomeServiceStub }]
-    })
+    TestBed
+      .configureTestingModule({
+        declarations: [WelcomeComponent],
+        // Подключаем токен WelcomeService
+        // но используем stub welcomeServiceStub
+        providers: [{ provide: WelcomeService, useValue: welcomeServiceStub }]
+      })
       .compileComponents();
   }));
 
@@ -30,30 +33,47 @@ describe('WelcomeComponent', () => {
     fixture = TestBed.createComponent(WelcomeComponent);
     component = fixture.componentInstance;
 
-    // Service is injected in module
-    welcomeService = TestBed.get(WelcomeService);
+    // Сервис можно получить из инджектора компонента,
+    // который доступен через свойство injector у debugElement
+    // Используем метод инджектора get()
+    welcomeService = fixture.debugElement.injector.get(WelcomeService);
 
+    // Сервис можно получить также из корневого инджектора
+    // Для этого используем TestBed.get()
+    // welcomeService = TestBed.get(WelcomeService);
+
+    // Получаем welcome элемент по классу
     de = fixture.debugElement.query(By.css('.welcome'));
     el = de.nativeElement;
   });
 
+  // Этот тест подтверждает, что stub работает.
   it('should welcome the user', () => {
     fixture.detectChanges();
     const content = el.textContent;
+
+    // Тут используем второй опциональный параметр, чтобы показать сообщение,
+    // когда тест не будет пройден
     expect(content).toContain('Welcome', '"Welcome ..."');
     expect(content).toContain('Test User', 'expected name');
   });
 
+  // Второй тест проверяет влияние изменения имени пользователя.
   it('should welcome "Vitaliy"', () => {
-    welcomeService.user.name = 'Vitaliy'; // welcome message hasn't been shown yet
+    // Приветствие не будет доступно до вызова detectChanges
+    welcomeService.user.name = 'Vitaliy';
     fixture.detectChanges();
+
     expect(el.textContent).toContain('Welcome Vitaliy');
   });
 
+  // Третий тест проверяет, что компонент отображает правильное
+  // сообщение, когда нет зарегистрированного пользователя.
   it('should request login if not logged in', () => {
-    welcomeService.isLoggedIn = false; // welcome message hasn't been shown yet
+    welcomeService.isLoggedIn = false;
     fixture.detectChanges();
     const content = el.textContent;
+
     expect(content).not.toContain('Welcome', 'not welcomed');
     expect(content).toMatch(/log in/i, '"log in"');
   });
