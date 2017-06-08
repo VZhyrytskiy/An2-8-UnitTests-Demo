@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserService } from './../user.service/user.service';
+import { WelcomeService } from './welcome.service';
 
 @Component({
   selector: 'app-welcome',
@@ -11,12 +11,12 @@ export class WelcomeComponent implements OnInit {
   content = '';
 
   constructor(
-    private userService: UserService
+    private welcomeService: WelcomeService
   ) { }
 
   ngOnInit() {
-    this.content = this.userService.isLoggedIn
-      ? `Welcome ${this.userService.user.name}`
+    this.content = this.welcomeService.isLoggedIn
+      ? `Welcome ${this.welcomeService.user.name}`
       : 'Please log in';
   }
 

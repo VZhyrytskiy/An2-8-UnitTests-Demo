@@ -16,7 +16,7 @@ import {
   UserComponent,
   TaskListComponent,
   TaskComponent,
-  UserService,
+  WelcomeService,
   UserProfileService,
   UserListService,
   TaskListService,
@@ -57,7 +57,7 @@ import { HighlightDirective } from './directives';
     AppRoutingModule
   ],
   providers: [
-    UserService,
+    WelcomeService,
     UserProfileService,
     UserListService,
     TaskListService,
