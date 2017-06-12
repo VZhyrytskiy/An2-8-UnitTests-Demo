@@ -8,7 +8,7 @@ export * from './04-component-w-dependency/welcome/welcome.component';
 export * from './04-component-w-dependency/welcome/welcome.service';
 
 export * from './05-component-w-async-service/user-profile/user-profile.component';
-export * from './05-component-w-async-service/user-profile.service/user-profile.service';
+export * from './05-component-w-async-service/user-profile/user-profile.service';
 
 export * from './06-component-w-input-output/user-list/user-list.component';
 export * from './06-component-w-input-output/user-list/user-list.service';

@@ -3,28 +3,32 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { UserProfileComponent } from './user-profile.component';
-import { UserProfileService } from './../user-profile.service/user-profile.service';
+import { UserProfileService } from './user-profile.service';
 
 describe('UserProfileComponent', () => {
-  let component: UserProfileComponent;
-  let fixture: ComponentFixture<UserProfileComponent>;
-  let de: DebugElement;
-  let el: HTMLElement;
-  let userProfileService: UserProfileService;// the actually injected service
-  let spy: jasmine.Spy;
+  let component: UserProfileComponent,
+      fixture: ComponentFixture<UserProfileComponent>,
+      de: DebugElement,
+      el: HTMLElement,
 
+      userProfileService: UserProfileService,
+      spy: jasmine.Spy;
+
+  // Объект, описывает тестового пользователя
   const testUser = {
     firstName: 'Test',
     lastName: 'Test'
   };
 
-  // setup module
+  // Асинхронный beforeEach: настройка модуля
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UserProfileComponent],
+
+      // Тут внедряем реальный сервис
       providers: [UserProfileService]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   // setup service
@@ -32,72 +36,105 @@ describe('UserProfileComponent', () => {
     fixture = TestBed.createComponent(UserProfileComponent);
     component = fixture.componentInstance;
 
-    // UserProfileService actually injected into the component
+    // Получаем реальный сервис из инджектора компонента
     userProfileService = fixture.debugElement.injector.get(UserProfileService);
 
-    // Setup spy on the `getUser` method
+    // Создаем шпиона (spy) на метод `getUser` нашего реального сервиса
+    // и просим его возвращать данные о тестовом пользователе.
+    // Таким образом, все, кто обращаются к даному методу,
+    // сразу же получаютответ, а реальный запрос на сервер,
+    // ожидание ответа или прочие асинхроные действия не происходят.
+    // spyOn(obj, methodName) -> spy
+    // https://jasmine.github.io/api/2.6/global.html#spyOn
     spy = spyOn(userProfileService, 'getUser')
+      // and.returnValue() - попросим вернуть значение, когда будет вызываться
+      // https://jasmine.github.io/api/2.6/Spy_and.html
       .and.returnValue(Promise.resolve(testUser));
 
-    // Get the element by CSS selector
+    // Получаем элемент по селектору
     de = fixture.debugElement.query(By.css('.user-profile'));
     el = de.nativeElement;
   });
 
-  // synchronous test
+  // синхронный тест
   it('should not show user profile before OnInit', () => {
     expect(el.textContent).toBe('User Name: ', 'nothing displayed');
+    // шпион не вызывался
+    // spy.calls.any() - проверяем вызывался ли шпион
+    // https://jasmine.github.io/api/2.6/Spy_calls.html
     expect(spy.calls.any()).toBe(false, 'getUser not yet called');
   });
 
-  // synchronous test
+  // синхронный тест
   it('should still not show user profile after component initialized', () => {
     fixture.detectChanges();
-    // userProfileService is async => still has not returned with user
+    // userProfileService асинхронныей => результат мы не увидим
     expect(el.textContent).toBe('User Name:  ', 'no user yet');
+    // шпион вызывался, так как мы вызвали fixture.detectChanges();
     expect(spy.calls.any()).toBe(true, 'getUser called');
   });
 
-  // async function
+  // Ни один из тестов выше не может доказать, что отображается
+  // значение из сервиса. Данные о пользователе не пришли,
+  // несмотря на то, что шпион возвращает разрешенное значение.
+
+  // Этот тест должен ждать по крайней мере одного полного цикла
+  // JavaScript - движка до того, как значение станет доступным.
+  // Тест должен стать асинхронным.
+
+  // Асинхронный тест.
+  // Использует функцию async(), как выше асинхронный beforeEach
   it('should show user profile after getUser promise (async)', async(() => {
     fixture.detectChanges();
-    // The fixture.whenStable method returns its own promise,
-    // which resolves when the getUser promise finishes.
-    fixture.whenStable().then(() => { // wait for async getUser
-      // The test kicks off another round of change detection
-      fixture.detectChanges();        // update view with user profile
+
+    // fixture.whenStable метод возвращает промис,
+    // который резолвится, когда getUser промис завершит работу.
+
+    // Ждем результата асинхронного метода getUser
+    fixture.whenStable().then(() => { //
+      // Мы должны запустить следующи цикл обнаружения изменений
+      // чтобы наполнить представление полученными данными
+      fixture.detectChanges();
+
       expect(el.textContent).toBe(`User Name: ${testUser.firstName} ${testUser.lastName}`);
     });
   }));
 
-  // fakeAsync function
-  // The fakeAsync function enables a linear coding style by running the test body in a special fakeAsync test zone.
-  // There is no then(...)
-  // fixture.whenStable is gone, replaced by tick().
-  // There are limitations. For example, you cannot make an XHR call from within a fakeAsync.
+  // Этот тест проверяте тоже самое, но делат это по другому.
+  // Он использует fakeAsync() + tick()функции
+  // fakeAsync функция позволяет использовать линейный стиль кода,
+  // так как она запускает тест в специальной fakeAsync test zone.
+  // Нет then(...)
+  // А fixture.whenStable заменил вызов функции tick().
+  // Несколько ограничений: например, вы не сможете выполнить XHR вызов
+  // в функции fakeAsync.
   it('should show user profile after getUser promise (fakeAsync)', fakeAsync(() => {
     fixture.detectChanges();
 
-    // wait for async getUser
-    // You can only call it within a fakeAsync body
+    // Ждем выполнения асинхронного метода getUser
+    // Вызвать эту функцию можно только в рамках тела fakeAsync функции
     tick();
 
-    // update view with user profile
+    // Запускаем обнаружение изменений для передачи данных в темплейт
     fixture.detectChanges();
+
     expect(el.textContent).toBe(`User Name: ${testUser.firstName} ${testUser.lastName}`);
   }));
 
-  // Traditional Jasmine asynchronous testing technique
-  // You can't call async or fakeAsync when testing code
-  // that involves the intervalTimer, as is common when
-  // testing async Observable methods
+  // Традиционные техники Jasmine для асинхронного тестирования
+  // Вы не можете использовать async или fakeAsync для тестов
+  // которые используют intervalTimer, например когда тестируем
+  // async Observable методы
   it('should show user profile after getUser promise (done)', (done: any) => {
     fixture.detectChanges();
 
-    // get the spy promise and wait for it to resolve
+    // Получаем промис, который возвращаетшпион и ждем его результата
     spy.calls.mostRecent().returnValue.then(() => {
-      fixture.detectChanges(); // update view with user profile
+      // Вызываем обнаружение изменений для обновления темплейта
+      fixture.detectChanges();
+
       expect(el.textContent).toBe(`User Name: ${testUser.firstName} ${testUser.lastName}`);
+      // Вызываем колбек
       done();
     });
   });
