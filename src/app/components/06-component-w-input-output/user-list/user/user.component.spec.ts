@@ -2,40 +2,44 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { click } from './../../../../testing-helpers';
-
 import { UserComponent } from './user.component';
 
 describe('UserComponent', () => {
-  let component: UserComponent;
-  let fixture: ComponentFixture<UserComponent>;
-  let userEl: DebugElement;
-  let expectedUser: string;
+  let component: UserComponent,
+    fixture: ComponentFixture<UserComponent>,
+    userEl: DebugElement;
+  const expectedUser = 'Test User';
 
-  // async beforeEach
+  // асинхронный beforeEach
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ UserComponent ]
-    })
-    .compileComponents(); // compile templates
+    TestBed
+      .configureTestingModule({
+        declarations: [ UserComponent ]
+      })
+      // Компилируемтемплейт
+      .compileComponents();
   }));
 
-  // synchronous beforeEach
+  // Синхронный beforeEach
   beforeEach(() => {
     fixture = TestBed.createComponent(UserComponent);
     component = fixture.componentInstance;
 
-    // find user element
+    // Ищем user элемент по селектору
     userEl = fixture.debugElement.query(By.css('.user'));
 
-    // pretend that it was wired to something that supplied a user
-    expectedUser = 'Test User';
+    // Предположим, что мы получили пользователя на вход
     component.user = expectedUser;
 
-    // trigger initial data binding
+    // Запускаем обнаружение изменений для первоначальной привязки данных
     fixture.detectChanges();
   });
 
+
+  // Тест проверяет, что пользователь передается в шаблон
+  // через property binding
+  // В шаблоне используется пайп, тест должен проверить результат
+  // в нужном регистре
   it('should display user name', () => {
     const expectedPipedName = expectedUser.toUpperCase();
     expect(userEl.nativeElement.textContent).toContain(expectedPipedName);
@@ -45,19 +49,12 @@ describe('UserComponent', () => {
     let selectedUser: string;
     component.selected.subscribe((user: string) => selectedUser = user);
 
-    // The Angular DebugElement.triggerEventHandler can raise any
-    // data - bound event by its event name.
-    // The second parameter is the event object passed to the handler.
+    // DebugElement.triggerEventHandler может сгенерить любое связанное
+    // с данными событие по имени события.
+    // Второй параметр - это объект события, переданный обработчику.
+    // В этом примере тест запускает событие «click»
+    // с наловым объектом события.
     userEl.triggerEventHandler('click', null);
     expect(selectedUser).toBe(expectedUser);
   });
-
-  it('should raise selected event when clicked (click helper)', () => {
-    let selectedUser: string;
-    component.selected.subscribe((user: string) => selectedUser = user);
-
-    click(userEl);   // triggerEventHandler helper
-    expect(selectedUser).toBe(expectedUser);
-  });
-
 });

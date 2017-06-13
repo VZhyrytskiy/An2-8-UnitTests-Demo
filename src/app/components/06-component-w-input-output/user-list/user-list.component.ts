@@ -18,4 +18,8 @@ export class UserListComponent implements OnInit {
     this.users = this.userListService.getUsers();
   }
 
+  showDetails(user: string) {
+    console.log(user);
+  }
+
 }
