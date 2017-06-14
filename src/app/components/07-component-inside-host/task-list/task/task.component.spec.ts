@@ -7,6 +7,7 @@ import { click } from './../../../../testing-helpers';
 import { TaskComponent } from './task.component';
 
 ////// Test Host Component //////
+// Делаем эмуляцию хост-компонента
 import { Component } from '@angular/core';
 
 @Component({
@@ -21,25 +22,33 @@ class TestHostComponent {
 ////// END: Test Host Component //////
 
 describe('TaskComponent when inside a test host', () => {
-  let testHost: TestHostComponent;
-  let fixture: ComponentFixture<TestHostComponent>;
-  let taskEl: DebugElement;
+  let testHost: TestHostComponent,
+      fixture: ComponentFixture<TestHostComponent>,
+      taskEl: DebugElement;
 
   beforeEach( async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ TaskComponent, TestHostComponent ], // declare both
-    }).compileComponents();
+    TestBed
+      .configureTestingModule({
+        declarations: [
+          TaskComponent,
+          TestHostComponent
+        ]
+        })
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    // create TestHostComponent instead of TaskComponent
-    // Creating the TestHostComponent has the side-effect of creating a
-    // TaskComponent because the latter appears within the template
-    // of the former.
+    // Создадим TestHostComponent вместо TaskComponent
+    // Такой подход имеет сайд эффект - TaskComponent тоже будет создан
+    // так как он находится в темплейте TestHostComponent
     fixture  = TestBed.createComponent(TestHostComponent);
     testHost = fixture.componentInstance;
-    taskEl   = fixture.debugElement.query(By.css('.task')); // find task
-    fixture.detectChanges(); // trigger initial data binding
+
+    // Ищем элемент с классом .task
+    taskEl   = fixture.debugElement.query(By.css('.task'));
+
+    // Запускаем инициализацию данных
+    fixture.detectChanges();
   });
 
   it('should display task name', () => {
@@ -47,8 +56,13 @@ describe('TaskComponent when inside a test host', () => {
   });
 
   it('should raise selected event when clicked', () => {
-    click(taskEl);
-    // selected task should be the same data bound task
+    // DebugElement.triggerEventHandler может сгенерить любое связанное
+    // с данными событие по имени события.
+    // Второй параметр - это объект события, переданный обработчику.
+    // В этом примере тест запускает событие «click»
+    // с наловым объектом события.
+    taskEl.triggerEventHandler('click', null);
+
     expect(testHost.selectedTask).toBe(testHost.task);
   });
 });

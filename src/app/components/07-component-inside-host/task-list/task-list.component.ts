@@ -18,4 +18,8 @@ export class TaskListComponent implements OnInit {
     this.tasks = this.taskListService.getTasks();
   }
 
+  showDetails(task: string) {
+    console.log(task);
+  }
+
 }
