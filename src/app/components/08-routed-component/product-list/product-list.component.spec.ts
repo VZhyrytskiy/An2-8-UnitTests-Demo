@@ -7,14 +7,16 @@ import { ProductListService } from './product-list.service';
 import { ProductListComponent } from './product-list.component';
 import { ProductComponent } from './product/product.component';
 
+//  Стаб для роутера
+//  Описываем только тот метод, который используется
 class RouterStub {
   navigateByUrl(url: string) { return url; }
 }
 
 describe('ProductListComponent', () => {
-  let component: ProductListComponent;
-  let fixture: ComponentFixture<ProductListComponent>;
-  let productEl: DebugElement;
+  let component: ProductListComponent,
+      fixture: ComponentFixture<ProductListComponent>,
+      productEl: DebugElement;
 
   beforeEach(async(() => {
     TestBed
@@ -24,7 +26,11 @@ describe('ProductListComponent', () => {
           ProductComponent
         ],
         providers: [
+          // Тут используем либо реальный сервис, либо фейковый,
+          // В даном случае это для нас не очень важно
           { provide: ProductListService, useClass: ProductListService },
+
+          // Тут используем стаб для роутера
           { provide: Router, useClass: RouterStub }
         ]
       })
@@ -34,31 +40,34 @@ describe('ProductListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductListComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges(); // trigger initial data binding
+
+    // Запустим первоначальную инициализацию компонента
+    fixture.detectChanges();
+
+    // Найдем элемент product
     productEl = fixture.debugElement.query(By.css('app-product'));
   });
 
   it('should tell ROUTER to navigate when product clicked',
-    // inject function injects services into the test function
-    // where you can alter, spy on, and manipulate them.
-    // The inject function has two parameters:
-    // 1. An array of Angular dependency injection tokens.
-    // 2. A test function whose parameters correspond exactly to each item in the injection token array.
-    // This example injects the Router from the current TestBed injector.
-    // If you need a service provided by the component's own injector,
-    // call fixture.debugElement.injector.get instead
+    // inject функция внедряет сервисы в тест-функцию
+    // Дальше можно использовать спай или манипулировать им.
+
+    // inject функция имеет два параметра:
+    // 1. Массив токенов для внедрения.
+    // 2. Тест-функция, чьи параметры соответствуют токенам
+    // Тут мы внедряем Router с текущего TestBed инжетора.
+    // Если нужен сервис, который внедряется в компонент,
+    // то необходимо его получить так fixture.debugElement.injector.get
     inject([Router], (router: Router) => {
       const spy = spyOn(router, 'navigateByUrl');
 
-      // trigger click on first inner <div class="product">
-
-
+      // запускаем клик на первом внутреннем <div class="product">
       productEl.triggerEventHandler('selected', component.products[0]);
 
-      // args passed to router.navigateByUrl()
+      // получаем аргументы переданные router.navigateByUrl()
       const navArgs = spy.calls.first().args[0];
 
-      // expecting to navigate to id of the component's first product
+      // строим урл для сравнения
       const id = component.products[0].id;
       expect(navArgs).toBe('/product/' + id,
         'should nav to ProductDetail for first product');
