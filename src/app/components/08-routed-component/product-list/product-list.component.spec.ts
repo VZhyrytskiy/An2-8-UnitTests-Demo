@@ -3,15 +3,13 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { Router } from '@angular/router';
 
+//  Стаб для роутера
+//  Описываем/используем только тот метод, который используется
+import { RouterStub } from './../../../testing-helpers';
+
 import { ProductListService } from './product-list.service';
 import { ProductListComponent } from './product-list.component';
 import { ProductComponent } from './product/product.component';
-
-//  Стаб для роутера
-//  Описываем только тот метод, который используется
-class RouterStub {
-  navigateByUrl(url: string) { return url; }
-}
 
 describe('ProductListComponent', () => {
   let component: ProductListComponent,

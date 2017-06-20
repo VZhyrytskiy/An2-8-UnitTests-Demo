@@ -8,20 +8,22 @@ import { RouterStub, ActivatedRouteStub } from './../../../testing-helpers';
 import { ProductDetailsComponent } from './product-details.component';
 import { ProductListService } from './../product-list/product-list.service';
 
-////// Testing Vars //////
-let activatedRoute: ActivatedRouteStub;
-let component: ProductDetailsComponent;
-let fixture: ComponentFixture<ProductDetailsComponent>;
-let idDisplay: HTMLElement;
-let nameDisplay: HTMLElement;
-let expectedProduct: any;
+/* Блок переменных */
+let activatedRoute: ActivatedRouteStub,
+    component: ProductDetailsComponent,
+    fixture: ComponentFixture<ProductDetailsComponent>,
 
-let gotoSpy: jasmine.Spy;
-let navSpy: jasmine.Spy;
+    idDisplay: HTMLElement,
+    nameDisplay: HTMLElement,
+
+    expectedProduct: any,
+
+    gotoSpy: jasmine.Spy,
+    navSpy: jasmine.Spy;
 
 const firstProduct = { 'id': '1', 'name': 'Apple'};
 
-////// Tests //////
+
 describe('ProductDetailsComponent', () => {
   beforeEach(() => {
     activatedRoute = new ActivatedRouteStub();
@@ -33,29 +35,17 @@ describe('ProductDetailsComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: ProductListService, useClass: ProductListService },
-        { provide: Router,         useClass: RouterStub}
+        { provide: Router, useClass: RouterStub}
       ]
     })
     .compileComponents();
   }));
 
-  describe('when navigate to non-existant hero id', () => {
+  describe('when navigate to existing product', () => {
     beforeEach(async(() => {
       expectedProduct = firstProduct;
       activatedRoute.testParams = { id: expectedProduct.id };
-
-      fixture = TestBed.createComponent(ProductDetailsComponent);
-      component = fixture.componentInstance;
-
-      // 1st change detection triggers ngOnInit which gets a product
-      fixture.detectChanges();
-      return fixture.whenStable().then(() => {
-        // 2nd change detection displays the async-fetched product
-        fixture.detectChanges();
-        idDisplay = fixture.debugElement.queryAll(By.css('span'))[0].nativeElement;
-        nameDisplay = fixture.debugElement.queryAll(By.css('span'))[1].nativeElement;
-      });
-
+      createComponent();
     }));
 
     it('should display tasks\'s id and name', () => {
@@ -83,7 +73,7 @@ describe('ProductDetailsComponent', () => {
       createComponent();
     }));
 
-   it('should try to navigate back to hero list', () => {
+   it('should try to navigate back to product list', () => {
     console.log(gotoSpy.calls.any());
     expect(gotoSpy.calls.any()).toBe(true, 'component.gotoList called');
     expect(navSpy.calls.any()).toBe(true, 'router.navigate called');
@@ -92,18 +82,20 @@ describe('ProductDetailsComponent', () => {
   });
 });
 
+// Вспомагательная функция
 function createComponent() {
   fixture = TestBed.createComponent(ProductDetailsComponent);
   component = fixture.componentInstance;
 
-  const router = TestBed.get(Router); // get router from root injector
+  // Получаем роутер с рутового инжектора
+  const router = TestBed.get(Router);
   gotoSpy = spyOn(component, 'gotoList').and.callThrough();
   navSpy  = spyOn(router, 'navigate');
 
-  // 1st change detection triggers ngOnInit which gets a hero
+  // Первый цикл запускает ngOnInit, который получает product
   fixture.detectChanges();
   return fixture.whenStable().then(() => {
-    // 2nd change detection displays the async-fetched hero
+    // Второй цикл отображает полученные products
     fixture.detectChanges();
     if (component.product) {
         idDisplay = fixture.debugElement.queryAll(By.css('span'))[0].nativeElement;
