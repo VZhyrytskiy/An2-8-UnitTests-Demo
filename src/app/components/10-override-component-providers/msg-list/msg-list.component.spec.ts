@@ -4,7 +4,7 @@ import { MsgListComponent } from './msg-list.component';
 import { MsgListService } from './msg-list.service';
 import { By } from '@angular/platform-browser';
 
-// stub MsgListServiceSpy for test purposes
+// stub MsgListServiceSpy
 const msgListServiceSpy = {
   getMessges() {
     return [
@@ -15,18 +15,18 @@ const msgListServiceSpy = {
 };
 
 describe('MsgListComponent', () => {
-  let component: MsgListComponent;
-  let fixture: ComponentFixture<MsgListComponent>;
-  let el: HTMLElement;
+  let component: MsgListComponent,
+      fixture: ComponentFixture<MsgListComponent>,
+      el: HTMLElement;
 
   beforeEach(async(() => {
     TestBed
-      // Configure module
+      // Конфигурируем модуль
       .configureTestingModule({
         declarations: [MsgListComponent]
       })
 
-      // Override component's own provider
+      // Меняем провайдера сервиса компонента
       .overrideComponent(MsgListComponent, {
         set: {
           providers: [
@@ -34,7 +34,7 @@ describe('MsgListComponent', () => {
           ]
         }
       })
-      // Compile templates and styles
+      // Компилируем шаблоны и стили
       .compileComponents();
   }));
 
