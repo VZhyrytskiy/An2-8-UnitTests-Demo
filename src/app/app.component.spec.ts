@@ -2,38 +2,17 @@ import { TestBed, ComponentFixture, ComponentFixtureAutoDetect, async } from '@a
 import { By } from '@angular/platform-browser';
 import { DebugElement, Component, Directive, Input } from '@angular/core';
 
+import { RouterLinkStubDirective, RouterOutletStubComponent } from './testing-helpers';
 import { AppComponent } from './app.component';
 
-let app: AppComponent;
-let component: AppComponent;
-let fixture: ComponentFixture<AppComponent>;
-let de: DebugElement;
-let el: HTMLElement;
+let app: AppComponent,
+    component: AppComponent,
+    fixture: ComponentFixture<AppComponent>,
+    de: DebugElement,
+    el: HTMLElement;
 
 @Component({ selector: 'app-msg-list', template: '' })
 class MsgListStubComponent { }
-
-@Directive({
-  // tslint:disable-next-line:directive-selector
-  selector: '[routerLink]',
-  // tslint:disable-next-line:use-host-property-decorator
-  host: {
-    '(click)': 'onClick()'
-  }
-})
-export class RouterLinkStubDirective {
-  // tslint:disable-next-line:no-input-rename
-  @Input('routerLink') linkParams: any;
-  navigatedTo: any = null;
-
-  onClick() {
-    this.navigatedTo = this.linkParams;
-  }
-}
-
-// tslint:disable-next-line:component-selector
-@Component({ selector: 'router-outlet', template: '' })
-export class RouterOutletStubComponent { }
 
 describe('AppComponent', () => {
   beforeEach(() => {
@@ -48,22 +27,25 @@ describe('AppComponent', () => {
       .compileComponents();
   });
 
-  let links: RouterLinkStubDirective[];
-  let linkDes: DebugElement[];
+  let links: RouterLinkStubDirective[],
+      linkDes: DebugElement[];
 
+  // Запускаем первоначальную инициализацию и получаем экземпляры директив навигации
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
-    // trigger initial data binding
+    // Запускаем первоначальную инициализацию
     fixture.detectChanges();
 
-    // find DebugElements with an attached RouterLinkStubDirective
+    // Находим DebugElements с помощью директивы RouterLinkStubDirective
+    // Для поиска можно использовать не только By.css, но и By.directive
     linkDes = fixture.debugElement
       .queryAll(By.directive(RouterLinkStubDirective));
 
-    // get the attached link directive instances using the DebugElement injectors
+    // Получаем экземплры директив с помощью DebugElement инжектора
+    // Ангуляр всегда добавляет директивы кинжектору компонента
     links = linkDes
-      .map(de => de.injector.get(RouterLinkStubDirective) as RouterLinkStubDirective);
+      .map(d => d.injector.get(RouterLinkStubDirective) as RouterLinkStubDirective);
   });
 
   it('can get RouterLinks from template', () => {
@@ -73,14 +55,14 @@ describe('AppComponent', () => {
   });
 
   it('can click Products link in template', () => {
-  const productLinkDe = linkDes[0];
-  const productLink = links[0];
+    const productLinkDe = linkDes[0],
+          productLink = links[0];
 
-  expect(productLink.navigatedTo).toBeNull('link should not have navigated yet');
+    expect(productLink.navigatedTo).toBeNull('link should not have navigated yet');
 
-  productLinkDe.triggerEventHandler('click', null);
-  fixture.detectChanges();
+    productLinkDe.triggerEventHandler('click', null);
+    fixture.detectChanges();
 
-  expect(productLink.navigatedTo).toBe('/products');
-});
+    expect(productLink.navigatedTo).toBe('/products');
+  });
 });
