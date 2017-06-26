@@ -4,6 +4,8 @@ import { By } from '@angular/platform-browser';
 
 import { HighlightDirective } from './highlight.directive';
 
+// Искусственный компонент, который демонстрирует
+// все способы использования директивы
 @Component({
   template: `
   <h2 highlight="yellow">Something Yellow</h2>
@@ -15,9 +17,9 @@ class TestComponent { }
 
 describe('HighlightDirective', () => {
 
-  let fixture: ComponentFixture<TestComponent>;
-  let des: DebugElement[];  // the three elements w/ the directive
-  let bareH2: DebugElement; // the <h2> w/o the directive
+  let fixture: ComponentFixture<TestComponent>,
+      des: DebugElement[],  // три элемента с директивой
+      bareH2: DebugElement; // <h2> без директивы
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
@@ -25,16 +27,17 @@ describe('HighlightDirective', () => {
     })
       .createComponent(TestComponent);
 
-    fixture.detectChanges(); // initial binding
+    // первоначальная инициализация
+    fixture.detectChanges();
 
-    // all elements with an attached HighlightDirective
+    // Находим все элементы с директивой
     des = fixture.debugElement.queryAll(By.directive(HighlightDirective));
 
-    // the h2 without the HighlightDirective
+    // Находим h2 без директивы
     bareH2 = fixture.debugElement.query(By.css('h2:not([highlight])'));
   });
 
-  // color tests
+
   it('should have three highlighted elements', () => {
     expect(des.length).toBe(3);
   });
@@ -45,19 +48,19 @@ describe('HighlightDirective', () => {
   });
 
   it('should color 2nd <h2> background w/ default color', () => {
-    // Angular adds a directive to the injector of the element
-    // to which it is applied.
+    // Ангуляр добавляет идирективу к инжектору компонента,
+    // к которому директива применяется
     const dir = des[1].injector.get(HighlightDirective) as HighlightDirective;
     const bgColor = des[1].nativeElement.style.backgroundColor;
     expect(bgColor).toBe(dir.defaultColor);
   });
 
   it('should bind <input> background to value color', () => {
-    // easier to work with nativeElement
+    // Проще работаеть с nativeElement
     const input = des[2].nativeElement as HTMLInputElement;
     expect(input.style.backgroundColor).toBe('cyan', 'initial backgroundColor');
 
-    // dispatch a DOM event so that Angular responds to the input value change.
+    // Генерируем ивент
     input.value = 'green';
 
     const eventName = 'input',
@@ -72,14 +75,6 @@ describe('HighlightDirective', () => {
     expect(input.style.backgroundColor).toBe('green', 'changed backgroundColor');
   });
 
-
-  it('bare <h2> should not have a customProperty', () => {
-    expect(bareH2.properties['customProperty']).toBeUndefined();
-  });
-
-
-  // injected directive
-  // attached HighlightDirective can be injected
   it('can inject `HighlightDirective` in 1st <h2>', () => {
     const dir = des[0].injector.get(HighlightDirective);
     expect(dir).toBeTruthy();
@@ -90,8 +85,7 @@ describe('HighlightDirective', () => {
     expect(dir).toBe(null);
   });
 
-  // DebugElement.providerTokens
-  // attached HighlightDirective should be listed in the providerTokens
+  // DebugElement.providerTokens должен содержать директиву
   it('should have `HighlightDirective` in 1st <h2> providerTokens', () => {
     expect(des[0].providerTokens).toContain(HighlightDirective);
   });

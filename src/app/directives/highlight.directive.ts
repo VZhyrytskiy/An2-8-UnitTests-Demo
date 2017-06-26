@@ -11,7 +11,6 @@ export class HighlightDirective implements OnChanges {
   @Input('highlight') bgColor: string;
 
   constructor(private el: ElementRef) {
-    el.nativeElement.style.customProperty = true;
   }
 
   ngOnChanges() {
