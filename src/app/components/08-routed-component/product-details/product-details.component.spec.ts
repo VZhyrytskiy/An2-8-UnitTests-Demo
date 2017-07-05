@@ -9,7 +9,7 @@ import { ProductDetailsComponent } from './product-details.component';
 import { ProductListService } from './../product-list/product-list.service';
 
 /* Блок переменных */
-let activatedRoute: ActivatedRouteStub,
+let activatedRouteStub: ActivatedRouteStub,
     component: ProductDetailsComponent,
     fixture: ComponentFixture<ProductDetailsComponent>,
 
@@ -26,14 +26,14 @@ const firstProduct = { 'id': '1', 'name': 'Apple'};
 
 describe('ProductDetailsComponent', () => {
   beforeEach(() => {
-    activatedRoute = new ActivatedRouteStub();
+    activatedRouteStub = new ActivatedRouteStub();
   });
 
   beforeEach( async(() => {
      TestBed.configureTestingModule({
       declarations: [ ProductDetailsComponent ],
       providers: [
-        { provide: ActivatedRoute, useValue: activatedRoute },
+        { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: ProductListService, useClass: ProductListService },
         { provide: Router, useClass: RouterStub}
       ]
@@ -44,7 +44,7 @@ describe('ProductDetailsComponent', () => {
   describe('when navigate to existing product', () => {
     beforeEach(async(() => {
       expectedProduct = firstProduct;
-      activatedRoute.testParams = { id: expectedProduct.id };
+      activatedRouteStub.testParams = { id: expectedProduct.id };
       createComponent();
     }));
 
@@ -69,7 +69,7 @@ describe('ProductDetailsComponent', () => {
 
   describe('when navigate to non-existant product id', () => {
     beforeEach( async(() => {
-      activatedRoute.testParams = { id: 99999 };
+      activatedRouteStub.testParams = { id: 99999 };
       createComponent();
     }));
 
