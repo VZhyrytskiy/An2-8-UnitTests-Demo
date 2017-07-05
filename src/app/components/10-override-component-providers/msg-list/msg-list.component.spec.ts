@@ -4,8 +4,8 @@ import { MsgListComponent } from './msg-list.component';
 import { MsgListService } from './msg-list.service';
 import { By } from '@angular/platform-browser';
 
-// stub MsgListServiceSpy
-const msgListServiceSpy = {
+// stub MsgListServiceStub
+const msgListServiceStub = {
   getMessges() {
     return [
       { 'id': 1, 'msg': 'Hi, TestUser1' },
@@ -30,7 +30,7 @@ describe('MsgListComponent', () => {
       .overrideComponent(MsgListComponent, {
         set: {
           providers: [
-            { provide: MsgListService, useValue: msgListServiceSpy }
+            { provide: MsgListService, useValue: msgListServiceStub }
           ]
         }
       })
