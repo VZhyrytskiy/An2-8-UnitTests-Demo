@@ -16,7 +16,7 @@ describe('UserComponent', () => {
       .configureTestingModule({
         declarations: [ UserComponent ]
       })
-      // Компилируемтемплейт
+      // Компилируем темплейт
       .compileComponents();
   }));
 

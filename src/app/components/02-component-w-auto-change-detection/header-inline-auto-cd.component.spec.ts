@@ -33,13 +33,13 @@ describe('HeaderInlineAutoCdComponent', () => {
   });
 
 
-  // Этот тест показывае определенные преимущества
+  // Этот тест показывает определенные преимущества
   // автоматического запуска обнаружения изменений
   it('should display original title', () => {
     expect(el.textContent).toContain(component.title);
   });
 
-  // Этот тест показываетважное ограничение
+  // Этот тест показывает важное ограничение
   it('should still see original title after component.title change', () => {
     const oldTitle = component.title;
     component.title = 'Test Title';

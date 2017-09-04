@@ -38,8 +38,8 @@ describe('AppComponent (Shallow)', () => {
     linkDes = fixture.debugElement
       .queryAll(By.directive(RouterLinkStubDirective));
 
-    // Получаем экземплры директив с помощью DebugElement инжектора
-    // Ангуляр всегда добавляет директивы кинжектору компонента
+    // Получаем экземплры директив с помощью DebugElement инджектора
+    // Ангуляр всегда добавляет директивы к инджектору компонента
     links = linkDes
       .map(d => d.injector.get(RouterLinkStubDirective) as RouterLinkStubDirective);
   });

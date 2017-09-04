@@ -67,7 +67,7 @@ describe('HeaderInlineComponent', () => {
     component.title = 'Test Title';
 
     // Сообщаем Ангуляр, что нужно запусть механизм обнаружения изменений
-    // но уже после того, какпроинициализировали компонент новым значением
+    // но уже после того, как проинициализировали компонент новым значением
     fixture.detectChanges();
     expect(el.textContent).toContain('Test Title');
   });

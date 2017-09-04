@@ -43,7 +43,7 @@ describe('AppComponent', () => {
       .queryAll(By.directive(RouterLinkStubDirective));
 
     // Получаем экземплры директив с помощью DebugElement инжектора
-    // Ангуляр всегда добавляет директивы кинжектору компонента
+    // Ангуляр всегда добавляет директивы к инджектору компонента
     links = linkDes
       .map(d => d.injector.get(RouterLinkStubDirective) as RouterLinkStubDirective);
   });

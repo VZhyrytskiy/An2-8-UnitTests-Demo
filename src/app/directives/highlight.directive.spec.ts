@@ -48,7 +48,7 @@ describe('HighlightDirective', () => {
   });
 
   it('should color 2nd <h2> background w/ default color', () => {
-    // Ангуляр добавляет идирективу к инжектору компонента,
+    // Ангуляр добавляет директиву к инджектору компонента,
     // к которому директива применяется
     const dir = des[1].injector.get(HighlightDirective) as HighlightDirective;
     const bgColor = des[1].nativeElement.style.backgroundColor;
@@ -56,7 +56,7 @@ describe('HighlightDirective', () => {
   });
 
   it('should bind <input> background to value color', () => {
-    // Проще работаеть с nativeElement
+    // Проще работать с nativeElement
     const input = des[2].nativeElement as HTMLInputElement;
     expect(input.style.backgroundColor).toBe('cyan', 'initial backgroundColor');
 
