@@ -29,6 +29,7 @@ import {
   AboutComponent,
 } from './components';
 import { HighlightDirective } from './directives';
+import { MyService, DependentService, DataService } from './services';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,11 @@ import { HighlightDirective } from './directives';
     UserProfileService,
     UserListService,
     TaskListService,
-    ProductListService
+    ProductListService,
+    MyService,
+    DependentService,
+    DataService
+
   ],
   bootstrap: [AppComponent]
 })
