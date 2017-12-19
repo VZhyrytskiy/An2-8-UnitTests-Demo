@@ -9,26 +9,26 @@ import { NavigationExtras } from '@angular/router';
 @Injectable()
 export class ActivatedRouteStub {
 
-  // ActivatedRoute.params - Observable
+  // ActivatedRoute.paramMap - Observable
   // BehaviorSubject управляет параметрами.
-  // Возвращает одно и то же значение каждому подписчику params,
+  // Возвращает одно и то же значение каждому подписчику paramMap,
   // пока не будет присвоено новое значение.
   private subject = new BehaviorSubject(this.testParams);
   private _testParams: {};
 
   // Создаем Observable
-  params = this.subject.asObservable();
+  paramMap = this.subject.asObservable();
 
   // гетер и сетер для testParams
   get testParams() { return this._testParams; }
-  set testParams(params: {}) {
-    this._testParams = params;
-    this.subject.next(params);
+  set testParams(paramMap: {}) {
+    this._testParams = paramMap;
+    this.subject.next(paramMap);
   }
 
   // ActivatedRoute snapshot
   get snapshot() {
-    return { params: this.testParams };
+    return { paramMap: this.testParams };
   }
 }
 

@@ -25,7 +25,7 @@ describe('ProductListComponent', () => {
         ],
         providers: [
           // Тут используем либо реальный сервис, либо фейковый,
-          // В даном случае это для нас не очень важно
+          // В даном случае это для нас не важно
           { provide: ProductListService, useClass: ProductListService },
 
           // Тут используем стаб для роутера
