@@ -10,7 +10,8 @@ import { Component } from '@angular/core';
 
 @Component({
   template: `
-    <app-task  [task]="task"  (selected)="showDetails($event)"></app-task>`
+    <app-task  [task]="task"  (selected)="showDetails($event)"></app-task>
+  `
 })
 class TestHostComponent {
   task = 'Test task name';
@@ -36,7 +37,7 @@ describe('TaskComponent when inside a test host', () => {
   }));
 
   beforeEach(() => {
-    // Создадим TestHostComponent вместо TaskComponent
+    // Создаем TestHostComponent вместо TaskComponent
     // Такой подход имеет сайд эффект - TaskComponent тоже будет создан
     // так как он находится в темплейте TestHostComponent
     fixture  = TestBed.createComponent(TestHostComponent);

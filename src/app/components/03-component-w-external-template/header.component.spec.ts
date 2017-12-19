@@ -36,6 +36,7 @@ describe('HeaderComponent', () => {
   }));
 
   // Второй beforeEach - синхронный
+  // Содержит все остальные шаги настройки компонента для тестирования
   beforeEach(() => {
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;

@@ -47,7 +47,7 @@ describe('WelcomeComponent', () => {
     el = de.nativeElement;
   });
 
-  // Этот тест подтверждает, что stub работает.
+  // Тест подтверждает, что stub работает.
   it('should welcome the user', () => {
     fixture.detectChanges();
     const content = el.textContent;
@@ -58,7 +58,7 @@ describe('WelcomeComponent', () => {
     expect(content).toContain('Test User', 'expected name');
   });
 
-  // Второй тест проверяет влияние изменения имени пользователя.
+  // Тест проверяет влияние изменения имени пользователя.
   it('should welcome "Vitaliy"', () => {
     // Приветствие не будет доступно до вызова detectChanges
     welcomeService.user.name = 'Vitaliy';
@@ -67,7 +67,7 @@ describe('WelcomeComponent', () => {
     expect(el.textContent).toContain('Welcome Vitaliy');
   });
 
-  // Третий тест проверяет, что компонент отображает правильное
+  // Тест проверяет, что компонент отображает правильное
   // сообщение, когда нет зарегистрированного пользователя.
   it('should request login if not logged in', () => {
     welcomeService.isLoggedIn = false;

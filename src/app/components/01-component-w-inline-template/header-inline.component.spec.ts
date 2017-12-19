@@ -64,10 +64,11 @@ describe('HeaderInlineComponent', () => {
   });
 
   it('should display a different test title', () => {
+    // Изменяем свойство title компонента
     component.title = 'Test Title';
 
     // Сообщаем Ангуляр, что нужно запусть механизм обнаружения изменений
-    // но уже после того, как проинициализировали компонент новым значением
+    // но уже после того, как проинициализировали свойство компонента новым значением
     fixture.detectChanges();
     expect(el.textContent).toContain('Test Title');
   });

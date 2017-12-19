@@ -25,7 +25,7 @@ describe('UserProfileComponent', () => {
     TestBed.configureTestingModule({
       declarations: [UserProfileComponent],
 
-      // Тут внедряем реальный сервис
+      // Внедряем реальный сервис
       providers: [UserProfileService]
     })
       .compileComponents();
@@ -92,7 +92,7 @@ describe('UserProfileComponent', () => {
 
     // Ждем результата асинхронного метода getUser
     fixture.whenStable().then(() => { //
-      // Мы должны запустить следующи цикл обнаружения изменений
+      // Запускаем следующий цикл обнаружения изменений
       // чтобы наполнить представление полученными данными
       fixture.detectChanges();
 
@@ -100,14 +100,14 @@ describe('UserProfileComponent', () => {
     });
   }));
 
-  // Этот тест проверяте тоже самое, но делат это по другому.
+  // Тест проверяте тоже самое, но делат это по другому.
   // Он использует fakeAsync() + tick() функции
-  // fakeAsync функция позволяет использовать линейный стиль кода,
+  // fakeAsync() функция позволяет использовать линейный стиль кода,
   // так как она запускает тест в специальной fakeAsync test zone.
   // Нет then(...)
   // А fixture.whenStable заменил вызов функции tick().
   // Несколько ограничений: например, вы не сможете выполнить XHR вызов
-  // в функции fakeAsync.
+  // в функции fakeAsync().
   it('should show user profile after getUser promise (fakeAsync)', fakeAsync(() => {
     fixture.detectChanges();
 
@@ -128,7 +128,7 @@ describe('UserProfileComponent', () => {
   it('should show user profile after getUser promise (done)', (done: any) => {
     fixture.detectChanges();
 
-    // Получаем промис, который возвращаетшпион и ждем его результата
+    // Получаем промис, который возвращает шпион и ждем его результата
     spy.calls.mostRecent().returnValue.then(() => {
       // Вызываем обнаружение изменений для обновления темплейта
       fixture.detectChanges();
