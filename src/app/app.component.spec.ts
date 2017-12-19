@@ -5,11 +5,10 @@ import { DebugElement, Component, Directive, Input } from '@angular/core';
 import { RouterLinkStubDirective, RouterOutletStubComponent } from './testing-helpers';
 import { AppComponent } from './app.component';
 
-let app: AppComponent,
-    component: AppComponent,
+let component: AppComponent,
     fixture: ComponentFixture<AppComponent>,
-    de: DebugElement,
-    el: HTMLElement;
+    links: RouterLinkStubDirective[],
+    linkDes: DebugElement[];
 
 @Component({ selector: 'app-msg-list', template: '' })
 class MsgListStubComponent { }
@@ -27,8 +26,7 @@ describe('AppComponent', () => {
       .compileComponents();
   });
 
-  let links: RouterLinkStubDirective[],
-      linkDes: DebugElement[];
+
 
   // Запускаем первоначальную инициализацию и получаем экземпляры директив навигации
   beforeEach(() => {
@@ -43,7 +41,7 @@ describe('AppComponent', () => {
       .queryAll(By.directive(RouterLinkStubDirective));
 
     // Получаем экземплры директив с помощью DebugElement инжектора
-    // Ангуляр всегда добавляет директивы к инджектору компонента
+    // Ангуляр всегда добавляет директивы к инжектору компонента
     links = linkDes
       .map(d => d.injector.get(RouterLinkStubDirective) as RouterLinkStubDirective);
   });
