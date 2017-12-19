@@ -4,11 +4,8 @@ import { DebugElement, Component, Directive, Input, NO_ERRORS_SCHEMA } from '@an
 import { RouterLinkStubDirective } from './testing-helpers';
 import { AppComponent } from './app.component';
 
-let app: AppComponent,
-    component: AppComponent,
-    fixture: ComponentFixture<AppComponent>,
-    de: DebugElement,
-    el: HTMLElement;
+let component: AppComponent,
+    fixture: ComponentFixture<AppComponent>;
 
 describe('AppComponent (Shallow)', () => {
   beforeEach(() => {
@@ -18,7 +15,7 @@ describe('AppComponent (Shallow)', () => {
           AppComponent,
           RouterLinkStubDirective
         ],
-        // Подсказка компилятору игнорировать нераспознанныеэлементы и атрибуты
+        // Подсказка компилятору игнорировать нераспознанные элементы и атрибуты
         schemas: [ NO_ERRORS_SCHEMA ]
       })
       .compileComponents();
