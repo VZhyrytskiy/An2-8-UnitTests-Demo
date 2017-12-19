@@ -1,8 +1,8 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 
-// HttpClientTestingModule makes it easy to unit test HTTP requests
-// We need HttpTestingController, which makes it easy to mock requests
+// HttpClientTestingModule используется для упрощения написания юнит тестов для HTTP запросов
+// Используем также HttpTestingController
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { DataService } from './data.service';
@@ -16,54 +16,44 @@ describe('HttpClientService', () => {
   });
 
   it('should get users',
-    // We use the inject utility to inject the needed services into our test
     inject([HttpTestingController, DataService],
       (httpMock: HttpTestingController, dataService: DataService) => {
 
-      // our test logic
-      // expect(httpClient).toBeTruthy();
-
-      // We define a couple of mock users that we’ll test against.
+      // Вспомогательный объект
       const mockUsers = [
         { name: 'Bob', website: 'www.yessss.com' },
         { name: 'Juliette', website: 'nope.com' }
       ];
 
-      // Then we call the getData method in the service that we’re testing
-      // and subscribe to returned observable.
       dataService.getData().subscribe((event: HttpEvent<any>) => {
         switch (event.type) {
-          // If the HttpEventType is of type Response, we assert for the response
-          // event to have a body equal to our mock users.
+          // Если HttpEventType === Response, проверяем тело запроса
           case HttpEventType.Response:
             expect(event.body).toEqual(mockUsers);
         }
       });
 
-      // At this point, the request is pending, and no response has been
-      // sent. The next step is to expect that the request happened.
-      // We make use of the HttpTestingController
-      // (injected in the test as httpMock) to assert that one request
-      // was made to the service’s url property.
-      // If no request with that URL was made, or if multiple requests match,
-      // expectOne() would throw.
-      // If no request is expected, the expectNone method can also be used
+      // В этот момент запрос в ожидании и никакой ответ не будет отправлен
+      // Следующий шаг - это проверить, что запрос выполнен
+      // Используем HttpTestingController
+      // Если запросов не было или было больше, чем один, то получим ошибку
+      // Можно также использовать метод expectNone, если запросов не ожидается
       const mockReq = httpMock.expectOne(dataService.url);
 
-      // We assert that the request hasn’t been cancelled
-      // and the the response if of type json
+      // Проверим, что запрос не был отменен
+      // и тип ответа === json
       expect(mockReq.cancelled).toBeFalsy();
       expect(mockReq.request.responseType).toEqual('json');
       expect(mockReq.request.method).toEqual('GET');
 
-      // Next we call flush on the mock request and pass-in our mock users.
-      // The flush method completes the request using the data passed to it.
+      // Вызываем flush и передаем объект с пользователями
+      // Этот метод завершает запрос и возвращает данные, которые мы передали
       mockReq.flush(mockUsers);
   }));
 
   afterEach(inject([HttpTestingController], (httpMock: HttpTestingController) => {
-    // Finally, we call the verify method on our HttpTestingController
-    // instance to ensure that there are no outstanding requests to be made.
+    // В конце вызываем метод verify() HttpTestingController
+    // чтобы убедиться, что никакие запросы больше не исходят
     httpMock.verify();
   }));
 
