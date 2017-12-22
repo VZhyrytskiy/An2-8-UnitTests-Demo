@@ -14,7 +14,7 @@ let component: AppComponent,
 class MsgListStubComponent { }
 
 describe('AppComponent', () => {
-  beforeEach(() => {
+  beforeEach(async(() => {
     TestBed
       .configureTestingModule({
         declarations: [
@@ -24,7 +24,7 @@ describe('AppComponent', () => {
         ]
       })
       .compileComponents();
-  });
+  }));
 
 
 

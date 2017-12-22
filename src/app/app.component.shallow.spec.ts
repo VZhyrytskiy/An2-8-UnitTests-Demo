@@ -8,7 +8,7 @@ let component: AppComponent,
     fixture: ComponentFixture<AppComponent>;
 
 describe('AppComponent (Shallow)', () => {
-  beforeEach(() => {
+  beforeEach(async(() => {
     TestBed
       .configureTestingModule({
         declarations: [
@@ -19,7 +19,7 @@ describe('AppComponent (Shallow)', () => {
         schemas: [ NO_ERRORS_SCHEMA ]
       })
       .compileComponents();
-  });
+  }));
 
   let links: RouterLinkStubDirective[],
       linkDes: DebugElement[];
