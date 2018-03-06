@@ -5,7 +5,7 @@ import { Component, Input, Output, EventEmitter} from '@angular/core';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent{
+export class UserComponent {
   @Input() user: string;
   @Output() selected = new EventEmitter<string>();
 
