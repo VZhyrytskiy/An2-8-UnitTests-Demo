@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/delay';
-
+import { of as ObservableOf } from 'rxjs/observable/of';
+import { delay } from 'rxjs/operators';
 
 @Injectable()
 export class MyService {
@@ -13,23 +12,23 @@ export class MyService {
     return this.value;
   }
 
-  getAsyncValue() {
-    return Promise.resolve('async value');
+  getPromiseValue() {
+    return Promise.resolve('promise value');
   }
 
   getObservableValue() {
-    return Observable.of('observable value');
+    return ObservableOf('observable value');
   }
 
   getTimeoutValue() {
-    return new Promise((resolve) => {
-      setTimeout(() => { resolve('timeout value'); }, 10);
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve('timeout value');
+      }, 1000);
     });
   }
 
   getObservableDelayValue() {
-    return Observable.of('observable delay value').delay(10);
+    return ObservableOf('observable delay value').pipe(delay(10));
   }
 }
-
-
