@@ -9,6 +9,17 @@ describe('DependentService without the TestBed', () => {
     expect(service.getValue()).toBe('real value');
   });
 
+  it('getValue should return faked value from a fakeService', () => {
+    const fakeService = {
+      getValue() {
+        return 'fake value';
+      }
+    };
+
+    service = new DependentService(fakeService as MyService);
+    expect(service.getValue()).toBe('fake value');
+  });
+
   it('getValue should return stubbed value from a MyService spy', () => {
     const myService = new MyService();
     const stubValue = 'stub value';
