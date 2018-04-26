@@ -14,7 +14,7 @@ describe('WelcomeComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      // provide the component-under-test and dependent service
+      // provide the component-under-test(!!!) and dependent service
       providers: [
         WelcomeComponent,
         { provide: WelcomeService, useValue: welcomeServiceStub }

@@ -9,18 +9,16 @@ import { HeaderInlineComponent } from './header-inline.component';
 // Используем название компонента в первом параметре функции describe
 // второй параметр - стрелочная функция
 describe('HeaderInlineComponent', () => {
-
   // Объявляем необходимые переменные
   let component: HeaderInlineComponent,
-      fixture: ComponentFixture<HeaderInlineComponent>,
-      de: DebugElement,
-      el: HTMLElement;
+    fixture: ComponentFixture<HeaderInlineComponent>,
+    de: DebugElement,
+    el: HTMLElement;
 
   // beforeEach выполниться перед каждым тестом
   // TestBed утилита, которая используется дальше
   // будет сбрасивать свое состояние в базовое перед каждым тестом
   beforeEach(() => {
-
     // Отсоединяем компонент от его модуля и
     // присоединяем его к динамически сконструированому модулю
     // Метод configureTestingModule принимает объект,
@@ -38,15 +36,17 @@ describe('HeaderInlineComponent', () => {
     // ComponentFixture предоставляет доступ к экземпляру компонента
     component = fixture.componentInstance;
 
-    // ComponentFixture предоставляет доступ к DebugElement - дескриптором
-    // элемента DOM компонента
+    // ComponentFixture предоставляет доступ к DebugElement - дескриптору
+    // элемента DOM компонента. DebugElement - это абстракция,
+    // которая используется в среде тестирования отличной от браузера
+
     // Получение DebugElement происходит посредством метода query
-    // Метод query возвращает первый найденный элемент, который удовлетворяет
-    // функции-предикату.
-    // Существует также метод queryAll, который
-    // возвращает массив всех DebugElements, которые удовлетворяют функции-предикату.
+    // Метод query возвращает первый найденный элемент, который удовлетворяет функции-предикату.
+
+    // Существует также метод queryAll, который возвращает массив всех DebugElements,
+    // которые удовлетворяют функции-предикату.
     // Класс By - это Ангуляр утилита для тестирования, которая создает
-    // разные полезные предикаты.
+    // разные полезные предикаты на всех платформах для тестирования (сервер, воркер)
     // Статический метод By.css создает стандартный предикат селектора CSS,
     // который работает так же как и селектор jQuery.
     de = fixture.debugElement.query(By.css('h1'));
@@ -55,6 +55,9 @@ describe('HeaderInlineComponent', () => {
     el = de.nativeElement;
   });
 
+  it('should create a component instance', () => {
+    expect(component).toBeDefined();
+  });
 
   it('should display original title', () => {
     // Сообщаем Ангуляр, что нужно запусть механизм обнаружения изменений
@@ -77,5 +80,4 @@ describe('HeaderInlineComponent', () => {
     // TestBed.createComponent не вызывает автоматически detectChanges()
     expect(el.textContent).toEqual('');
   });
-
 });
