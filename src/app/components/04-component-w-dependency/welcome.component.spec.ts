@@ -5,40 +5,43 @@ import { DebugElement } from '@angular/core';
 import { WelcomeComponent } from './welcome.component';
 import { WelcomeService } from './welcome.service';
 
-// stub WelcomeService для тестирования компонента
-const welcomeServiceStub = {
-  isLoggedIn: true,
-  user: { name: 'Test User' }
-};
-
 describe('WelcomeComponent', () => {
   let component: WelcomeComponent,
-      fixture: ComponentFixture<WelcomeComponent>,
-      welcomeService: WelcomeService,
-      de: DebugElement,
-      el: HTMLElement;
+    fixture: ComponentFixture<WelcomeComponent>,
+    welcomeService: WelcomeService,
+    de: DebugElement,
+    el: HTMLElement,
+    // stub WelcomeService для тестирования компонента
+    // часто является упрощенным подмножеством свойств,
+    // поэтому можно объявить как Partial<WelcomeService>
+    welcomeServiceStub: Partial<WelcomeService>;
 
   beforeEach(async(() => {
-    TestBed
-      .configureTestingModule({
-        declarations: [WelcomeComponent],
-        // Подключаем токен WelcomeService
-        // но используем stub welcomeServiceStub
-        providers: [{ provide: WelcomeService, useValue: welcomeServiceStub }]
-      })
-      .compileComponents();
+    welcomeServiceStub = {
+      isLoggedIn: true,
+      user: { name: 'Test User' }
+    };
+
+    TestBed.configureTestingModule({
+      declarations: [WelcomeComponent],
+      // Подключаем токен WelcomeService
+      // но используем stub welcomeServiceStub
+      providers: [{ provide: WelcomeService, useValue: welcomeServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(WelcomeComponent);
     component = fixture.componentInstance;
 
-    // Сервис можно получить из инджектора компонента,
+    // Сервис можно получить из инжектора компонента,
     // который доступен через свойство injector у debugElement
     // Используем метод инджектора get()
+    // Этот способ является безопасным и всегда работает.
+    // Кроме этого, нельзя использовать welcomeServiceStub, так как это совершенно другой объект.
     welcomeService = fixture.debugElement.injector.get(WelcomeService);
 
-    // Сервис можно получить также из корневого инджектора
+    // Сервис можно получить также из корневого инжектора
     // Для этого используем TestBed.get()
     // welcomeService = TestBed.get(WelcomeService);
 
@@ -56,6 +59,14 @@ describe('WelcomeComponent', () => {
     // когда тест не будет пройден
     expect(content).toContain('Welcome', '"Welcome ..."');
     expect(content).toContain('Test User', 'expected name');
+  });
+
+  it('stub object and injected WelcomeService should not be the same', () => {
+    expect(welcomeServiceStub === welcomeService).toBe(false);
+
+    // Изменение значения в стабе не меняет его в сервисе
+    welcomeServiceStub.isLoggedIn = false;
+    expect(welcomeService.isLoggedIn).toBe(true);
   });
 
   // Тест проверяет влияние изменения имени пользователя.
