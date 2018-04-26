@@ -26,10 +26,11 @@ import {
   ProductDetailsComponent,
   PageNotFoundComponent,
   MsgListComponent,
-  AboutComponent,
+  AboutComponent
 } from './components';
 import { HighlightDirective } from './directives';
 import { MyService, DependentService, DataService } from './services';
+import { IoComponent, LightSwitchComponent } from './component-class';
 
 @NgModule({
   declarations: [
@@ -49,14 +50,11 @@ import { MyService, DependentService, DataService } from './services';
     PageNotFoundComponent,
     MsgListComponent,
     AboutComponent,
-    HighlightDirective
+    HighlightDirective,
+    LightSwitchComponent,
+    IoComponent
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, FormsModule, HttpModule, AppRoutingModule],
   providers: [
     WelcomeService,
     UserProfileService,
@@ -66,8 +64,7 @@ import { MyService, DependentService, DataService } from './services';
     MyService,
     DependentService,
     DataService
-
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -8,16 +8,13 @@ import { WelcomeService } from './welcome.service';
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent implements OnInit {
-  content = '';
+  content: string;
 
-  constructor(
-    private welcomeService: WelcomeService
-  ) { }
+  constructor(private welcomeService: WelcomeService) {}
 
   ngOnInit() {
     this.content = this.welcomeService.isLoggedIn
       ? `Welcome ${this.welcomeService.user.name}`
       : 'Please log in';
   }
-
 }
