@@ -9,20 +9,17 @@ import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { HeaderInlineAutoCdComponent } from './header-inline-auto-cd.component';
 
 describe('HeaderInlineAutoCdComponent', () => {
-
   let component: HeaderInlineAutoCdComponent,
-      fixture: ComponentFixture<HeaderInlineAutoCdComponent>,
-      de: DebugElement,
-      el: HTMLElement;
+    fixture: ComponentFixture<HeaderInlineAutoCdComponent>,
+    de: DebugElement,
+    el: HTMLElement;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [HeaderInlineAutoCdComponent],
       // Добавим ComponentFixtureAutoDetect токен и настроем его
       // для использования автоматического запуска обнаружения изменений
-      providers: [
-        { provide: ComponentFixtureAutoDetect, useValue: true }
-      ]
+      providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }]
     });
 
     fixture = TestBed.createComponent(HeaderInlineAutoCdComponent);
@@ -32,10 +29,8 @@ describe('HeaderInlineAutoCdComponent', () => {
     el = de.nativeElement;
   });
 
-
-  // Этот тест показывает определенные преимущества
-  // автоматического запуска обнаружения изменений
   it('should display original title', () => {
+    // Ручной запуск обнаружения изменений не требуется
     expect(el.textContent).toContain(component.title);
   });
 
@@ -44,8 +39,8 @@ describe('HeaderInlineAutoCdComponent', () => {
     const oldTitle = component.title;
     component.title = 'Test Title';
 
-    // Будет отображаться старое название title
-    // потому что Angular не видит изменений
+    // Будет отображаться старое значение title потому что
+    // Angular не видит изменений сделанных синхронно
     // ComponentFixtureAutoDetect сервис реагирует на асинхронные действия
     // такие как
     // - Promise resove/reject,
@@ -56,14 +51,13 @@ describe('HeaderInlineAutoCdComponent', () => {
   });
 
   it('should display updated title after detectChanges', () => {
+    // синхронное изменение
     component.title = 'Test Title';
+    // явный запуск обнаружения изменений вызванных синхронным изменением свойства компонента
 
-    // Запускаем явно обнаружение изменений,
-    // вызванных синхронным изменением свойства компонента
     fixture.detectChanges();
 
     // Получаем новые значения
     expect(el.textContent).toContain(component.title);
   });
-
 });

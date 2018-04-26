@@ -31,6 +31,8 @@ describe('HeaderInlineComponent', () => {
     // Метод createComponent создает ComponentFixture - дескриптор тестовой среды,
     // окружающей созданный компонент
     // Переконфигурировать модуль после вызова этого метода уже не получится.
+    // Важно! Этот метод не запускает автоматически обнаружение изменений.
+    // Обнаружение изменений необходимо запускать вручную (fixture.detectChanges();)
     fixture = TestBed.createComponent(HeaderInlineComponent);
 
     // ComponentFixture предоставляет доступ к экземпляру компонента
@@ -53,15 +55,24 @@ describe('HeaderInlineComponent', () => {
 
     // Получаем элемент DOM с помощью свойства nativeElement
     el = de.nativeElement;
+
+    // Если тестируемая среда - только брузер, то для поиска элемента можно полагаться
+    // на стандартный метод querySelector
+    // el = fixture.nativeElement.querySelector('h1');
   });
 
   it('should create a component instance', () => {
     expect(component).toBeDefined();
   });
 
+  it('no title in the DOM until manually call `detectChanges`', () => {
+    // TestBed.createComponent не вызывает автоматически обнаружение изменений
+    expect(el.textContent).toEqual('');
+  });
+
   it('should display original title', () => {
     // Сообщаем Ангуляр, что нужно запусть механизм обнаружения изменений
-    // (change detection)
+    // (change detection) и передать данные из класса в темплейт
     fixture.detectChanges();
     expect(el.textContent).toContain(component.title);
   });
@@ -74,10 +85,5 @@ describe('HeaderInlineComponent', () => {
     // но уже после того, как проинициализировали свойство компонента новым значением
     fixture.detectChanges();
     expect(el.textContent).toContain('Test Title');
-  });
-
-  it('no title in the DOM until manually call `detectChanges`', () => {
-    // TestBed.createComponent не вызывает автоматически detectChanges()
-    expect(el.textContent).toEqual('');
   });
 });

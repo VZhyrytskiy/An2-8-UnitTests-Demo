@@ -13,19 +13,17 @@ import { HighlightDirective } from './highlight.directive';
   <h2>No Highlight</h2>
   <input #box [highlight]="box.value" value="cyan"/>`
 })
-class TestComponent { }
+class TestComponent {}
 
 describe('HighlightDirective', () => {
-
   let fixture: ComponentFixture<TestComponent>,
-      des: DebugElement[],  // три элемента с директивой
-      bareH2: DebugElement; // <h2> без директивы
+    des: DebugElement[], // три элемента с директивой
+    bareH2: DebugElement; // <h2> без директивы
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
       declarations: [HighlightDirective, TestComponent]
-    })
-      .createComponent(TestComponent);
+    }).createComponent(TestComponent);
 
     // первоначальная инициализация
     fixture.detectChanges();
@@ -36,7 +34,6 @@ describe('HighlightDirective', () => {
     // Находим h2 без директивы
     bareH2 = fixture.debugElement.query(By.css('h2:not([highlight])'));
   });
-
 
   it('should have three highlighted elements', () => {
     expect(des.length).toBe(3);
@@ -60,19 +57,19 @@ describe('HighlightDirective', () => {
     const input = des[2].nativeElement as HTMLInputElement;
     expect(input.style.backgroundColor).toBe('cyan', 'initial backgroundColor');
 
-    // Генерируем ивент
+    // Имитируем ввод нового значения в input
     input.value = 'green';
 
-    const eventName = 'input',
-      bubbles = false,
-      cancelable = false,
-      evt = document.createEvent('CustomEvent');  // MUST be 'CustomEvent'
-    evt.initCustomEvent(eventName, bubbles, cancelable, null);
+    // Генерируем DOM событие, чтобы Ангуляр знал, что значение изнменилось
+    input.dispatchEvent(new Event('input'));
 
-    input.dispatchEvent(evt);
+    // Говорим Ангуляр обновить темплейт
     fixture.detectChanges();
 
-    expect(input.style.backgroundColor).toBe('green', 'changed backgroundColor');
+    expect(input.style.backgroundColor).toBe(
+      'green',
+      'changed backgroundColor'
+    );
   });
 
   it('can inject `HighlightDirective` in 1st <h2>', () => {
