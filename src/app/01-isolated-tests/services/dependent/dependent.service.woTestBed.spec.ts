@@ -6,6 +6,7 @@ describe('DependentService without the TestBed', () => {
 
   it('getValue should return real value by way of the real MyService', () => {
     service = new DependentService(new MyService());
+
     expect(service.getValue()).toBe('real value');
   });
 
@@ -15,8 +16,8 @@ describe('DependentService without the TestBed', () => {
         return 'fake value';
       }
     };
-
     service = new DependentService(fakeService as MyService);
+
     expect(service.getValue()).toBe('fake value');
   });
 

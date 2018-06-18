@@ -36,6 +36,7 @@ import {
 } from './01-isolated-tests/components';
 
 @NgModule({
+  imports: [BrowserModule, FormsModule, HttpModule, AppRoutingModule],
   declarations: [
     AppComponent,
     HeaderInlineComponent,
@@ -58,7 +59,6 @@ import {
     Welcome1Component,
     IoComponent
   ],
-  imports: [BrowserModule, FormsModule, HttpModule, AppRoutingModule],
   providers: [
     WelcomeService,
     UserProfileService,
