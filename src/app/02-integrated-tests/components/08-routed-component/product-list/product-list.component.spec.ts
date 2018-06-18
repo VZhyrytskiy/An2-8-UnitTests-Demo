@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 //  Стаб для роутера
 //  Описываем/используем только тот метод, который используется
-import { RouterStub } from './../../../testing-helpers';
+import { RouterStub } from './../../../../testing-helpers';
 
 import { ProductListService } from './product-list.service';
 import { ProductListComponent } from './product-list.component';

@@ -1,26 +1,27 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
-import { of as ObservableOf } from 'rxjs/observable/of';
+import { Observable, of as ObservableOf } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MyService {
   protected value = 'real value';
 
-  getValue() {
+  getValue(): string {
     return this.value;
   }
 
-  getPromiseValue() {
+  getPromiseValue(): Promise<string> {
     return Promise.resolve('promise value');
   }
 
-  getObservableValue() {
+  getObservableValue(): Observable<string> {
     return ObservableOf('observable value');
   }
 
-  getTimeoutValue() {
+  getTimeoutValue(): Promise<string> {
     return new Promise(resolve => {
       setTimeout(() => {
         resolve('timeout value');
@@ -28,7 +29,7 @@ export class MyService {
     });
   }
 
-  getObservableDelayValue() {
+  getObservableDelayValue(): Observable<string> {
     return ObservableOf('observable delay value').pipe(delay(10));
   }
 }

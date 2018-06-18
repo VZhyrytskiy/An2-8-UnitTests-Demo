@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { MyService } from './my.service';
+import { MyService } from '../my/my.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DependentService {
   constructor(private myService: MyService) {}
 

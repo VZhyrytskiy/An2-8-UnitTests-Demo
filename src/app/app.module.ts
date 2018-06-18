@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppRoutingModule } from './app.routing.module';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import {
@@ -27,10 +27,13 @@ import {
   PageNotFoundComponent,
   MsgListComponent,
   AboutComponent
-} from './components';
-import { HighlightDirective } from './directives';
-import { MyService, DependentService, DataService } from './services';
-import { IoComponent, LightSwitchComponent } from './component-class';
+} from './02-integrated-tests/components';
+import { HighlightDirective } from './02-integrated-tests/directives';
+import {
+  IoComponent,
+  Welcome1Component,
+  LightSwitchComponent
+} from './01-isolated-tests/components';
 
 @NgModule({
   declarations: [
@@ -52,6 +55,7 @@ import { IoComponent, LightSwitchComponent } from './component-class';
     AboutComponent,
     HighlightDirective,
     LightSwitchComponent,
+    Welcome1Component,
     IoComponent
   ],
   imports: [BrowserModule, FormsModule, HttpModule, AppRoutingModule],
@@ -60,10 +64,7 @@ import { IoComponent, LightSwitchComponent } from './component-class';
     UserProfileService,
     UserListService,
     TaskListService,
-    ProductListService,
-    MyService,
-    DependentService,
-    DataService
+    ProductListService
   ],
   bootstrap: [AppComponent]
 })

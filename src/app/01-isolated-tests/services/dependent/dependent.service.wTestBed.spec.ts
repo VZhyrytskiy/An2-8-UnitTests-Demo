@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { DependentService } from './dependent.service';
-import { MyService } from './my.service';
+import { MyService } from '../my/my.service';
 
 describe('DependentService without the TestBed', () => {
   let service: DependentService;
