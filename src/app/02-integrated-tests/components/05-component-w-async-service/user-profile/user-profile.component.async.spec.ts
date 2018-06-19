@@ -27,6 +27,10 @@ describe('UserProfileComponent', () => {
 
     fixture = TestBed.createComponent(UserProfileComponent);
     userProfileService = fixture.debugElement.injector.get(UserProfileService);
+
+    // Получаем элемент по селектору
+    de = fixture.debugElement.query(By.css('.user-profile'));
+    el = de.nativeElement;
   });
 
   // Использует функцию async()
@@ -34,10 +38,6 @@ describe('UserProfileComponent', () => {
     spyOn(userProfileService, 'getUser').and.returnValue(
       Promise.resolve(testUser)
     );
-
-    // Получаем элемент по селектору
-    de = fixture.debugElement.query(By.css('.user-profile'));
-    el = de.nativeElement;
 
     // Запускаем ngOnInit
     fixture.detectChanges();
@@ -56,6 +56,30 @@ describe('UserProfileComponent', () => {
       );
     });
   }));
+
+  // Использует функцию async function + await
+  it('should show user profile after getUser promise (async function + await)', async () => {
+    spyOn(userProfileService, 'getUser').and.returnValue(
+      Promise.resolve(testUser)
+    );
+
+    // Запускаем ngOnInit
+    fixture.detectChanges();
+
+    /**
+     * fixture.whenStable метод возвращает промис,
+     * который резолвится, когда getUser метод завершит работу.
+     * Ждем результата асинхронного метода getUser
+     */
+    await fixture.whenStable();
+
+    // Запускаем передачу данных в шаблон
+    fixture.detectChanges();
+
+    expect(el.textContent).toBe(
+      `User Name: ${testUser.firstName} ${testUser.lastName}`
+    );
+  });
 });
 
 /**
