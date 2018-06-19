@@ -57,3 +57,14 @@ describe('UserProfileComponent', () => {
     });
   }));
 });
+
+/**
+ * Дополнительный пример async + setTimeout
+ */
+describe('Async function', () => {
+  it('should make our test wait until all asynchronous operations are completed', async(() => {
+    setTimeout(() => {
+      expect(true).toBe(true);
+    }, 2000);
+  }));
+});
