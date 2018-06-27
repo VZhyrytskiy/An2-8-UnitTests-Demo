@@ -1,3 +1,7 @@
+/**
+ * Пример внедрения компонента с помощью провайдера и доступ к его экземпляру
+ */
+
 import { TestBed } from '@angular/core/testing';
 import { Welcome1Component } from './welcome1.component';
 import { Welcome1Service } from './welcome1.service';

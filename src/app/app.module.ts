@@ -7,6 +7,10 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import {
+  IoComponent,
+  LightSwitchComponent
+} from './01-isolated-tests/components';
+import {
   HeaderInlineComponent,
   HeaderInlineAutoCdComponent,
   HeaderComponent,
@@ -26,14 +30,10 @@ import {
   ProductDetailsComponent,
   PageNotFoundComponent,
   MsgListComponent,
+  Welcome1Component,
   AboutComponent
 } from './02-integrated-tests/components';
 import { HighlightDirective } from './02-integrated-tests/directives';
-import {
-  IoComponent,
-  Welcome1Component,
-  LightSwitchComponent
-} from './01-isolated-tests/components';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpModule, AppRoutingModule],
