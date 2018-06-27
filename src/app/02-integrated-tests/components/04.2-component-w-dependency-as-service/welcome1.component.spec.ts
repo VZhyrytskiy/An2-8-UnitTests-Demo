@@ -1,4 +1,5 @@
 /**
+ * Тестирование компонента с зависимостью.
  * Пример внедрения компонента с помощью провайдера и доступ к его экземпляру
  */
 
@@ -18,13 +19,13 @@ describe('WelcomeComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      // provide the component-under-test(!!!) and dependent service
+      // компонент добавлен в провайдеры!
       providers: [
         Welcome1Component,
         { provide: Welcome1Service, useValue: welcomeServiceStub }
       ]
     });
-    // inject both the component and the dependent service.
+    // получаем компонент и сервис из инжектора
     component = TestBed.get(Welcome1Component);
     welcomeService = TestBed.get(Welcome1Service);
   });

@@ -1,3 +1,7 @@
+/**
+ * Тестирвание компонента с асинхронным сервисом.
+ * Утилита fakeAsync + tick.
+ */
 import {
   ComponentFixture,
   TestBed,
@@ -54,6 +58,7 @@ describe('UserProfileComponent', () => {
       // Получаем элемент по селектору
       de = fixture.debugElement.query(By.css('.user-profile'));
       el = de.nativeElement;
+
       // Запускаем ngOnInit
       fixture.detectChanges();
 

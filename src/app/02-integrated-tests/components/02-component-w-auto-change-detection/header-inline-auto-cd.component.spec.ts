@@ -1,3 +1,6 @@
+/**
+ * Автоматический запуск обнаружения изменений
+ */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
@@ -54,7 +57,6 @@ describe('HeaderInlineAutoCdComponent', () => {
     // синхронное изменение
     component.title = 'Test Title';
     // явный запуск обнаружения изменений вызванных синхронным изменением свойства компонента
-
     fixture.detectChanges();
 
     // Получаем новые значения

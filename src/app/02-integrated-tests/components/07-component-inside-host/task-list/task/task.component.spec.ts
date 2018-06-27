@@ -1,13 +1,16 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+/**
+ * Тестирование компонета с инпутами и аутпутами в рамках
+ * TestHostComponent
+ */
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-
 import { TaskComponent } from './task.component';
 
-////// Test Host Component //////
-// Делаем эмуляцию хост-компонента
-import { Component } from '@angular/core';
-
+/**
+ * Test Host Component
+ */
 @Component({
   template: `
     <app-task  [task]="task"  (selected)="showDetails($event)"></app-task>
@@ -16,35 +19,29 @@ import { Component } from '@angular/core';
 class TestHostComponent {
   task = 'Test task name';
   selectedTask: string;
-  showDetails(task: string) { this.selectedTask = task; }
+  showDetails(task: string) {
+    this.selectedTask = task;
+  }
 }
-////// END: Test Host Component //////
 
 describe('TaskComponent when inside a test host', () => {
   let testHost: TestHostComponent,
-      fixture: ComponentFixture<TestHostComponent>,
-      taskEl: DebugElement;
-
-  beforeEach( async(() => {
-    TestBed
-      .configureTestingModule({
-        declarations: [
-          TaskComponent,
-          TestHostComponent
-        ]
-        })
-      .compileComponents();
-  }));
+    fixture: ComponentFixture<TestHostComponent>,
+    taskEl: DebugElement;
 
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [TaskComponent, TestHostComponent]
+    });
+
     // Создаем TestHostComponent вместо TaskComponent
     // Такой подход имеет сайд эффект - TaskComponent тоже будет создан
     // так как он находится в темплейте TestHostComponent
-    fixture  = TestBed.createComponent(TestHostComponent);
+    fixture = TestBed.createComponent(TestHostComponent);
     testHost = fixture.componentInstance;
 
     // Ищем элемент с классом .task
-    taskEl   = fixture.debugElement.query(By.css('.task'));
+    taskEl = fixture.debugElement.query(By.css('.task'));
 
     // Запускаем инициализацию данных
     fixture.detectChanges();
@@ -65,5 +62,3 @@ describe('TaskComponent when inside a test host', () => {
     expect(testHost.selectedTask).toBe(testHost.task);
   });
 });
-
-

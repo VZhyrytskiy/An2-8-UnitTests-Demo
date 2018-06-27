@@ -1,4 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+/**
+ * Тестирование компонента с инпутами и аутпутами
+ */
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
@@ -10,44 +13,42 @@ describe('UserComponent', () => {
     userEl: DebugElement;
   const expectedUser = 'Test User';
 
-  // асинхронный beforeEach
-  beforeEach(async(() => {
-    TestBed
-      .configureTestingModule({
-        declarations: [ UserComponent ]
-      })
-      // Компилируем темплейт
-      .compileComponents();
-  }));
-
-  // Синхронный beforeEach
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [UserComponent]
+    });
+
     fixture = TestBed.createComponent(UserComponent);
     component = fixture.componentInstance;
 
     // Ищем user элемент по селектору
     userEl = fixture.debugElement.query(By.css('.user'));
-
-    // Предположим, что мы получили пользователя на вход
-    component.user = expectedUser;
-
-    // Запускаем обнаружение изменений для первоначальной привязки данных
-    fixture.detectChanges();
   });
-
 
   // Тест проверяет, что пользователь передается в шаблон
   // через property binding
   // В шаблоне используется пайп, тест должен проверить результат
   // в нужном регистре
   it('should display user name', () => {
+    // Предположим, что мы получили пользователя на вход
+    component.user = expectedUser;
+
+    // Запускаем обнаружение изменений для первоначальной привязки данных
+    fixture.detectChanges();
+
     const expectedPipedName = expectedUser.toUpperCase();
     expect(userEl.nativeElement.textContent).toContain(expectedPipedName);
   });
 
   it('should raise selected event when clicked', () => {
     let selectedUser: string;
-    component.selected.subscribe((user: string) => selectedUser = user);
+    // Предположим, что мы получили пользователя на вход
+    component.user = expectedUser;
+
+    // Запускаем обнаружение изменений для первоначальной привязки данных
+    fixture.detectChanges();
+
+    component.selected.subscribe((user: string) => (selectedUser = user));
 
     // DebugElement.triggerEventHandler может сгенерить любое связанное
     // с данными событие по имени события.

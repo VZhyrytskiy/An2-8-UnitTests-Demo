@@ -1,4 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+/**
+ * Тестирование компонента с зависимостью
+ */
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
@@ -11,12 +14,14 @@ describe('WelcomeComponent', () => {
     welcomeService: WelcomeService,
     de: DebugElement,
     el: HTMLElement,
+    welcomeServiceStub: Partial<WelcomeService>;
+
+  // Все тесты не будут использовать явную компиляцию компонентов,
+  // так как запускаются с помощью Angular CLI.
+  beforeEach(() => {
     // stub WelcomeService для тестирования компонента
     // часто является упрощенным подмножеством свойств,
     // поэтому можно объявить как Partial<WelcomeService>
-    welcomeServiceStub: Partial<WelcomeService>;
-
-  beforeEach(async(() => {
     welcomeServiceStub = {
       isLoggedIn: true,
       user: { name: 'Test User' }
@@ -27,10 +32,8 @@ describe('WelcomeComponent', () => {
       // Подключаем токен WelcomeService
       // но используем stub welcomeServiceStub
       providers: [{ provide: WelcomeService, useValue: welcomeServiceStub }]
-    }).compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(WelcomeComponent);
     component = fixture.componentInstance;
 

@@ -1,3 +1,7 @@
+/**
+ * Тетирование компонента с инлайн шаблоном
+ */
+
 // Импортируем утилиты Ангуляр для тестирования
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -65,7 +69,7 @@ describe('HeaderInlineComponent', () => {
     expect(component).toBeDefined();
   });
 
-  it('no title in the DOM until manually call `detectChanges`', () => {
+  it('should have no title in the DOM until manually call `detectChanges`', () => {
     // TestBed.createComponent не вызывает автоматически обнаружение изменений
     expect(el.textContent).toEqual('');
   });
@@ -74,6 +78,7 @@ describe('HeaderInlineComponent', () => {
     // Сообщаем Ангуляр, что нужно запусть механизм обнаружения изменений
     // (change detection) и передать данные из класса в темплейт
     fixture.detectChanges();
+
     expect(el.textContent).toContain(component.title);
   });
 
@@ -84,6 +89,7 @@ describe('HeaderInlineComponent', () => {
     // Сообщаем Ангуляр, что нужно запусть механизм обнаружения изменений
     // но уже после того, как проинициализировали свойство компонента новым значением
     fixture.detectChanges();
+
     expect(el.textContent).toContain('Test Title');
   });
 });

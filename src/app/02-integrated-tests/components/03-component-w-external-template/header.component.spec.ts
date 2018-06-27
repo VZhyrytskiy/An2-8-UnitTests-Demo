@@ -1,3 +1,7 @@
+/**
+ * Тестирование компонента с внешним шаблоном.
+ * Замечания по поводу компиляции компонентов.
+ */
 
 // Импортируем дополнительную Ангуляр утилиту тестирования async
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -8,15 +12,24 @@ import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent,
-      fixture: ComponentFixture<HeaderComponent>,
-      de: DebugElement,
-      el: HTMLElement;
+    fixture: ComponentFixture<HeaderComponent>,
+    de: DebugElement,
+    el: HTMLElement;
 
-  // Предыдущая логика работы beforeEach разбита на два beforeEach
-  // Первый beforeEach - асинхронный для настроки модуля,
-  // загрузки шаблонов, компиляции компонентов
-  // В асинхронном beforeEach используется функция async(),
-  // которая в свою очередь принимает стрелочную функцию в качестве параметра
+  /**
+   * Следующий код важен только для среды тестирования без Angular CLI.
+   * Если вы используете Angular CLI, то компилировать компоненты нет необходимости,
+   * так как компоненты компилируются Angular CLI непосредственно перед запуском тестов.
+   *
+   * Предыдущая логика работы beforeEach разбита на два beforeEach
+   * Первый beforeEach - асинхронный для
+   *  1. настроки модуля,
+   *  2. загрузки шаблонов,
+   *  3. компиляции компонентов
+   * В асинхронном beforeEach используется функция async(),
+   * которая в свою очередь принимает стрелочную функцию в качестве параметра
+   *
+   */
   beforeEach(async(() => {
     TestBed
       // Настраиваем модуль
@@ -44,7 +57,6 @@ describe('HeaderComponent', () => {
     de = fixture.debugElement.query(By.css('h1'));
     el = de.nativeElement;
   });
-
 
   it('should display original title', () => {
     fixture.detectChanges();

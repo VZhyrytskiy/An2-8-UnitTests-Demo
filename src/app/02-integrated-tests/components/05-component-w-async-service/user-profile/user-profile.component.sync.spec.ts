@@ -1,3 +1,6 @@
+/**
+ * Тестирование компонента с асинхронным сервисом
+ */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
@@ -54,6 +57,7 @@ describe('UserProfileComponent', () => {
   // синхронный тест
   it('should not show user profile before OnInit', () => {
     expect(el.textContent).toBe('User Name: ', 'nothing displayed');
+
     // шпион не вызывался
     // spy.calls.any() - проверяем вызывался ли шпион
     // https://jasmine.github.io/api/2.6/Spy_calls.html
