@@ -1,13 +1,5 @@
-import {
-  async,
-  ComponentFixture,
-  fakeAsync,
-  inject,
-  TestBed,
-  tick
-} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { RouterStub, ActivatedRouteStub } from './../../../../testing-helpers';
@@ -30,9 +22,7 @@ const firstProduct = { id: '1', name: 'Apple' };
 describe('ProductDetailsComponent', () => {
   beforeEach(() => {
     activatedRouteStub = new ActivatedRouteStub();
-  });
 
-  beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ProductDetailsComponent],
       providers: [
@@ -40,8 +30,8 @@ describe('ProductDetailsComponent', () => {
         { provide: ProductListService, useClass: ProductListService },
         { provide: Router, useClass: RouterStub }
       ]
-    }).compileComponents();
-  }));
+    });
+  });
 
   describe('when navigate to existing product', () => {
     beforeEach(async(() => {
@@ -50,7 +40,7 @@ describe('ProductDetailsComponent', () => {
       createComponent();
     }));
 
-    it("should display tasks's id and name", () => {
+    it('should display tasks\'s id and name', () => {
       expect(idDisplay.textContent).toBe(expectedProduct.id);
       expect(nameDisplay.textContent).toBe(expectedProduct.name);
     });
@@ -84,7 +74,7 @@ describe('ProductDetailsComponent', () => {
 });
 
 // Вспомагательная функция
-function createComponent() {
+async function createComponent() {
   fixture = TestBed.createComponent(ProductDetailsComponent);
   component = fixture.componentInstance;
 
@@ -95,14 +85,13 @@ function createComponent() {
 
   // Первый цикл запускает ngOnInit, который получает product
   fixture.detectChanges();
-  return fixture.whenStable().then(() => {
-    // Второй цикл отображает полученные products
-    fixture.detectChanges();
-    if (component.product) {
-      idDisplay = fixture.debugElement.queryAll(By.css('span'))[0]
-        .nativeElement;
-      nameDisplay = fixture.debugElement.queryAll(By.css('span'))[1]
-        .nativeElement;
-    }
-  });
+  await fixture.whenStable();
+
+  // Второй цикл отображает полученные products
+  fixture.detectChanges();
+  if (component.product) {
+    idDisplay = fixture.debugElement.queryAll(By.css('span'))[0].nativeElement;
+    nameDisplay = fixture.debugElement.queryAll(By.css('span'))[1]
+      .nativeElement;
+  }
 }

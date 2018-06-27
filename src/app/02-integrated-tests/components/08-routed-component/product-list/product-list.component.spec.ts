@@ -16,12 +16,6 @@ describe('ProductListComponent', () => {
     fixture: ComponentFixture<ProductListComponent>,
     productEl: DebugElement;
 
-  /**
-   *  Используем синхронный beforeEach, так как тесты запускаются с помощью Angular CLI,
-   *  а он в свою очередь компилирует проект перед запуском тестов.
-   *  В таком случае компиляция компонентов, вызов метода compileComponents(), не нужна.
-   */
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ProductListComponent, ProductComponent],
@@ -45,7 +39,7 @@ describe('ProductListComponent', () => {
     productEl = fixture.debugElement.query(By.css('app-product'));
   });
 
-  it('should tell ROUTER to navigate when product clicked' /**
+  it('should tell ROUTER to navigate when product clicked', /**
      * inject функция это утилита Angular для тестирования.
      * Она внедряет сервисы в тестовую функцию
      * Дальше можно использовать спай или манипулировать ими.
@@ -59,7 +53,7 @@ describe('ProductListComponent', () => {
      *
      * Если нужен сервис, который внедряется в компонент,
      * то необходимо его получить так fixture.debugElement.injector.get
-     */, inject(
+     */ inject(
     [Router],
     (router: Router) => {
       const navigateByUrlSpy = spyOn(router, 'navigateByUrl');
