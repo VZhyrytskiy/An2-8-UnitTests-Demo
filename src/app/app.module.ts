@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -36,7 +35,7 @@ import {
 import { HighlightDirective } from './02-integrated-tests/directives';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, HttpModule, AppRoutingModule],
+  imports: [BrowserModule, FormsModule, AppRoutingModule],
   declarations: [
     AppComponent,
     HeaderInlineComponent,
