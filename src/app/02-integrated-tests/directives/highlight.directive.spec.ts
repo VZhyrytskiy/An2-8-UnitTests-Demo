@@ -11,17 +11,18 @@ import { HighlightDirective } from './highlight.directive';
 // все способы использования директивы
 @Component({
   template: `
-  <h2 highlight="yellow">Something Yellow</h2>
-  <h2 highlight>The Default (Gray)</h2>
-  <h2>No Highlight</h2>
-  <input #box [highlight]="box.value" value="cyan"/>`
+    <h2 highlight="yellow">Something Yellow</h2>
+    <h2 highlight>The Default (Gray)</h2>
+    <h2>No Highlight</h2>
+    <input #box [highlight]="box.value" value="cyan" />
+  `
 })
 class TestComponent {}
 
 describe('HighlightDirective', () => {
-  let fixture: ComponentFixture<TestComponent>,
-    des: DebugElement[], // три элемента с директивой
-    bareH2: DebugElement; // <h2> без директивы
+  let fixture: ComponentFixture<TestComponent>;
+  let des: DebugElement[]; // три элемента с директивой
+  let bareH2: DebugElement; // <h2> без директивы
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
@@ -63,6 +64,7 @@ describe('HighlightDirective', () => {
     // Имитируем ввод нового значения в input
     input.value = 'green';
 
+    // Ангуляр никак не реагирует на измененное выше значение.
     // Генерируем DOM событие, чтобы Ангуляр знал, что значение изнменилось
     input.dispatchEvent(new Event('input'));
 

@@ -45,8 +45,8 @@ describe('WelcomeComponent', () => {
     welcomeService = fixture.debugElement.injector.get(WelcomeService);
 
     // Сервис можно получить также из корневого инжектора
-    // Для этого используем TestBed.get()
-    // welcomeService = TestBed.get(WelcomeService);
+    // Для этого используем TestBed.inject()
+    // welcomeService = TestBed.inject(WelcomeService);
 
     // Получаем welcome элемент по классу
     de = fixture.debugElement.query(By.css('.welcome'));

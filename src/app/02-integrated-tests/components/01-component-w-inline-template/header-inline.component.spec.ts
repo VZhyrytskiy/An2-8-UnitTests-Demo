@@ -74,7 +74,7 @@ describe('HeaderInlineComponent', () => {
     expect(el.textContent).toEqual('');
   });
 
-  it('should display original title', () => {
+  it('should display original title after detectChanges()', () => {
     // Сообщаем Ангуляр, что нужно запусть механизм обнаружения изменений
     // (change detection) и передать данные из класса в темплейт
     fixture.detectChanges();
