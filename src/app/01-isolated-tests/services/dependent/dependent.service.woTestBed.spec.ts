@@ -4,21 +4,21 @@ import { MyService } from '../my/my.service';
 describe('DependentService without the TestBed', () => {
   let service: DependentService;
 
-  it('getValue should return real value by way of the real MyService', () => {
+  it('getValue should return real value from the real service', () => {
     service = new DependentService(new MyService());
 
     expect(service.getValue()).toBe('real value');
   });
 
   it('getValue should return faked value from a fakeService', () => {
-    const fakeService = {
+    const fakedService = {
       getValue() {
-        return 'fake value';
+        return 'faked value';
       }
     };
-    service = new DependentService(fakeService as MyService);
+    service = new DependentService(fakedService as MyService);
 
-    expect(service.getValue()).toBe('fake value');
+    expect(service.getValue()).toBe('faked value');
   });
 
   it('getValue should return stubbed value from a MyService spy', () => {

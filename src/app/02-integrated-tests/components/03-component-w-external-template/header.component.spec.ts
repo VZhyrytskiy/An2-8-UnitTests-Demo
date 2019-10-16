@@ -11,10 +11,10 @@ import { DebugElement } from '@angular/core';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
-  let component: HeaderComponent,
-    fixture: ComponentFixture<HeaderComponent>,
-    de: DebugElement,
-    el: HTMLElement;
+  let component: HeaderComponent;
+  let fixture: ComponentFixture<HeaderComponent>;
+  let de: DebugElement;
+  let el: HTMLElement;
 
   /**
    * Следующий код важен только для среды тестирования без Angular CLI.

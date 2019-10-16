@@ -9,12 +9,12 @@ import { WelcomeComponent } from './welcome.component';
 import { WelcomeService } from './welcome.service';
 
 describe('WelcomeComponent', () => {
-  let component: WelcomeComponent,
-    fixture: ComponentFixture<WelcomeComponent>,
-    welcomeService: WelcomeService,
-    de: DebugElement,
-    el: HTMLElement,
-    welcomeServiceStub: Partial<WelcomeService>;
+  let component: WelcomeComponent;
+  let fixture: ComponentFixture<WelcomeComponent>;
+  let welcomeService: WelcomeService;
+  let de: DebugElement;
+  let el: HTMLElement;
+  let welcomeServiceStub: Partial<WelcomeService>;
 
   // Все тесты не будут использовать явную компиляцию компонентов,
   // так как запускаются с помощью Angular CLI.

@@ -9,6 +9,9 @@ describe('MyService with the TestBed', () => {
       providers: [MyService]
     });
 
+    // TODO:
+    // replace TestBed.get to TestBed.inject in v.9
+    // TestBed.get is deprecated
     service = TestBed.get(MyService);
   });
 

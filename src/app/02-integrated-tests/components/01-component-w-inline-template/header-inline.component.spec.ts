@@ -14,10 +14,10 @@ import { HeaderInlineComponent } from './header-inline.component';
 // второй параметр - стрелочная функция
 describe('HeaderInlineComponent', () => {
   // Объявляем необходимые переменные
-  let component: HeaderInlineComponent,
-    fixture: ComponentFixture<HeaderInlineComponent>,
-    de: DebugElement,
-    el: HTMLElement;
+  let component: HeaderInlineComponent;
+  let fixture: ComponentFixture<HeaderInlineComponent>;
+  let de: DebugElement;
+  let el: HTMLElement;
 
   // beforeEach выполниться перед каждым тестом
   // TestBed утилита, которая используется дальше

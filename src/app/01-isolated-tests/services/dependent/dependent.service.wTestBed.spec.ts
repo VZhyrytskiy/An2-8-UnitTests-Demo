@@ -11,8 +11,11 @@ describe('DependentService without the TestBed', () => {
     const spy = jasmine.createSpyObj('MyService', ['getValue']);
 
     TestBed.configureTestingModule({
+      // Provide both the service-to-test and its (spy) dependency
       providers: [DependentService, { provide: MyService, useValue: spy }]
     });
+    // TODO:
+    // replace get to inject
     service = TestBed.get(DependentService);
     myServiceSpy = TestBed.get(MyService);
   });

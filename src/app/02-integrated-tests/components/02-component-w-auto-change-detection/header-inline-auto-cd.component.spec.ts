@@ -12,10 +12,10 @@ import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { HeaderInlineAutoCdComponent } from './header-inline-auto-cd.component';
 
 describe('HeaderInlineAutoCdComponent', () => {
-  let component: HeaderInlineAutoCdComponent,
-    fixture: ComponentFixture<HeaderInlineAutoCdComponent>,
-    de: DebugElement,
-    el: HTMLElement;
+  let component: HeaderInlineAutoCdComponent;
+  let fixture: ComponentFixture<HeaderInlineAutoCdComponent>;
+  let de: DebugElement;
+  let el: HTMLElement;
 
   beforeEach(() => {
     TestBed.configureTestingModule({

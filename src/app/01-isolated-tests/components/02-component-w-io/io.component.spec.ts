@@ -6,7 +6,7 @@ describe('IoComponent', () => {
     const data: IO = { id: 42, value: 'Test' };
     comp.data = data;
 
-    comp.pass.subscribe(d => {
+    comp.pass.subscribe((d: IO) => {
       expect(d).toBe(data);
       done();
     });
