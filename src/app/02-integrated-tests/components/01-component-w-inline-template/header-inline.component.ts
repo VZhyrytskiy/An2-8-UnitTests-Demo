@@ -5,5 +5,5 @@ import { Component } from '@angular/core';
   template: `<h1>{{title}}</h1>`
 })
 export class HeaderInlineComponent {
-  title = 'Header Inline Component';
+  title = 'Header Inline Component Title';
 }
