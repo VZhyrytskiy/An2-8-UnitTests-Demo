@@ -21,7 +21,8 @@ const mockResponse = [
 ];
 
 describe('DataService', () => {
-  let mockHttp: HttpTestingController, dataService: DataService;
+  let mockHttp: HttpTestingController;
+  let dataService: DataService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -29,6 +30,7 @@ describe('DataService', () => {
       providers: [DataService]
     });
 
+    // TODO: use TestBed.inject() v.9
     mockHttp = TestBed.get(HttpTestingController);
     dataService = TestBed.get(DataService);
   });
