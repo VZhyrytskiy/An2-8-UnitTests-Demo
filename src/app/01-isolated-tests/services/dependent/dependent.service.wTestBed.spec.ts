@@ -16,6 +16,7 @@ describe('DependentService without the TestBed', () => {
     });
     // TODO:
     // replace get to inject
+    // service = TestBed.inject(DependentService);
     service = TestBed.get(DependentService);
     myServiceSpy = TestBed.get(MyService);
   });

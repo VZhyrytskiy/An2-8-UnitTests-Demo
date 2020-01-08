@@ -12,6 +12,7 @@ describe('MyService with the TestBed', () => {
     // TODO:
     // replace TestBed.get to TestBed.inject in v.9
     // TestBed.get is deprecated
+    // service = TestBed.inject(MyService);
     service = TestBed.get(MyService);
   });
 
