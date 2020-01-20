@@ -21,10 +21,10 @@ const testUser = {
 };
 
 describe('UserProfileComponent', () => {
-  let fixture: ComponentFixture<UserProfileComponent>,
-    de: DebugElement,
-    el: HTMLElement,
-    userProfileService: UserProfileService;
+  let fixture: ComponentFixture<UserProfileComponent>;
+  let de: DebugElement;
+  let el: HTMLElement;
+  let userProfileService: UserProfileService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
