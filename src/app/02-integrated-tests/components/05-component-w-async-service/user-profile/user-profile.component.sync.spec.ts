@@ -15,11 +15,11 @@ const testUser = {
 };
 
 describe('UserProfileComponent', () => {
-  let fixture: ComponentFixture<UserProfileComponent>,
-    de: DebugElement,
-    el: HTMLElement,
-    userProfileService: UserProfileService,
-    getUserSpy: jasmine.Spy;
+  let fixture: ComponentFixture<UserProfileComponent>;
+  let de: DebugElement;
+  let el: HTMLElement;
+  let userProfileService: UserProfileService;
+  let getUserSpy: jasmine.Spy;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -46,7 +46,7 @@ describe('UserProfileComponent', () => {
      * https://jasmine.github.io/api/2.6/global.html#spyOn
      */
     getUserSpy = spyOn(userProfileService, 'getUser').and.returnValue(
-      Promise.resolve(testUser)
+      Promise.resolve(testUser) // or observable of(testUser)
     );
 
     // Получаем элемент по селектору
@@ -66,7 +66,7 @@ describe('UserProfileComponent', () => {
 
   // синхронный тест
   it('should still not show user profile after component initialized', () => {
-    fixture.detectChanges();
+    fixture.detectChanges(); // onInit()
 
     // userProfileService асинхронныей => результат мы не увидим
     expect(el.textContent).toBe('User Name:  ', 'no user yet');
