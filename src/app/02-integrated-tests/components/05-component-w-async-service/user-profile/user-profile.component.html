@@ -1,1 +1,2 @@
-<div class="user-profile">User Name: {{firstName}} {{lastName}}</div>
+  <div class="user-profile-promise">User Name: {{userDataPromise | async }}</div>
+  <div class="user-profile-observable">User Name: {{userDataObservable$ | async}}</div>

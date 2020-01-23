@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { UserProfileService } from './user-profile.service';
 
 @Component({
@@ -6,15 +7,13 @@ import { UserProfileService } from './user-profile.service';
   templateUrl: './user-profile.component.html'
 })
 export class UserProfileComponent implements OnInit {
-  firstName = '';
-  lastName = '';
+  userDataPromise: Promise<string>;
+  userDataObservable$: Observable<string>;
 
   constructor(private userProfileService: UserProfileService) {}
 
   ngOnInit() {
-    this.userProfileService.getUser().then(data => {
-      this.firstName = data.firstName;
-      this.lastName = data.lastName;
-    });
+    this.userDataPromise = this.userProfileService.getUserAsPromise();
+    this.userDataObservable$ = this.userProfileService.getUserAsObservable();
   }
 }

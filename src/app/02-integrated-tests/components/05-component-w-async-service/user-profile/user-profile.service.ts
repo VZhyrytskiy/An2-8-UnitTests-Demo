@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
+import { of, Observable } from 'rxjs';
 
-const userData = {
-  firstName: 'Vitaliy',
-  lastName: 'Zhyrytskyy'
-};
-
+const userProfile = 'Vitaliy Zhyrytskyy';
 
 @Injectable()
 export class UserProfileService {
 
-  getUser(): Promise<any> {
-    return Promise.resolve(userData);
+  getUserAsPromise(): Promise<string> {
+    return Promise.resolve(userProfile);
   }
 
+  getUserAsObservable(): Observable<string> {
+    return of(userProfile);
+  }
 }

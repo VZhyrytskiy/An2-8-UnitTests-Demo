@@ -13,27 +13,42 @@ import { DebugElement } from '@angular/core';
 
 import { UserProfileComponent } from './user-profile.component';
 import { UserProfileService } from './user-profile.service';
-
-// Тестовый пользователь
-const testUser = {
-  firstName: 'Test',
-  lastName: 'Test'
-};
+import { of, defer } from 'rxjs';
 
 describe('UserProfileComponent', () => {
   let fixture: ComponentFixture<UserProfileComponent>;
-  let de: DebugElement;
-  let el: HTMLElement;
-  let userProfileService: UserProfileService;
+  let dePromise: DebugElement;
+  let deObservable: DebugElement;
+  let elPromise: HTMLElement;
+  let elObservable: HTMLElement;
+
+  let getUserAsPromiseSpy: jasmine.Spy;
+  let getUserAsObservableSpy: jasmine.Spy;
 
   beforeEach(() => {
+    // Тестовый пользователь
+    const testUserProfile = 'TestFirstName TestLastName';
+
+    const userProfileSpyObj = jasmine.createSpyObj('UserProfileService', [
+      'getUserAsPromise',
+      'getUserAsObservable'
+    ]);
+
+    // Make the spy return a synchronous Promise or Observable with the testUserProfile
+    getUserAsPromiseSpy = userProfileSpyObj.getUserAsPromise.and.returnValue(
+      Promise.resolve(testUserProfile)
+    );
+    getUserAsObservableSpy = userProfileSpyObj.getUserAsObservable.and.returnValue(
+      // of(testUserProfile)  // sync observable
+      defer(() => of(testUserProfile)) // async observable
+    );
+
     TestBed.configureTestingModule({
       declarations: [UserProfileComponent],
-      providers: [UserProfileService]
+      providers: [{ provide: UserProfileService, useValue: userProfileSpyObj }]
     });
 
     fixture = TestBed.createComponent(UserProfileComponent);
-    userProfileService = fixture.debugElement.injector.get(UserProfileService);
   });
 
   /**
@@ -49,29 +64,32 @@ describe('UserProfileComponent', () => {
    * в функции fakeAsync().
    */
 
-  it(
-    'should show user profile after getUser promise (fakeAsync)',
-    fakeAsync(() => {
-      spyOn(userProfileService, 'getUser').and.returnValue(
-        Promise.resolve(testUser)
-      );
-      // Получаем элемент по селектору
-      de = fixture.debugElement.query(By.css('.user-profile'));
-      el = de.nativeElement;
+  it('should show user profile after getUserAsPromise/getUserAsObservable (fakeAsync)', fakeAsync(() => {
+    // Получаем элементы по селектору
+    dePromise = fixture.debugElement.query(By.css('.user-profile-promise'));
+    elPromise = dePromise.nativeElement;
+    deObservable = fixture.debugElement.query(By.css('.user-profile-observable'));
+    elObservable = deObservable.nativeElement;
 
-      // Запускаем ngOnInit
-      fixture.detectChanges();
+    fixture.detectChanges(); // ngOnInit()
 
-      // Ждем выполнения асинхронного метода getUser
-      // Вызвать эту функцию можно только в рамках тела fakeAsync функции
-      tick();
+    // Ждем выполнения асинхронного метода getUserAsPromise
+    // Вызвать эту функцию можно только в рамках тела fakeAsync функции
+    tick();
 
-      // Запускаем передачу данных в шаблон
-      fixture.detectChanges();
+    // Запускаем передачу данных в шаблон
+    fixture.detectChanges();
 
-      expect(el.textContent).toBe(
-        `User Name: ${testUser.firstName} ${testUser.lastName}`
-      );
-    })
-  );
+    expect(elPromise.textContent).toBe('User Name: TestFirstName TestLastName', 'user is displayed');
+    expect(elObservable.textContent).toBe('User Name: TestFirstName TestLastName', 'user is displayed');
+  }));
+
+  it('should run timeout callback with delay after call tick with millis', fakeAsync(() => {
+    let called = false;
+    setTimeout(() => { called = true; }, 100);
+
+    tick(100); // pass 100ms
+
+    expect(called).toBe(true);
+  }));
 });

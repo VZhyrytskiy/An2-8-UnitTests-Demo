@@ -7,76 +7,81 @@ import { DebugElement } from '@angular/core';
 
 import { UserProfileComponent } from './user-profile.component';
 import { UserProfileService } from './user-profile.service';
-
-// Тестовый пользователь
-const testUser = {
-  firstName: 'Test',
-  lastName: 'Test'
-};
+import { of, defer } from 'rxjs';
 
 describe('UserProfileComponent', () => {
   let fixture: ComponentFixture<UserProfileComponent>;
-  let de: DebugElement;
-  let el: HTMLElement;
-  let userProfileService: UserProfileService;
-  let getUserSpy: jasmine.Spy;
+  let dePromise: DebugElement;
+  let deObservable: DebugElement;
+  let elPromise: HTMLElement;
+  let elObservable: HTMLElement;
+
+  let getUserAsPromiseSpy: jasmine.Spy;
+  let getUserAsObservableSpy: jasmine.Spy;
 
   beforeEach(() => {
+
+    // Тестовый пользователь
+    const testUserProfile = 'TestFirstName TestLastName';
+
+    const userProfileSpyObj = jasmine.createSpyObj('UserProfileService', ['getUserAsPromise', 'getUserAsObservable']);
+
+    // Make the spy return a synchronous Promise or Observable with the testUserProfile
+    getUserAsPromiseSpy = userProfileSpyObj.getUserAsPromise.and.returnValue( Promise.resolve(testUserProfile) );
+    getUserAsObservableSpy = userProfileSpyObj.getUserAsObservable.and.returnValue(
+      // of(testUserProfile)  // sync observable
+      defer(() => Promise.resolve(testUserProfile)) // async observable
+    );
+
     TestBed.configureTestingModule({
       declarations: [UserProfileComponent],
-      providers: [UserProfileService]
+      providers: [{ provide: UserProfileService, useValue: userProfileSpyObj}]
     });
 
     fixture = TestBed.createComponent(UserProfileComponent);
 
-    // Получаем реальный сервис из инджектора компонента
-    userProfileService = fixture.debugElement.injector.get(UserProfileService);
-
-    /**
-     * Создаем шпиона (spy) на метод `getUser` нашего реального сервиса
-     * и просим его возвращать данные о тестовом пользователе.
-     * and.returnValue() - попросим вернуть значение, когда будет вызываться
-     * https://jasmine.github.io/api/2.6/Spy_and.html
-     *
-     * Таким образом, все, кто обращаются к даному методу,
-     * сразу же получают ответ, а реальный запрос на сервер,
-     * ожидание ответа или прочие асинхроные действия не происходят.
-     *
-     * spyOn(obj, methodName) -> spy
-     * https://jasmine.github.io/api/2.6/global.html#spyOn
-     */
-    getUserSpy = spyOn(userProfileService, 'getUser').and.returnValue(
-      Promise.resolve(testUser) // or observable of(testUser)
-    );
-
-    // Получаем элемент по селектору
-    de = fixture.debugElement.query(By.css('.user-profile'));
-    el = de.nativeElement;
+    // Получаем элементы по селектору
+    dePromise = fixture.debugElement.query(By.css('.user-profile-promise'));
+    elPromise = dePromise.nativeElement;
+    deObservable = fixture.debugElement.query(By.css('.user-profile-observable'));
+    elObservable = deObservable.nativeElement;
   });
 
   // синхронный тест
   it('should not show user profile before OnInit', () => {
-    expect(el.textContent).toBe('User Name: ', 'nothing displayed');
+    expect(elPromise.textContent).toBe('User Name: ', 'user is not set');
+    expect(elObservable.textContent).toBe('User Name: ', 'user is not set');
 
     // шпион не вызывался
     // spy.calls.any() - проверяем вызывался ли шпион
     // https://jasmine.github.io/api/2.6/Spy_calls.html
-    expect(getUserSpy.calls.any()).toBe(false, 'getUser not yet called');
+    expect(getUserAsPromiseSpy.calls.any()).toBe(false, 'getUserAsPromise not yet called');
+    expect(getUserAsObservableSpy.calls.any()).toBe(false, 'getUserAsObservable not yet called');
   });
 
   // синхронный тест
-  it('should still not show user profile after component initialized', () => {
+  it('should show user profile after component initialized, but only for sync observable', () => {
     fixture.detectChanges(); // onInit()
 
-    // userProfileService асинхронныей => результат мы не увидим
-    expect(el.textContent).toBe('User Name:  ', 'no user yet');
+    // Promise - асинхронный
+    // Observable - синхронный
+    expect(elPromise.textContent).toBe('User Name: ', 'user is not set');
+    // for sync observable
+    // expect(elObservable.textContent).toBe('User Name: TestFirstName TestLastName', 'user is set');
+    // for async observable
+    expect(elObservable.textContent).toBe('User Name: ', 'user is set');
+
     // шпион вызывался, так как мы вызвали fixture.detectChanges();
-    expect(getUserSpy.calls.any()).toBe(true, 'getUser called');
+    expect(getUserAsPromiseSpy.calls.any()).toBe(true, 'getUserAsPromise called');
+    expect(getUserAsObservableSpy.calls.any()).toBe(true, 'getUserObservable called');
   });
 
-  // Ни один из тестов выше не может доказать, что отображается
-  // значение из сервиса. Данные о пользователе не пришли,
-  // несмотря на то, что шпион возвращает разрешенное значение.
+  // Если данные приходят синхронно, то тест может проверить их поступление,
+  // например данные от синхронного Observable
+
+  // Если данные приходят асинхронно, то тест не может доказать, что отображается
+  // значение из сервиса. Данные о пользователе не пришли в шаблон,
+  // несмотря на то, что шпион возвращает значение.
 
   // Этот тест должен ждать по крайней мере одного полного цикла
   // JavaScript - движка до того, как значение станет доступным.
