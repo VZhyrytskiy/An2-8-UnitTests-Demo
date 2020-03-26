@@ -31,8 +31,8 @@ describe('DataService', () => {
     });
 
     // TODO: use TestBed.inject() v.9
-    mockHttp = TestBed.get(HttpTestingController);
-    dataService = TestBed.get(DataService);
+    mockHttp = TestBed.inject(HttpTestingController);
+    dataService = TestBed.inject(DataService);
   });
 
   afterEach(() => {

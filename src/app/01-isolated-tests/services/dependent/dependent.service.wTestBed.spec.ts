@@ -14,13 +14,9 @@ describe('DependentService without the TestBed', () => {
       // Provide both the service-to-test and its (spy) dependency
       providers: [DependentService, { provide: MyService, useValue: spy }]
     });
-    // TODO:
-    // replace get to inject
-    // Inject both the service-to-test and its (spy) dependency
-    // service = TestBed.inject(DependentService);
-    service = TestBed.get(DependentService);
-    // myServiceSpy = TestBed.inject(MyService);
-    myServiceSpy = TestBed.get(MyService);
+
+    service = TestBed.inject(DependentService);
+    myServiceSpy = TestBed.inject(MyService) as jasmine.SpyObj<MyService>;
   });
 
   it('getValue should return stubbed value from a MyService spy', () => {

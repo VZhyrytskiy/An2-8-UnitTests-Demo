@@ -79,7 +79,7 @@ async function createComponent() {
   component = fixture.componentInstance;
 
   // Получаем роутер с рутового инжектора
-  const router = TestBed.get(Router);
+  const router = TestBed.inject(Router);
   gotoSpy = spyOn(component, 'gotoList').and.callThrough();
   navSpy = spyOn(router, 'navigate');
 
