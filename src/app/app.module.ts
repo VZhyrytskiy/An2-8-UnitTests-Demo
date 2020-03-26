@@ -9,6 +9,7 @@ import {
   IoComponent,
   LightSwitchComponent
 } from './01-isolated-tests/components';
+import { TitleCasePipe } from './01-isolated-tests/pipes/title-case/title-case.pipe';
 import {
   HeaderInlineComponent,
   HeaderInlineAutoCdComponent,
@@ -56,7 +57,8 @@ import { HighlightDirective } from './02-integrated-tests/directives';
     HighlightDirective,
     LightSwitchComponent,
     Welcome1Component,
-    IoComponent
+    IoComponent,
+    TitleCasePipe
   ],
   providers: [
     WelcomeService,
