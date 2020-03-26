@@ -7,17 +7,19 @@ import { TestBed } from '@angular/core/testing';
 import { Welcome1Component } from './welcome1.component';
 import { Welcome1Service } from './welcome1.service';
 
-// stub WelcomeService для тестирования компонента
-const welcomeServiceStub = {
-  isLoggedIn: true,
-  user: { name: 'Test User' }
-};
+
 
 describe('WelcomeComponent', () => {
   let component: Welcome1Component;
   let welcomeService: Welcome1Service;
 
   beforeEach(() => {
+    // stub WelcomeService для тестирования компонента
+    const welcomeServiceStub = {
+      isLoggedIn: true,
+      user: { name: 'Test User' }
+    };
+
     TestBed.configureTestingModule({
       // компонент добавлен в провайдеры!
       providers: [
@@ -28,8 +30,8 @@ describe('WelcomeComponent', () => {
     // получаем компонент и сервис из инжектора
     // TODO:
     // replace get with inject
-    component = TestBed.get(Welcome1Component);
-    welcomeService = TestBed.get(Welcome1Service);
+    component = TestBed.inject(Welcome1Component);
+    welcomeService = TestBed.inject(Welcome1Service);
   });
 
   it('should not have welcome message after construction', () => {
