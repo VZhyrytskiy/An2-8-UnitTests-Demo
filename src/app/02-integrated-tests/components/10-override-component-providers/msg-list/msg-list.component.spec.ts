@@ -15,7 +15,8 @@ const msgListServiceStub = {
 };
 
 describe('MsgListComponent', () => {
-  let fixture: ComponentFixture<MsgListComponent>, el: HTMLElement;
+  let fixture: ComponentFixture<MsgListComponent>;
+  let el: HTMLElement;
 
   beforeEach(() => {
     TestBed.configureTestingModule({

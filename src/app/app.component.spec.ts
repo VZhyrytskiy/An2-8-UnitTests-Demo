@@ -8,9 +8,9 @@ import {
 } from './testing-helpers';
 import { AppComponent } from './app.component';
 
-let fixture: ComponentFixture<AppComponent>,
-  links: RouterLinkStubDirective[],
-  linkDes: DebugElement[];
+let fixture: ComponentFixture<AppComponent>;
+let links: RouterLinkStubDirective[];
+let linkDes: DebugElement[];
 
 @Component({ selector: 'app-msg-list', template: '' })
 class MsgListStubComponent {}
@@ -56,8 +56,8 @@ describe('AppComponent', () => {
   });
 
   it('can click Products link in template', () => {
-    const productLinkDe = linkDes[0],
-      productLink = links[0];
+    const productLinkDe = linkDes[0];
+    const productLink = links[0];
 
     expect(productLink.navigatedTo).toBeNull(
       'link should not have navigated yet'

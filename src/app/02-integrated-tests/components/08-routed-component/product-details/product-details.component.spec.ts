@@ -8,14 +8,14 @@ import { ProductDetailsComponent } from './product-details.component';
 import { ProductListService } from './../product-list/product-list.service';
 
 /* Блок переменных */
-let activatedRouteStub: ActivatedRouteStub,
-  component: ProductDetailsComponent,
-  fixture: ComponentFixture<ProductDetailsComponent>,
-  idDisplay: HTMLElement,
-  nameDisplay: HTMLElement,
-  expectedProduct: any,
-  gotoSpy: jasmine.Spy,
-  navSpy: jasmine.Spy;
+let activatedRouteStub: ActivatedRouteStub;
+let component: ProductDetailsComponent;
+let fixture: ComponentFixture<ProductDetailsComponent>;
+let idDisplay: HTMLElement;
+let nameDisplay: HTMLElement;
+let expectedProduct: any;
+let gotoSpy: jasmine.Spy;
+let navSpy: jasmine.Spy;
 
 const firstProduct = { id: '1', name: 'Apple' };
 

@@ -8,9 +8,9 @@ import { DebugElement } from '@angular/core';
 import { UserComponent } from './user.component';
 
 describe('UserComponent', () => {
-  let component: UserComponent,
-    fixture: ComponentFixture<UserComponent>,
-    userEl: DebugElement;
+  let component: UserComponent;
+  let fixture: ComponentFixture<UserComponent>;
+  let userEl: DebugElement;
   const expectedUser = 'Test User';
 
   beforeEach(() => {
@@ -23,6 +23,12 @@ describe('UserComponent', () => {
 
     // Ищем user элемент по селектору
     userEl = fixture.debugElement.query(By.css('.user'));
+  });
+
+   // Важно! Иногда может возникать ошибка Uncaught TypeError: Cannot read property of undefined thrown
+  // проблема в том что не очищается значение fixture после каждого теста
+  afterEach(() => {
+    fixture.destroy();
   });
 
   // Тест проверяет, что пользователь передается в шаблон
@@ -58,8 +64,6 @@ describe('UserComponent', () => {
     userEl.triggerEventHandler('click', null);
     expect(selectedUser).toBe(expectedUser);
   });
-  
-  afterEach(() => {
-    fixture.destroy();
-  });
+
+
 });

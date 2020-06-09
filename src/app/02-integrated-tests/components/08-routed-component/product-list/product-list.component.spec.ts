@@ -12,9 +12,9 @@ import { ProductListComponent } from './product-list.component';
 import { ProductComponent } from './product/product.component';
 
 describe('ProductListComponent', () => {
-  let component: ProductListComponent,
-    fixture: ComponentFixture<ProductListComponent>,
-    productEl: DebugElement;
+  let component: ProductListComponent;
+  let fixture: ComponentFixture<ProductListComponent>;
+  let productEl: DebugElement;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -39,21 +39,24 @@ describe('ProductListComponent', () => {
     productEl = fixture.debugElement.query(By.css('app-product'));
   });
 
-  it('should tell ROUTER to navigate when product clicked', /**
-     * inject функция это утилита Angular для тестирования.
-     * Она внедряет сервисы в тестовую функцию
-     * Дальше можно использовать спай или манипулировать ими.
+  it('should tell ROUTER to navigate when product clicked',
+  /**
+   * inject функция это утилита Angular для тестирования.
+   * Она внедряет сервисы в тестовую функцию
+   * Дальше можно использовать спай или манипулировать ими.
 
-     * inject функция имеет два параметра:
-     * 1. Массив токенов для внедрения.
-     * 2. Тест-функция, чьи параметры соответствуют токенам
-     * inject([Class1, ..., ClassN], (instance1, ..., instanceN) => { testing code })
-     *
-     * В этом тесте мы внедряем Router с текущего TestBed инжектора.
-     *
-     * Если нужен сервис, который внедряется в компонент,
-     * то необходимо его получить так fixture.debugElement.injector.get
-     */ inject(
+   * inject функция имеет два параметра:
+   * 1. Массив токенов для внедрения.
+   * 2. Тест-функция, чьи параметры соответствуют токенам
+   * inject([Class1, ..., ClassN], (instance1, ..., instanceN) => { testing code })
+   *
+   * В этом тесте мы внедряем Router с текущего TestBed инжектора.
+   *
+   * Если нужен сервис, который внедряется в компонент,
+   * то необходимо его получить так fixture.debugElement.injector.get
+   */
+
+    inject(
     [Router],
     (router: Router) => {
       const navigateByUrlSpy = spyOn(router, 'navigateByUrl');

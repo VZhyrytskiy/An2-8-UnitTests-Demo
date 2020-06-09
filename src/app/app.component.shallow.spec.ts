@@ -8,6 +8,8 @@ import { RouterLinkStubDirective } from './testing-helpers';
 import { AppComponent } from './app.component';
 
 let fixture: ComponentFixture<AppComponent>;
+let links: RouterLinkStubDirective[];
+let linkDes: DebugElement[];
 
 describe('AppComponent (Shallow)', () => {
   beforeEach(() => {
@@ -34,7 +36,6 @@ describe('AppComponent (Shallow)', () => {
     );
   });
 
-  let links: RouterLinkStubDirective[], linkDes: DebugElement[];
 
   beforeEach(() => {});
 
@@ -48,8 +49,8 @@ describe('AppComponent (Shallow)', () => {
   });
 
   it('can click Products link in template', () => {
-    const productLinkDe = linkDes[0],
-      productLink = links[0];
+    const productLinkDe = linkDes[0];
+    const productLink = links[0];
 
     expect(productLink.navigatedTo).toBeNull(
       'link should not have navigated yet'

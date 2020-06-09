@@ -14,6 +14,7 @@ export class ActivatedRouteStub {
   // Возвращает одно и то же значение каждому подписчику paramMap,
   // пока не будет присвоено новое значение.
   private subject = new BehaviorSubject(this.testParams);
+  // tslint:disable-next-line: variable-name
   private _testParams: {};
 
   // Создаем Observable
@@ -41,7 +42,7 @@ export class RouterStub {
 @Directive({
   // tslint:disable-next-line:directive-selector
   selector: '[routerLink]',
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line: no-host-metadata-property
   host: {
     '(click)': 'onClick()'
   }

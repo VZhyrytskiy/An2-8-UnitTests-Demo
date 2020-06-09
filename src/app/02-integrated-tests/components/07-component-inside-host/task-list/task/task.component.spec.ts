@@ -25,9 +25,9 @@ class TestHostComponent {
 }
 
 describe('TaskComponent when inside a test host', () => {
-  let testHost: TestHostComponent,
-    fixture: ComponentFixture<TestHostComponent>,
-    taskEl: DebugElement;
+  let testHost: TestHostComponent;
+  let fixture: ComponentFixture<TestHostComponent>;
+  let taskEl: DebugElement;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
