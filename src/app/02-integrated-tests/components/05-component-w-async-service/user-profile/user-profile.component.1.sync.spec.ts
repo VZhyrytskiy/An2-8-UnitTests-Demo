@@ -41,18 +41,17 @@ describe('UserProfileComponent', () => {
     fixture = TestBed.createComponent(UserProfileComponent);
 
     // Получаем элементы по селектору
-    dePromise = fixture.debugElement.query(By.css('.user-profile-promise'));
+    dePromise = fixture.debugElement.query(By.css('.user-profile-promise > span:nth-child(2)'));
     elPromise = dePromise.nativeElement;
-    deObservable = fixture.debugElement.query(By.css('.user-profile-observable'));
+    deObservable = fixture.debugElement.query(By.css('.user-profile-observable > span:nth-child(2)'));
     elObservable = deObservable.nativeElement;
   });
 
   // синхронный тест
-  // WARNING: Тест перестал работать в Angular v9
-  xit('should not show user profile before OnInit', () => {
+  it('should not show user profile before OnInit', () => {
 
-    expect(elPromise.textContent).toBe('User Name: ', 'user is not set');
-    expect(elObservable.textContent).toBe('User Name: ', 'user is not set');
+    expect(elPromise.textContent).toBe('', 'user is not set');
+    expect(elObservable.textContent).toBe('', 'user is not set');
 
     // шпион не вызывался
     // spy.calls.any() - проверяем вызывался ли шпион
@@ -67,11 +66,11 @@ describe('UserProfileComponent', () => {
 
     // Promise - асинхронный
     // Observable - синхронный
-    expect(elPromise.textContent).toBe('User Name: ', 'user is not set');
+    expect(elPromise.textContent).toBe('', 'user is not set');
     // for sync observable
-    // expect(elObservable.textContent).toBe('User Name: TestFirstName TestLastName', 'user is set');
+    // expect(elObservable.textContent).toBe('TestFirstName TestLastName', 'user is set');
     // for async observable
-    expect(elObservable.textContent).toBe('User Name: ', 'user is set');
+    expect(elObservable.textContent).toBe('', 'user is set');
 
     // шпион вызывался, так как мы вызвали fixture.detectChanges();
     expect(getUserAsPromiseSpy.calls.any()).toBe(true, 'getUserAsPromise called');

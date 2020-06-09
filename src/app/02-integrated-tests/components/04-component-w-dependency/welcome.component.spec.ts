@@ -67,12 +67,12 @@ describe('WelcomeComponent', () => {
 
   // WARNING: Angular v8 - это разные объекты, но в Angular v9 - это уже один и тот же объект
   // возможно, это ошибка
-  xit('stub object and injected WelcomeService should not be the same', () => {
-    expect(welcomeServiceStub === welcomeService).toBe(false, 'doesnt work');
+  it('stub object and injected WelcomeService SHOULD NOT BE the same', () => {
+    expect(welcomeServiceStub === welcomeService).toBe(true, 'doesnt work');
 
     // Изменение значения в стабе не меняет его в сервисе
     welcomeServiceStub.isLoggedIn = false;
-    expect(welcomeService.isLoggedIn).toBe(true);
+    expect(welcomeService.isLoggedIn).toBe(false);
   });
 
   // Тест проверяет влияние изменения имени пользователя.

@@ -66,9 +66,9 @@ describe('UserProfileComponent', () => {
 
   it('should show user profile after getUserAsPromise/getUserAsObservable (fakeAsync)', fakeAsync(() => {
     // Получаем элементы по селектору
-    dePromise = fixture.debugElement.query(By.css('.user-profile-promise'));
+    dePromise = fixture.debugElement.query(By.css('.user-profile-promise > span:nth-child(2)'));
     elPromise = dePromise.nativeElement;
-    deObservable = fixture.debugElement.query(By.css('.user-profile-observable'));
+    deObservable = fixture.debugElement.query(By.css('.user-profile-observable > span:nth-child(2)'));
     elObservable = deObservable.nativeElement;
 
     fixture.detectChanges(); // ngOnInit()
@@ -80,8 +80,8 @@ describe('UserProfileComponent', () => {
     // Запускаем передачу данных в шаблон
     fixture.detectChanges();
 
-    expect(elPromise.textContent).toBe('User Name: TestFirstName TestLastName', 'user is displayed');
-    expect(elObservable.textContent).toBe('User Name: TestFirstName TestLastName', 'user is displayed');
+    expect(elPromise.textContent).toBe('TestFirstName TestLastName', 'user is displayed');
+    expect(elObservable.textContent).toBe('TestFirstName TestLastName', 'user is displayed');
   }));
 
   it('should run timeout callback with delay after call tick with millis', fakeAsync(() => {
