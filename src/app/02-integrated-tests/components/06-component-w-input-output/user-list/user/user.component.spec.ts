@@ -58,4 +58,8 @@ describe('UserComponent', () => {
     userEl.triggerEventHandler('click', null);
     expect(selectedUser).toBe(expectedUser);
   });
+  
+  afterEach(() => {
+    fixture.destroy();
+  });
 });
