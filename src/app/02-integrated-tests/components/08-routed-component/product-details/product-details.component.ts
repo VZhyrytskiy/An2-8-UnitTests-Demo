@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { ProductListService } from './../product-list/product-list.service';
 
@@ -18,7 +18,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(p => this.getProduct(p && p['id']));
+    this.route.paramMap.subscribe((p: Params) => this.getProduct(p && p.id));
   }
 
   gotoList() {
@@ -28,7 +28,7 @@ export class ProductDetailsComponent implements OnInit {
   private getProduct(id: string) {
     // when no id or id===0, create new Product
     if (!id) {
-      this.product = { 'id': 0, 'name': 'no name' };
+      this.product = { id: 0, name: 'no name' };
       return;
     }
 

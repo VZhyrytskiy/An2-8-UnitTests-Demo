@@ -1,6 +1,7 @@
 import { Directive, ElementRef, Input, OnChanges } from '@angular/core';
 
 @Directive({
+  // tslint:disable-next-line: directive-selector
   selector: '[highlight]'
 })
 export class HighlightDirective implements OnChanges {
