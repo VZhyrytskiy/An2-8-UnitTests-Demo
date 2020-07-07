@@ -30,7 +30,6 @@ describe('DataService', () => {
       providers: [DataService]
     });
 
-    // TODO: use TestBed.inject() v.9
     mockHttp = TestBed.inject(HttpTestingController);
     dataService = TestBed.inject(DataService);
   });

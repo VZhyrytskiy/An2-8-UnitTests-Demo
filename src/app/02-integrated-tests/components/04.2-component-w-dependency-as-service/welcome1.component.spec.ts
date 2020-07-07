@@ -28,8 +28,6 @@ describe('WelcomeComponent', () => {
       ]
     });
     // получаем компонент и сервис из инжектора
-    // TODO:
-    // replace get with inject
     component = TestBed.inject(Welcome1Component);
     welcomeService = TestBed.inject(Welcome1Service);
   });
