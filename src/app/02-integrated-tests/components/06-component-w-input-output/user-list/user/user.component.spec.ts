@@ -54,6 +54,7 @@ describe('UserComponent', () => {
     // Запускаем обнаружение изменений для первоначальной привязки данных
     fixture.detectChanges();
 
+    // selected - sync Observable
     component.selected.subscribe((user: string) => (selectedUser = user));
 
     // DebugElement.triggerEventHandler может сгенерить любое связанное
