@@ -1,5 +1,5 @@
 import { BehaviorSubject } from 'rxjs';
-import { Component, Directive, Injectable, Input } from '@angular/core';
+import { Component, Directive, Injectable, Input, HostListener } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 
 
@@ -42,16 +42,13 @@ export class RouterStub {
 @Directive({
   // tslint:disable-next-line:directive-selector
   selector: '[routerLink]',
-  // tslint:disable-next-line: no-host-metadata-property
-  host: {
-    '(click)': 'onClick()'
-  }
 })
 export class RouterLinkStubDirective {
   // tslint:disable-next-line:no-input-rename
   @Input('routerLink') linkParams: any;
   navigatedTo: any = null;
 
+  @HostListener('click')
   onClick() {
     this.navigatedTo = this.linkParams;
   }
