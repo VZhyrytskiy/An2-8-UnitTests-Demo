@@ -13,13 +13,13 @@ import { TaskComponent } from './task.component';
  */
 @Component({
   template: `
-    <app-task  [task]="task"  (selected)="showDetails($event)"></app-task>
+    <app-task  [task]="task"  (selected)="onShowDetails($event)"></app-task>
   `
 })
 class TestHostComponent {
   task = 'Test task name';
   selectedTask: string;
-  showDetails(task: string) {
+  onShowDetails(task: string) {
     this.selectedTask = task;
   }
 }
