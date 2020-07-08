@@ -77,6 +77,10 @@ describe('HighlightDirective', () => {
     );
   });
 
+  it('bare <h2> should not have a customProperty', () => {
+    expect(bareH2.properties.customProperty).toBeUndefined();
+  });
+
   it('can inject `HighlightDirective` in 1st <h2>', () => {
     const dir = des[0].injector.get(HighlightDirective);
     expect(dir).toBeTruthy();

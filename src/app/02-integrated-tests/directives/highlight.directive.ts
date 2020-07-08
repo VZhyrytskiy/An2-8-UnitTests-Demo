@@ -6,12 +6,13 @@ import { Directive, ElementRef, Input, OnChanges } from '@angular/core';
 })
 export class HighlightDirective implements OnChanges {
 
-  defaultColor = 'rgb(211, 211, 211)';
+  defaultColor = 'rgb(211, 211, 211)';  // lightgray
 
   // tslint:disable-next-line:no-input-rename
   @Input('highlight') bgColor: string;
 
   constructor(private el: ElementRef) {
+    el.nativeElement.style.customProperty = true; // some custom value
   }
 
   ngOnChanges() {
