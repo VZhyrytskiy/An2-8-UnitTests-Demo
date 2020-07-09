@@ -34,6 +34,8 @@ import {
   AboutComponent
 } from './02-integrated-tests/components';
 import { HighlightDirective } from './02-integrated-tests/directives';
+import { ChildComponent } from './02-integrated-tests/components/08-component-w-view-child/child/child.component';
+import { ParentComponent } from './02-integrated-tests/components/08-component-w-view-child/parent/parent.component';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, AppRoutingModule],
@@ -58,7 +60,9 @@ import { HighlightDirective } from './02-integrated-tests/directives';
     LightSwitchComponent,
     Welcome1Component,
     IoComponent,
-    TitleCasePipe
+    TitleCasePipe,
+    ChildComponent,
+    ParentComponent
   ],
   providers: [
     WelcomeService,
