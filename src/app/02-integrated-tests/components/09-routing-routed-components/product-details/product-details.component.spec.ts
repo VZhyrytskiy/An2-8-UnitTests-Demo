@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -34,7 +34,7 @@ describe('ProductDetailsComponent', () => {
   });
 
   describe('when navigate to existing product', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       expectedProduct = firstProduct;
       activatedRouteStub.testParams = { id: expectedProduct.id };
       createComponent();
@@ -47,7 +47,7 @@ describe('ProductDetailsComponent', () => {
   });
 
   describe('when navigate with no product id', () => {
-    beforeEach(async(createComponent));
+    beforeEach(waitForAsync(createComponent));
 
     it('should have product.id === 0', () => {
       console.log(component.product);
@@ -60,7 +60,7 @@ describe('ProductDetailsComponent', () => {
   });
 
   describe('when navigate to non-existant product id', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       activatedRouteStub.testParams = { id: 99999 };
       createComponent();
     }));

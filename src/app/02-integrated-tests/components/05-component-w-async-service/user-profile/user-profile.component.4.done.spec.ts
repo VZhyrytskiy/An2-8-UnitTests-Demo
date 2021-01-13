@@ -54,7 +54,7 @@ describe('UserProfileComponent', () => {
 
   /**
    * Традиционные техники Jasmine для асинхронного тестирования
-   * Вы не можете использовать async или fakeAsync для тестов
+   * Вы не можете использовать waitForAsync или fakeAsync для тестов
    * которые используют setInterval, например когда тестируем
    * async Observable методы
    */

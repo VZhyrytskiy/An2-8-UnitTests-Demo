@@ -3,8 +3,8 @@
  * Замечания по поводу компиляции компонентов.
  */
 
-// Импортируем дополнительную Ангуляр утилиту тестирования async
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+// Импортируем дополнительную Ангуляр утилиту тестирования waitForAsync
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
@@ -26,11 +26,11 @@ describe('HeaderComponent', () => {
    *  1. настроки модуля,
    *  2. загрузки шаблонов,
    *  3. компиляции компонентов
-   * В асинхронном beforeEach используется функция async(),
+   * В асинхронном beforeEach используется функция waitForAsync(),
    * которая в свою очередь принимает стрелочную функцию в качестве параметра
    *
    */
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed
       // Настраиваем модуль
       .configureTestingModule({

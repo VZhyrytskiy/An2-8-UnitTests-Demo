@@ -1,8 +1,8 @@
 /**
  * Тестирвание компонента с асинхронным сервисом.
- * Утилита async.
+ * Утилита waitForAsync.
  */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { defer, of } from 'rxjs';
@@ -51,8 +51,8 @@ describe('UserProfileComponent', () => {
     elObservable = deObservable.nativeElement;
   });
 
-  // Использует функцию async()
-  it('should show user profile after getUserAsPromise/getUserAsObservable (async)', async(() => {
+  // Использует функцию waitForAsync()
+  it('should show user profile after getUserAsPromise/getUserAsObservable (waitForAsync)', waitForAsync(() => {
     fixture.detectChanges();  // ngOnInit
 
     /**
