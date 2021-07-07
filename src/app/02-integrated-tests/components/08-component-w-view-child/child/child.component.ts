@@ -8,11 +8,11 @@ export class ChildComponent implements OnInit {
 
   public timeStamp: Date;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.updateTimeStamp();
   }
 
-  updateTimeStamp() {
+  updateTimeStamp(): void {
     this.timeStamp = new Date();
   }
 

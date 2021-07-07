@@ -9,7 +9,7 @@ export class UserComponent {
   @Input() user: string;
   @Output() selected = new EventEmitter<string>();
 
-  onClick() {
+  onClick(): void {
     this.selected.emit(this.user);
   }
 }

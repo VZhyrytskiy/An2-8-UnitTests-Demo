@@ -9,7 +9,7 @@ import { By } from '@angular/platform-browser';
 
 // stub MsgListServiceStub
 const msgListServiceStub = {
-  getMessges() {
+  getMessges(): any[] {
     return [{ id: 1, msg: 'Hi, TestUser1' }, { id: 2, msg: 'Hi, TestUser2' }];
   }
 };

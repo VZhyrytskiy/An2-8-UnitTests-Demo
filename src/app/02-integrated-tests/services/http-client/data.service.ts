@@ -9,7 +9,7 @@ export class DataService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getData() {
+  getData(): any {
     const req = new HttpRequest('GET', this.url, {
       reportProgress: true
     });

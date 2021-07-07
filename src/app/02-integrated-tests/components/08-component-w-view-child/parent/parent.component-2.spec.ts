@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
   template: ''
 })
 export class ChildStubComponent {
-  updateTimeStamp() {}
+  updateTimeStamp(): void {}
 }
 
 describe('ParentComponent', () => {

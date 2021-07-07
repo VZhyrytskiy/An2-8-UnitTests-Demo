@@ -19,7 +19,7 @@ import { TaskComponent } from './task.component';
 class TestHostComponent {
   task = 'Test task name';
   selectedTask: string;
-  onShowDetails(task: string) {
+  onShowDetails(task: string): void {
     this.selectedTask = task;
   }
 }

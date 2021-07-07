@@ -8,7 +8,7 @@ import { ChildComponent } from '../child/child.component';
 export class ParentComponent {
   @ViewChild(ChildComponent) childComponent: ChildComponent;
 
-  onUpdate() {
+  onUpdate(): void {
     this.childComponent.updateTimeStamp();
   }
 }

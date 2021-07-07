@@ -9,7 +9,7 @@ export class TaskComponent{
   @Input() task: string;
   @Output() selected = new EventEmitter<string>();
 
-  onClick() {
+  onClick(): void {
     this.selected.emit(this.task);
   }
 }

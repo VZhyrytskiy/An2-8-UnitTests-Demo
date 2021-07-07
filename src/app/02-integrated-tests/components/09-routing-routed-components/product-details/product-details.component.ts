@@ -21,11 +21,11 @@ export class ProductDetailsComponent implements OnInit {
     this.route.paramMap.subscribe((p: Params) => this.getProduct(p && p.id));
   }
 
-  gotoList() {
+  gotoList(): void {
     this.router.navigate(['/']);
   }
 
-  private getProduct(id: string) {
+  private getProduct(id: string): void {
     // when no id or id===0, create new Product
     if (!id) {
       this.product = { id: 0, name: 'no name' };

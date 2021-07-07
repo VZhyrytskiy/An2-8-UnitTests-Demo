@@ -7,7 +7,7 @@ import { MyService } from '../my/my.service';
 export class DependentService {
   constructor(private myService: MyService) {}
 
-  getValue() {
+  getValue(): string {
     return this.myService.getValue();
   }
 }

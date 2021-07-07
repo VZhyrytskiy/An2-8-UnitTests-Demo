@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
   ]
 })
 export class ChildStubComponent {
-  updateTimeStamp() {}
+  updateTimeStamp(): void {}
 }
 
 describe('ParentComponent', () => {

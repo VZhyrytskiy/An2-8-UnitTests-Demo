@@ -10,11 +10,11 @@ import { Component, OnInit } from '@angular/core';
 export class LightSwitchComponent {
   isOn = false;
 
-  onClick() {
+  onClick(): void {
     this.isOn = !this.isOn;
   }
 
-  get message() {
+  get message(): string {
     return `The light is ${this.isOn ? 'On' : 'Off'}`;
   }
 }

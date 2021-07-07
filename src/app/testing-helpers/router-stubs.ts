@@ -21,22 +21,22 @@ export class ActivatedRouteStub {
   paramMap = this.subject.asObservable();
 
   // гетер и сетер для testParams
-  get testParams() { return this._testParams; }
+  get testParams(): {} { return this._testParams; }
   set testParams(paramMap: {}) {
     this._testParams = paramMap;
     this.subject.next(paramMap);
   }
 
   // ActivatedRoute snapshot
-  get snapshot() {
+  get snapshot(): {} {
     return { paramMap: this.testParams };
   }
 }
 
 @Injectable()
 export class RouterStub {
-  navigate(commands: any[], extras?: NavigationExtras) { }
-  navigateByUrl(url: string) { return url; }
+  navigate(commands: any[], extras?: NavigationExtras): any { }
+  navigateByUrl(url: string): string { return url; }
 }
 
 @Directive({
@@ -49,7 +49,7 @@ export class RouterLinkStubDirective {
   navigatedTo: any = null;
 
   @HostListener('click')
-  onClick() {
+  onClick(): void {
     this.navigatedTo = this.linkParams;
   }
 }

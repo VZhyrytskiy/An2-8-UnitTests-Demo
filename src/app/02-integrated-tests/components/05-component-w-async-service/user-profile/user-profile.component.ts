@@ -12,7 +12,7 @@ export class UserProfileComponent implements OnInit {
 
   constructor(private userProfileService: UserProfileService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userDataPromise = this.userProfileService.getUserAsPromise();
     this.userDataObservable$ = this.userProfileService.getUserAsObservable();
   }

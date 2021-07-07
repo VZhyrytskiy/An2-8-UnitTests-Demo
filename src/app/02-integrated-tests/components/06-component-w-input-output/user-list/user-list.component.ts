@@ -14,11 +14,11 @@ export class UserListComponent implements OnInit {
     private userListService: UserListService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.users = this.userListService.getUsers();
   }
 
-  showDetails(user: string) {
+  showDetails(user: string): void {
     console.log(user);
   }
 

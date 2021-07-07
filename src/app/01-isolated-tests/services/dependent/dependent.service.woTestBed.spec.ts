@@ -12,7 +12,7 @@ describe('DependentService without the TestBed', () => {
 
   it('getValue should return faked value from a fakeService', () => {
     const fakedService = {
-      getValue() {
+      getValue(): string {
         return 'faked value';
       }
     };

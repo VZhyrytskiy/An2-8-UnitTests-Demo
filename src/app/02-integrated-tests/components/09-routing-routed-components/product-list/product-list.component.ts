@@ -16,11 +16,11 @@ export class ProductListComponent implements OnInit {
     private productListService: ProductListService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.products = this.productListService.getProducts();
   }
 
-  gotoDetails(product: any) {
+  gotoDetails(product: any): void {
     const url = `/product/${product.id}`;
     this.router.navigateByUrl(url);
   }

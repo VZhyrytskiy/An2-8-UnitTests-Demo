@@ -15,7 +15,7 @@ export class HighlightDirective implements OnChanges {
     el.nativeElement.style.customProperty = true; // some custom value
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.el.nativeElement.style.backgroundColor = this.bgColor || this.defaultColor;
   }
 }
