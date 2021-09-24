@@ -5,7 +5,7 @@
  * Используем также HttpTestingController
  */
 import { TestBed } from '@angular/core/testing';
-import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController,
@@ -21,7 +21,7 @@ const mockResponse = [
 ];
 
 describe('DataService', () => {
-  let mockHttp: HttpTestingController;
+  let httpTestingController: HttpTestingController;
   let dataService: DataService;
 
   beforeEach(() => {
@@ -30,7 +30,7 @@ describe('DataService', () => {
       providers: [DataService]
     });
 
-    mockHttp = TestBed.inject(HttpTestingController);
+    httpTestingController = TestBed.inject(HttpTestingController);
     dataService = TestBed.inject(DataService);
   });
 
@@ -39,7 +39,7 @@ describe('DataService', () => {
      * В конце вызываем метод verify() HttpTestingController
      * чтобы убедиться, что никакие запросы больше не исходят
      */
-    mockHttp.verify();
+    httpTestingController.verify();
   });
 
   it('should get users', () => {
@@ -54,13 +54,14 @@ describe('DataService', () => {
     /**
      * В этот момент запрос в ожидании и никакой ответ не будет отправлен
      * Следующий шаг - это проверить, что запрос выполнен
-     * Используем mockHttp (HttpTestingController)
+     * Используем HttpTestingController
      *
      * Если запросов не было или было больше, чем один, то получим ошибку
      *
      * Можно также использовать метод expectNone, если запросов не ожидается
+     * или метод match, если ожидается несколько запросов.
      */
-    const mockRequest: TestRequest = mockHttp.expectOne(dataService.url);
+    const mockRequest: TestRequest = httpTestingController.expectOne(dataService.url);
 
     /**
      * Проверяем, что
@@ -79,7 +80,7 @@ describe('DataService', () => {
     mockRequest.flush(mockResponse);
   });
 
-  it('shoud return an error', () => {
+  it('should return 500 error', () => {
     dataService.getData().subscribe(
       (event: HttpEvent<any>) => {
         switch (event.type) {
@@ -88,16 +89,45 @@ describe('DataService', () => {
             expect(event.body).toEqual(mockResponse);
         }
       },
-      err => {
+      (err: HttpErrorResponse) => {
         console.log(err);
-        expect(err.statusText).toBe('Server Error');
+        expect(err.status).toEqual(500);
+        expect(err.statusText).toEqual('Server Error');
       }
     );
 
-    const mockRequest: TestRequest = mockHttp.expectOne(dataService.url);
+    const mockRequest: TestRequest = httpTestingController.expectOne(dataService.url);
     mockRequest.flush('error', {
       status: 500,
       statusText: 'Server Error'
     });
+  });
+
+  it('should return a network error', () => {
+    const emsg = 'simulated network error';
+
+    dataService.getData().subscribe(
+      (event: HttpEvent<any>) => {
+        switch (event.type) {
+          // Если HttpEventType === HttpEventType.Response, проверяем тело запроса
+          case HttpEventType.Response:
+            expect(event.body).toEqual(mockResponse);
+        }
+      },
+      (err: HttpErrorResponse) => {
+        expect(err.error.message).toEqual(emsg, 'message');
+      }
+    );
+
+    const mockRequest: TestRequest = httpTestingController.expectOne(dataService.url);
+
+    // Create mock ErrorEvent, raised when something goes wrong at the network level.
+    // Connection timeout, DNS error, offline, etc
+    const mockError = new ErrorEvent('Network error', {
+      message: emsg
+    });
+
+    // Respond with mock error
+    mockRequest.error(mockError);
   });
 });
