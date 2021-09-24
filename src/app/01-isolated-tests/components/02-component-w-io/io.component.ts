@@ -13,7 +13,7 @@ export class IoComponent {
   @Input() data: IO;
   @Output() pass = new EventEmitter<IO>();
 
-  onClick() {
+  onClick(): void {
     this.pass.emit(this.data);
   }
 }
