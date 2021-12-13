@@ -6,6 +6,8 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { UserComponent } from './user.component';
+import { first } from 'rxjs';
+import { click } from './../../../../../testing-helpers';
 
 describe('UserComponent', () => {
   let component: UserComponent;
@@ -47,22 +49,28 @@ describe('UserComponent', () => {
   });
 
   it('should raise selected event when clicked', () => {
-    let selectedUser: string;
+    let selectedUser: string | undefined;
     // Предположим, что мы получили пользователя на вход
     component.user = expectedUser;
 
     // Запускаем обнаружение изменений для первоначальной привязки данных
     fixture.detectChanges();
 
-    // selected - sync Observable
-    component.selected.subscribe((user: string) => (selectedUser = user));
+    // selected - looks like sync Observable
+    component.selected.pipe(first()).subscribe((user: string) => (selectedUser = user));
 
     // DebugElement.triggerEventHandler может сгенерить любое связанное
     // с данными событие по имени события.
     // Второй параметр - это объект события, переданный обработчику.
     // В этом примере тест запускает событие «click»
     // с наловым объектом события.
-    userEl.triggerEventHandler('click', null);
+
+    // userEl.triggerEventHandler('click', null);
+    // or
+    // userEl.nativeElement.click();
+    // or use testing-helpers function
+    click(userEl); 
+
     expect(selectedUser).toBe(expectedUser);
   });
 

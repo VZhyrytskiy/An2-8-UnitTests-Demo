@@ -1,6 +1,6 @@
 import { LightSwitchComponent } from './light-switch.component';
 
-describe('LightSwitchComponent', () => {
+describe(LightSwitchComponent.name, () => {
   let comp: LightSwitchComponent;
 
   beforeEach(() => {

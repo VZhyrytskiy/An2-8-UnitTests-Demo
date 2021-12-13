@@ -15,6 +15,8 @@ describe('DependentService without the TestBed', () => {
       providers: [DependentService, { provide: MyService, useValue: spy }]
     });
 
+    // TestBed.inject has an optional second parameter,
+    // the object to return if Angular can't find the provider
     service = TestBed.inject(DependentService);
     myServiceSpy = TestBed.inject(MyService) as jasmine.SpyObj<MyService>;
   });

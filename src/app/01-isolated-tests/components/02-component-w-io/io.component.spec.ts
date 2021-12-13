@@ -1,3 +1,4 @@
+import { first } from 'rxjs';
 import { IoComponent, IO } from './io.component';
 
 describe('IoComponent', () => {
@@ -6,7 +7,7 @@ describe('IoComponent', () => {
     const data: IO = { id: 42, value: 'Test' };
     comp.data = data;
 
-    comp.pass.subscribe((d: IO) => {
+    comp.pass.pipe(first()).subscribe((d: IO) => {
       expect(d).toBe(data);
       done();
     });

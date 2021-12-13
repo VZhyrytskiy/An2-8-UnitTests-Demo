@@ -4,8 +4,8 @@ export * from './02-component-w-auto-change-detection/header-inline-auto-cd.comp
 
 export * from './03-component-w-external-template/header.component';
 
-export * from './04-component-w-dependency/welcome.component';
-export * from './04-component-w-dependency/welcome.service';
+export * from './04.1-component-w-dependency/welcome.component';
+export * from './04.1-component-w-dependency/welcome.service';
 export * from './04.2-component-w-dependency-as-service/welcome1.service';
 export * from './04.2-component-w-dependency-as-service/welcome1.component';
 

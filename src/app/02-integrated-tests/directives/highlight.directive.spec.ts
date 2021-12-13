@@ -44,7 +44,10 @@ describe('HighlightDirective', () => {
   });
 
   it('should color 1st <h2> background "yellow"', () => {
-    const bgColor = des[0].nativeElement.style.backgroundColor;
+    // взять цвет из DebugElement.styles, если среда тестирования НЕ браузер
+    const bgColor = des[0].styles.backgroundColor
+    // или взять цвет из HTMLElement.styles, если среда тестирования браузер
+    // const bgColor = des[0].nativeElement.style.backgroundColor;
     expect(bgColor).toBe('yellow');
   });
 

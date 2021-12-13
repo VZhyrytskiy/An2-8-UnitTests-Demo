@@ -52,13 +52,10 @@ describe('UserProfileComponent', () => {
   });
 
   /**
-   * Тест проверяте тоже самое, но делат это по другому.
-   * Он использует fakeAsync() + tick() функции
+   * Тест использует fakeAsync() + tick() функции
    *
    * fakeAsync() функция позволяет использовать линейный стиль кода,
    * так как она запускает тест в специальной fakeAsync test zone.
-   * Нет then(...)
-   * А fixture.whenStable заменил вызов функции tick().
    *
    * Несколько ограничений: например, вы не сможете выполнить XHR вызов
    * в функции fakeAsync().
@@ -84,6 +81,8 @@ describe('UserProfileComponent', () => {
     expect(elObservable.textContent).toBe('TestFirstName TestLastName', 'user is displayed');
   }));
 
+  // Если в тесте используется setTimeout с некоторым временем, то в
+  // функцию tick() необходимо передать это время
   it('should run timeout callback with delay after call tick with millis', fakeAsync(() => {
     let called = false;
     setTimeout(() => { called = true; }, 100);

@@ -17,7 +17,7 @@ describe('HeaderInlineComponent', () => {
   let component: HeaderInlineComponent;
   let fixture: ComponentFixture<HeaderInlineComponent>;
   let de: DebugElement;
-  let el: HTMLElement;
+  let h1: HTMLElement;
 
   // beforeEach выполниться перед каждым тестом
   // TestBed утилита, которая используется дальше
@@ -58,11 +58,11 @@ describe('HeaderInlineComponent', () => {
     de = fixture.debugElement.query(By.css('h1'));
 
     // Получаем элемент DOM с помощью свойства nativeElement
-    el = de.nativeElement;
+    h1 = de.nativeElement;
 
     // Если тестируемая среда - только брузер, то для поиска элемента можно полагаться
     // на стандартный метод querySelector
-    // el = fixture.nativeElement.querySelector('h1');
+    // h1 = fixture.nativeElement.querySelector('h1');
   });
 
   it('should create a component instance', () => {
@@ -71,7 +71,7 @@ describe('HeaderInlineComponent', () => {
 
   it('should have no title in the DOM until manually call `detectChanges`', () => {
     // TestBed.createComponent не вызывает автоматически обнаружение изменений
-    expect(el.textContent).toEqual('');
+    expect(h1.textContent).toEqual('');
   });
 
   it('should display original title after detectChanges()', () => {
@@ -79,7 +79,7 @@ describe('HeaderInlineComponent', () => {
     // (change detection) и передать данные из класса в темплейт
     fixture.detectChanges();
 
-    expect(el.textContent).toContain(component.title);
+    expect(h1.textContent).toContain(component.title);
   });
 
   it('should display a different test title', () => {
@@ -90,6 +90,6 @@ describe('HeaderInlineComponent', () => {
     // но уже после того, как проинициализировали свойство компонента новым значением
     fixture.detectChanges();
 
-    expect(el.textContent).toContain('Test Title');
+    expect(h1.textContent).toContain('Test Title');
   });
 });

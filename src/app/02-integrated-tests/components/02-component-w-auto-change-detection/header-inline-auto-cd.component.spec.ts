@@ -15,7 +15,7 @@ describe('HeaderInlineAutoCdComponent', () => {
   let component: HeaderInlineAutoCdComponent;
   let fixture: ComponentFixture<HeaderInlineAutoCdComponent>;
   let de: DebugElement;
-  let el: HTMLElement;
+  let h1: HTMLElement;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -29,12 +29,12 @@ describe('HeaderInlineAutoCdComponent', () => {
     component = fixture.componentInstance;
 
     de = fixture.debugElement.query(By.css('h1'));
-    el = de.nativeElement;
+    h1 = de.nativeElement;
   });
 
   it('should display original title', () => {
     // Ручной запуск обнаружения изменений не требуется
-    expect(el.textContent).toContain(component.title);
+    expect(h1.textContent).toContain(component.title);
   });
 
   // Этот тест показывает важное ограничение
@@ -50,7 +50,7 @@ describe('HeaderInlineAutoCdComponent', () => {
     // - Таймеры,
     // - DOM события.
     // Прямое синхронное изменения свойства компонента невидимо.
-    expect(el.textContent).toContain(oldTitle);
+    expect(h1.textContent).toContain(oldTitle);
   });
 
   it('should display updated title after detectChanges', () => {
@@ -60,6 +60,6 @@ describe('HeaderInlineAutoCdComponent', () => {
     fixture.detectChanges();
 
     // Получаем новые значения
-    expect(el.textContent).toContain(component.title);
+    expect(h1.textContent).toContain(component.title);
   });
 });
