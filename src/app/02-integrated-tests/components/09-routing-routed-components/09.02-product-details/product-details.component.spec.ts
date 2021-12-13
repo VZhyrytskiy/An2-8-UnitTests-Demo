@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { RouterStub, ActivatedRouteStub } from './../../../../testing-helpers';
 
 import { ProductDetailsComponent } from './product-details.component';
-import { ProductListService } from './../product-list/product-list.service';
+import { ProductListService } from './../09.01-product-list/product-list.service';
 
 /* Блок переменных */
 let activatedRouteStub: ActivatedRouteStub;
@@ -34,11 +34,11 @@ describe('ProductDetailsComponent', () => {
   });
 
   describe('when navigate to existing product', () => {
-    beforeEach(waitForAsync(() => {
+    beforeEach(async () => {
       expectedProduct = firstProduct;
       activatedRouteStub.testParams = { id: expectedProduct.id };
-      createComponent();
-    }));
+      await createComponent();
+    });
 
     it('should display tasks\'s id and name', () => {
       expect(idDisplay.textContent).toBe(expectedProduct.id);
@@ -60,10 +60,10 @@ describe('ProductDetailsComponent', () => {
   });
 
   describe('when navigate to non-existant product id', () => {
-    beforeEach(waitForAsync(() => {
+    beforeEach(async () => {
       activatedRouteStub.testParams = { id: 99999 };
-      createComponent();
-    }));
+      await createComponent();
+    });
 
     it('should try to navigate back to product list', () => {
       console.log(gotoSpy.calls.any());
@@ -74,7 +74,7 @@ describe('ProductDetailsComponent', () => {
 });
 
 // Вспомагательная функция
-async function createComponent() {
+function createComponent() {
   fixture = TestBed.createComponent(ProductDetailsComponent);
   component = fixture.componentInstance;
 
@@ -85,13 +85,16 @@ async function createComponent() {
 
   // Первый цикл запускает ngOnInit, который получает product
   fixture.detectChanges();
-  await fixture.whenStable();
 
-  // Второй цикл отображает полученные products
-  fixture.detectChanges();
-  if (component.product) {
-    idDisplay = fixture.debugElement.queryAll(By.css('span'))[0].nativeElement;
-    nameDisplay = fixture.debugElement.queryAll(By.css('span'))[1]
-      .nativeElement;
-  }
+  return fixture.whenStable().then(() => {
+    // Второй цикл отображает полученные products
+    fixture.detectChanges();
+    if (component.product) {
+      idDisplay = fixture.debugElement.queryAll(By.css('span'))[0].nativeElement;
+      nameDisplay = fixture.debugElement.queryAll(By.css('span'))[1]
+        .nativeElement;
+    }
+  });
+
+
 }

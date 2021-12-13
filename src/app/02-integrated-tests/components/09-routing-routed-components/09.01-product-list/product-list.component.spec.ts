@@ -56,9 +56,7 @@ describe('ProductListComponent', () => {
    * то необходимо его получить так fixture.debugElement.injector.get
    */
 
-    inject(
-    [Router],
-    (router: Router) => {
+    inject([Router], (router: Router) => {
       const navigateByUrlSpy = spyOn(router, 'navigateByUrl');
 
       /**
@@ -71,9 +69,7 @@ describe('ProductListComponent', () => {
       const navArgs = navigateByUrlSpy.calls.first().args[0];
       const id = component.products[0].id;
 
-      expect(navArgs).toBe(
-        '/product/' + id,
-        'should nav to ProductDetail for first product'
+      expect(navArgs).toBe(`/product/${id}`, 'should nav to ProductDetail for first product'
       );
     }
   ));

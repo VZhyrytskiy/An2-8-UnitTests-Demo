@@ -22,10 +22,10 @@ export * from './07-component-inside-host/task-list/task/task.component';
 
 
 
-export * from './09-routing-routed-components/product-list/product-list.component';
-export * from './09-routing-routed-components/product-list/product-list.service';
-export * from './09-routing-routed-components/product-list/product/product.component';
-export * from './09-routing-routed-components/product-details/product-details.component';
+export * from './09-routing-routed-components/09.01-product-list/product-list.component';
+export * from './09-routing-routed-components/09.01-product-list/product-list.service';
+export * from './09-routing-routed-components/09.01-product-list/product/product.component';
+export * from './09-routing-routed-components/09.02-product-details/product-details.component';
 export * from './09-routing-routed-components/page-not-found/page-not-found.component';
 
 export * from './10-router-outlet-component/about/about.component';
