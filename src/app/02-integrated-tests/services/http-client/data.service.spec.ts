@@ -6,12 +6,7 @@
  */
 import { TestBed } from '@angular/core/testing';
 import { HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-  TestRequest
-} from '@angular/common/http/testing';
-
+import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { DataService } from './data.service';
 
 // Вспомогательный объект ответа
@@ -42,12 +37,13 @@ describe('DataService', () => {
     httpTestingController.verify();
   });
 
-  it('should get users', () => {
+  it('should get users', (done: DoneFn) => {
     dataService.getData().subscribe((event: HttpEvent<any>) => {
       switch (event.type) {
         // Если HttpEventType === HttpEventType.Response, проверяем тело запроса
         case HttpEventType.Response:
           expect(event.body).toEqual(mockResponse);
+          done();
       }
     });
 
@@ -80,19 +76,21 @@ describe('DataService', () => {
     mockRequest.flush(mockResponse);
   });
 
-  it('should return 500 error', () => {
+  it('should return 500 error', (done: DoneFn) => {
     dataService.getData().subscribe(
       (event: HttpEvent<any>) => {
         switch (event.type) {
           // Если HttpEventType === HttpEventType.Response, проверяем тело запроса
           case HttpEventType.Response:
             expect(event.body).toEqual(mockResponse);
+            done();
         }
       },
       (err: HttpErrorResponse) => {
         console.log(err);
         expect(err.status).toEqual(500);
         expect(err.statusText).toEqual('Server Error');
+        done();
       }
     );
 
@@ -103,29 +101,27 @@ describe('DataService', () => {
     });
   });
 
-  it('should return a network error', () => {
-    const emsg = 'simulated network error';
-
+  it('should return a network error', (done: DoneFn) => {
     dataService.getData().subscribe(
       (event: HttpEvent<any>) => {
         switch (event.type) {
           // Если HttpEventType === HttpEventType.Response, проверяем тело запроса
           case HttpEventType.Response:
             expect(event.body).toEqual(mockResponse);
+            done();
         }
       },
       (err: HttpErrorResponse) => {
-        expect(err.error.message).toEqual(emsg, 'message');
+        expect(err.error).toBe(mockError);
+        done();
       }
     );
 
     const mockRequest: TestRequest = httpTestingController.expectOne(dataService.url);
 
-    // Create mock ErrorEvent, raised when something goes wrong at the network level.
-    // Connection timeout, DNS error, offline, etc
-    const mockError = new ErrorEvent('Network error', {
-      message: emsg
-    });
+    // Создать mock ProgressEvent с типом `error`, который возникает, когда что-то пошло не так
+    // на уровне сети, например timeout, DNS ошибка, offline и т.д.
+    const mockError = new ProgressEvent('error');
 
     // Respond with mock error
     mockRequest.error(mockError);
