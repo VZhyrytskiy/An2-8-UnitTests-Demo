@@ -45,7 +45,7 @@ describe('HighlightDirective', () => {
 
   it('should color 1st <h2> background "yellow"', () => {
     // взять цвет из DebugElement.styles, если среда тестирования НЕ браузер
-    const bgColor = des[0].styles.backgroundColor
+    const bgColor = des[0].styles['backgroundColor'];
     // или взять цвет из HTMLElement.styles, если среда тестирования браузер
     // const bgColor = des[0].nativeElement.style.backgroundColor;
     expect(bgColor).toBe('yellow');
@@ -81,7 +81,7 @@ describe('HighlightDirective', () => {
   });
 
   it('bare <h2> should not have a customProperty', () => {
-    expect(bareH2.properties.customProperty).toBeUndefined();
+    expect(bareH2.properties['customProperty']).toBeUndefined();
   });
 
   it('can inject `HighlightDirective` in 1st <h2>', () => {

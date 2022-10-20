@@ -6,7 +6,7 @@ import { Component, Input, Output, EventEmitter} from '@angular/core';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent {
-  @Input() user: string;
+  @Input() user!: string;
   @Output() selected = new EventEmitter<string>();
 
   onClick(): void {

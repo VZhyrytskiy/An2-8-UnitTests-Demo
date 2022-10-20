@@ -6,7 +6,7 @@ import { Component, Input, Output, EventEmitter} from '@angular/core';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent{
-  @Input() task: string;
+  @Input() task!: string;
   @Output() selected = new EventEmitter<string>();
 
   onClick(): void {

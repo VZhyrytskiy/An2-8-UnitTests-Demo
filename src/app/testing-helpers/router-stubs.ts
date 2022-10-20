@@ -15,7 +15,7 @@ export class ActivatedRouteStub {
   // пока не будет присвоено новое значение.
   private subject = new BehaviorSubject(this.testParams);
   // tslint:disable-next-line: variable-name
-  private _testParams: {};
+  private _testParams!: {};
 
   // Создаем Observable
   paramMap = this.subject.asObservable();

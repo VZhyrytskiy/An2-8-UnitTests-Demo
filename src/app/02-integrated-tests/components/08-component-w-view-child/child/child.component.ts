@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChildComponent implements OnInit {
 
-  public timeStamp: Date;
+  public timeStamp!: Date;
 
   ngOnInit(): void {
     this.updateTimeStamp();

@@ -18,7 +18,7 @@ import { TaskComponent } from './task.component';
 })
 class TestHostComponent {
   task = 'Test task name';
-  selectedTask: string;
+  selectedTask!: string;
   onShowDetails(task: string): void {
     this.selectedTask = task;
   }

@@ -8,7 +8,7 @@ import { MsgListService } from './msg-list.service';
   providers: [MsgListService]
 })
 export class MsgListComponent implements OnInit {
-  messages: any[];
+  messages!: any[];
 
   constructor(
     private msgListService: MsgListService

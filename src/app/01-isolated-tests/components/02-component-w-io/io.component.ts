@@ -10,7 +10,7 @@ export interface IO {
   templateUrl: './io.component.html'
 })
 export class IoComponent {
-  @Input() data: IO;
+  @Input() data!: IO;
   @Output() pass = new EventEmitter<IO>();
 
   onClick(): void {

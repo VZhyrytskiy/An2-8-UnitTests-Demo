@@ -8,7 +8,7 @@ import { UserListService } from './user-list.service';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-  users: string[];
+  users!: string[];
 
   constructor(
     private userListService: UserListService

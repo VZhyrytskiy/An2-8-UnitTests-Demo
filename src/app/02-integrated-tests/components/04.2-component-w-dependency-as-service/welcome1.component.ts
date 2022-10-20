@@ -8,7 +8,7 @@ import { Welcome1Service } from './welcome1.service';
   styleUrls: ['./welcome1.component.css']
 })
 export class Welcome1Component implements OnInit {
-  content: string;
+  content!: string;
 
   constructor(private welcomeService: Welcome1Service) {}
 

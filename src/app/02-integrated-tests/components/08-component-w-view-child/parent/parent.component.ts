@@ -6,7 +6,7 @@ import { ChildComponent } from '../child/child.component';
   templateUrl: './parent.component.html'
 })
 export class ParentComponent {
-  @ViewChild(ChildComponent) childComponent: ChildComponent;
+  @ViewChild(ChildComponent) childComponent!: ChildComponent;
 
   onUpdate(): void {
     this.childComponent.updateTimeStamp();

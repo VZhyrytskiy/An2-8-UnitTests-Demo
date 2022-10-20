@@ -7,8 +7,8 @@ import { UserProfileService } from './user-profile.service';
   templateUrl: './user-profile.component.html'
 })
 export class UserProfileComponent implements OnInit {
-  userDataPromise: Promise<string>;
-  userDataObservable$: Observable<string>;
+  userDataPromise!: Promise<string>;
+  userDataObservable$!: Observable<string>;
 
   constructor(private userProfileService: UserProfileService) {}
 

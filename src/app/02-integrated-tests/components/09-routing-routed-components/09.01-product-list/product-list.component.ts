@@ -9,7 +9,7 @@ import { ProductListService } from './product-list.service';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  products: any[];
+  products!: any[];
 
   constructor(
     private router: Router,

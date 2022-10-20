@@ -59,7 +59,7 @@ describe('UserProfileComponent', () => {
    * async Observable методы
    */
 
-  it('should show user profile after getUserAsPromise/getUserAsObservable (done)', (done: DoneFn) => {
+  it('should show user profile after getUserAsPromise (done)', (done: DoneFn) => {
     fixture.detectChanges();  // ngOnInit()
 
     // Получаем промис, который возвращает шпион и ждем его результата
@@ -67,16 +67,20 @@ describe('UserProfileComponent', () => {
       // Запускаем передачу данных в шаблон
       fixture.detectChanges();
 
-      expect(elPromise.textContent).toBe('TestFirstName TestLastName', 'user is displayed');
+      expect(elPromise.textContent).toBe('TestFirstName TestLastName');
       // Вызываем колбек
       done();
     });
+  });
+
+  it('should show user profile after getUserAsObservable (done)', (done: DoneFn) => {
+    fixture.detectChanges();  // ngOnInit()
 
     getUserAsObservableSpy.calls.mostRecent().returnValue.subscribe(() => {
       // Запускаем передачу данных в шаблон
       fixture.detectChanges();
 
-      expect(elObservable.textContent).toBe('TestFirstName TestLastName', 'user is displayed');
+      expect(elObservable.textContent).toBe('TestFirstName TestLastName');
       done();
     });
   });
