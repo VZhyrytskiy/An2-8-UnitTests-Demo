@@ -22,15 +22,22 @@ describe('DependentService without the TestBed', () => {
   });
 
   it('#getValue should return stubbed value from a MyService spy', () => {
+    // create `getValue` spy on an object representing the MyService
     const myServiceSpy = jasmine.createSpyObj('myService', ['getValue']);
 
+    // set the value to return when the `getValue` spy is called.
     const stubValue = 'stub value';
     myServiceSpy.getValue.and.returnValue(stubValue);
 
     service = new DependentService(myServiceSpy);
 
-    expect(service.getValue()).toBe(stubValue, 'service returned stub value');
-    expect(myServiceSpy.getValue.calls.count()).toBe(1, 'stubbed method was called once');
-    expect(myServiceSpy.getValue.calls.mostRecent().returnValue).toBe(stubValue);
+    expect(service.getValue())
+      .withContext('service returned stub value')
+      .toBe(stubValue);
+    expect(myServiceSpy.getValue.calls.count())
+      .withContext('stubbed method was called once')
+      .toBe(1);
+    expect(myServiceSpy.getValue.calls.mostRecent().returnValue)
+      .toBe(stubValue);
   });
 });
