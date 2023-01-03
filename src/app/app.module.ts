@@ -8,8 +8,8 @@ import { AppComponent } from './app.component';
 import {
   IoComponent,
   LightSwitchComponent
-} from './01-isolated-tests/components';
-import { TitleCasePipe } from './01-isolated-tests/pipes/title-case/title-case.pipe';
+} from './01-isolated-tests/3-components';
+import { TitleCasePipe } from './01-isolated-tests/2-pipes/title-case/title-case.pipe';
 import {
   HeaderInlineComponent,
   HeaderInlineAutoCdComponent,
