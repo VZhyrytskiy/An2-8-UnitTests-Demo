@@ -16,7 +16,7 @@ import {
     { path: 'product/:id', component: ProductDetailsComponent },
     { path: 'about', component: AboutComponent },
     { path: '**', component: PageNotFoundComponent }
-], { relativeLinkResolution: 'legacy' })
+    ])
   ],
   exports: [RouterModule]
 })
