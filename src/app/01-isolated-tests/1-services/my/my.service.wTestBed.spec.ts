@@ -12,7 +12,7 @@ describe('MyService with the TestBed', () => {
     service = TestBed.inject(MyService);
   });
 
-  it('getValue should return real value', () => {
+  it('#getValue should return real value', () => {
     expect(service.getValue()).toBe('real value');
   });
 });

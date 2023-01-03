@@ -4,13 +4,13 @@ import { MyService } from '../my/my.service';
 describe('DependentService without the TestBed', () => {
   let service: DependentService;
 
-  it('getValue should return real value from the real service', () => {
+  it('#getValue should return real value from the real service', () => {
     service = new DependentService(new MyService());
 
     expect(service.getValue()).toBe('real value');
   });
 
-  it('getValue should return faked value from a fakeService', () => {
+  it('#getValue should return faked value from a fakeService', () => {
     const fakedService = {
       getValue(): string {
         return 'faked value';
@@ -21,7 +21,7 @@ describe('DependentService without the TestBed', () => {
     expect(service.getValue()).toBe('faked value');
   });
 
-  it('getValue should return stubbed value from a MyService spy', () => {
+  it('#getValue should return stubbed value from a MyService spy', () => {
     const myServiceSpy = jasmine.createSpyObj('myService', ['getValue']);
 
     const stubValue = 'stub value';

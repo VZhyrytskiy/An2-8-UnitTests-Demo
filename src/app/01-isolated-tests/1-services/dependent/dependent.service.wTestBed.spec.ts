@@ -21,7 +21,7 @@ describe('DependentService without the TestBed', () => {
     myServiceSpy = TestBed.inject(MyService) as jasmine.SpyObj<MyService>;
   });
 
-  it('getValue should return stubbed value from a MyService spy', () => {
+  it('#getValue should return stubbed value from a MyService spy', () => {
     const stubValue = 'stub value';
     myServiceSpy.getValue.and.returnValue(stubValue);
 

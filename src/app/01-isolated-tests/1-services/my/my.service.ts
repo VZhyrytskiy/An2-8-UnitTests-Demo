@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable, of as ObservableOf } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Observable, of, delay } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +17,7 @@ export class MyService {
   }
 
   getObservableValue(): Observable<string> {
-    return ObservableOf('observable value');
+    return of('observable value');
   }
 
   getTimeoutValue(): Promise<string> {
@@ -30,6 +29,6 @@ export class MyService {
   }
 
   getObservableDelayValue(): Observable<string> {
-    return ObservableOf('observable delay value').pipe(delay(10));
+    return of('observable delay value').pipe(delay(10));
   }
 }
