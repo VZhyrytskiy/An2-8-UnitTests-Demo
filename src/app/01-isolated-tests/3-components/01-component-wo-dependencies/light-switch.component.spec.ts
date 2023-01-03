@@ -7,20 +7,30 @@ describe(LightSwitchComponent.name, () => {
     comp = new LightSwitchComponent();
   });
 
-  it('onClick should toggle #isOn', () => {
-    expect(comp.isOn).toBe(false, 'off at first');
+  it('#onClick should toggle #isOn', () => {
+    expect(comp.isOn)
+      .withContext('off at first')
+      .toBe(false);
 
     comp.onClick();
-    expect(comp.isOn).toBe(true, 'on after click');
+    expect(comp.isOn)
+      .withContext('on after click')
+      .toBe(true);
 
     comp.onClick();
-    expect(comp.isOn).toBe(false, 'off after second click');
+    expect(comp.isOn)
+      .withContext('off after second click')
+      .toBe(false);
   });
 
-  it('onClick should set #message to "is on"', () => {
-    expect(comp.message).toMatch(/is off/i, 'off at first');
+  it('#onClick should set #message to "is on"', () => {
+    expect(comp.message)
+      .withContext('off at first')
+      .toMatch(/is off/i);
 
     comp.onClick();
-    expect(comp.message).toMatch(/is on/i, 'on after clicked');
+    expect(comp.message)
+      .withContext('on after clicked')
+      .toMatch(/is on/i);
   });
 });
