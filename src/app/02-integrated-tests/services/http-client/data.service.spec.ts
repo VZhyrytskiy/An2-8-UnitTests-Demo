@@ -5,7 +5,7 @@
  * Используем также HttpTestingController
  */
 import { TestBed } from '@angular/core/testing';
-import { HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { DataService } from './data.service';
 
@@ -16,6 +16,7 @@ const mockResponse = [
 ];
 
 describe('DataService', () => {
+  let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
   let dataService: DataService;
 
@@ -27,6 +28,9 @@ describe('DataService', () => {
 
     httpTestingController = TestBed.inject(HttpTestingController);
     dataService = TestBed.inject(DataService);
+    // Так же вы можете получить экземпляр HttpClient
+    // дальше не используется
+    httpClient = TestBed.inject(HttpClient);
   });
 
   afterEach(() => {
@@ -74,6 +78,7 @@ describe('DataService', () => {
      * Вызываем flush и передаем объект с пользователями
      */
     mockRequest.flush(mockResponse);
+
   });
 
   it('should return 500 error', (done: DoneFn) => {
