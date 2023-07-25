@@ -50,14 +50,22 @@ describe('UserProfileComponent', () => {
   // синхронный тест
   it('should not show user profile before OnInit', () => {
 
-    expect(elPromise.textContent).toBe('', 'user is not set');
-    expect(elObservable.textContent).toBe('', 'user is not set');
+    expect(elPromise.textContent)
+      .withContext('user is not set')
+      .toBe('');
+    expect(elObservable.textContent)
+      .withContext('user is not set')
+      .toBe('');
 
     // шпион не вызывался
     // spy.calls.any() - проверяем вызывался ли шпион
     // https://jasmine.github.io/api/2.6/Spy_calls.html
-    expect(getUserAsPromiseSpy.calls.any()).toBe(false, 'getUserAsPromise not yet called');
-    expect(getUserAsObservableSpy.calls.any()).toBe(false, 'getUserAsObservable not yet called');
+    expect(getUserAsPromiseSpy.calls.any())
+      .withContext('getUserAsPromise not yet called')
+      .toBe(false);
+    expect(getUserAsObservableSpy.calls.any())
+      .withContext('getUserAsObservable not yet called')
+      .toBe(false);
   });
 
   // синхронный тест
@@ -66,15 +74,25 @@ describe('UserProfileComponent', () => {
 
     // Promise - асинхронный
     // Observable - синхронный
-    expect(elPromise.textContent).toBe('', 'user is not set');
+    expect(elPromise.textContent)
+      .withContext('user is not set')
+      .toBe('');
     // for sync observable
-    // expect(elObservable.textContent).toBe('TestFirstName TestLastName', 'user is set');
+    // expect(elObservable.textContent)
+    //   .withContext('user is set')
+    //   .toBe('TestFirstName TestLastName');
     // for async observable
-    expect(elObservable.textContent).toBe('', 'user is set');
+    expect(elObservable.textContent)
+      .withContext('user is set')
+      .toBe('');
 
     // шпион вызывался, так как мы вызвали fixture.detectChanges();
-    expect(getUserAsPromiseSpy.calls.any()).toBe(true, 'getUserAsPromise called');
-    expect(getUserAsObservableSpy.calls.any()).toBe(true, 'getUserObservable called');
+    expect(getUserAsPromiseSpy.calls.any())
+      .withContext('getUserAsPromise called')
+      .toBe(true);
+    expect(getUserAsObservableSpy.calls.any())
+      .withContext('getUserObservable called')
+      .toBe(true);
   });
 
   // Если данные приходят синхронно, то тест может проверить их поступление,

@@ -62,7 +62,9 @@ describe('HighlightDirective', () => {
   it('should bind <input> background to value color', () => {
     // Проще работать с nativeElement
     const input = des[2].nativeElement as HTMLInputElement;
-    expect(input.style.backgroundColor).toBe('cyan', 'initial backgroundColor');
+    expect(input.style.backgroundColor)
+      .withContext('initial backgroundColor')
+      .toBe('cyan');
 
     // Имитируем ввод нового значения в input
     input.value = 'green';
@@ -74,10 +76,9 @@ describe('HighlightDirective', () => {
     // Говорим Ангуляр обновить темплейт
     fixture.detectChanges();
 
-    expect(input.style.backgroundColor).toBe(
-      'green',
-      'changed backgroundColor'
-    );
+    expect(input.style.backgroundColor)
+      .withContext('changed backgroundColor')
+      .toBe('green');
   });
 
   it('bare <h2> should not have a customProperty', () => {

@@ -67,8 +67,12 @@ describe('ProductDetailsComponent', () => {
 
     it('should try to navigate back to product list', () => {
       console.log(gotoSpy.calls.any());
-      expect(gotoSpy.calls.any()).toBe(true, 'component.gotoList called');
-      expect(navSpy.calls.any()).toBe(true, 'router.navigate called');
+      expect(gotoSpy.calls.any())
+        .withContext('component.gotoList is called')
+        .toBe(true);
+      expect(navSpy.calls.any())
+        .withContext('router.navigate is called')
+        .toBe(true);
     });
   });
 });

@@ -77,8 +77,12 @@ describe('UserProfileComponent', () => {
     // Запускаем передачу данных в шаблон
     fixture.detectChanges();
 
-    expect(elPromise.textContent).toBe('TestFirstName TestLastName', 'user is displayed');
-    expect(elObservable.textContent).toBe('TestFirstName TestLastName', 'user is displayed');
+    expect(elPromise.textContent)
+      .withContext('user is displayed (promise)')
+      .toBe('TestFirstName TestLastName');
+    expect(elObservable.textContent)
+      .withContext('user is displayed (observable)')
+      .toBe('TestFirstName TestLastName', );
   }));
 
   // Если в тесте используется setTimeout с некоторым временем, то в

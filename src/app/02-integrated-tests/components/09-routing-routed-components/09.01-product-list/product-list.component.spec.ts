@@ -69,8 +69,9 @@ describe('ProductListComponent', () => {
       const navArgs = navigateByUrlSpy.calls.first().args[0];
       const id = component.products[0].id;
 
-      expect(navArgs).toBe(`/product/${id}`, 'should nav to ProductDetail for first product'
-      );
+      expect(navArgs)
+        .withContext('should nav to ProductDetail for first product')
+        .toBe(`/product/${id}`);
     }
   ));
 });

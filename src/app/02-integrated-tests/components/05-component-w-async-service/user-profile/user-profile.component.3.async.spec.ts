@@ -64,8 +64,12 @@ describe('UserProfileComponent', () => {
       // Запускаем передачу данных в шаблон
       fixture.detectChanges();
 
-      expect(elPromise.textContent).toBe('TestFirstName TestLastName', 'user is displayed');
-      expect(elObservable.textContent).toBe('TestFirstName TestLastName', 'user is displayed');
+      expect(elPromise.textContent)
+        .withContext('user is displayed')
+        .toBe('TestFirstName TestLastName');
+      expect(elObservable.textContent)
+        .withContext('user is displayed')
+        .toBe('TestFirstName TestLastName');
     });
   }));
 
@@ -78,7 +82,11 @@ describe('UserProfileComponent', () => {
     // Запускаем передачу данных в шаблон
     fixture.detectChanges();
 
-    expect(elPromise.textContent).toBe('TestFirstName TestLastName', 'user is displayed');
-    expect(elObservable.textContent).toBe('TestFirstName TestLastName', 'user is displayed');
+    expect(elPromise.textContent)
+      .withContext('user is displayed')
+      .toBe('TestFirstName TestLastName');
+    expect(elObservable.textContent)
+      .withContext('user is displayed')
+      .toBe('TestFirstName TestLastName');
   });
 });

@@ -40,21 +40,24 @@ describe('AppComponent (Shallow)', () => {
   beforeEach(() => {});
 
   it('can get RouterLinks from template', () => {
-    expect(links.length).toBe(2, 'should have 2 links');
-    expect(links[0].linkParams).toBe(
-      '/products',
-      '1st link should go to Products'
-    );
-    expect(links[1].linkParams).toBe('/about', '2nd link should go to About');
+    expect(links.length)
+      .withContext('should have 2 links')
+      .toBe(2);
+    expect(links[0].linkParams)
+      .withContext('1st link should go to Products')
+      .toBe('/products');
+    expect(links[1].linkParams)
+      .withContext('2nd link should go to About')
+      .toBe('/about', );
   });
 
   it('can click Products link in template', () => {
     const productLinkDe = linkDes[0];
     const productLink = links[0];
 
-    expect(productLink.navigatedTo).toBeNull(
-      'link should not have navigated yet'
-    );
+    expect(productLink.navigatedTo)
+      .withContext('link should not have navigated yet')
+      .toBeNull();
 
     productLinkDe.triggerEventHandler('click', null);
     fixture.detectChanges();

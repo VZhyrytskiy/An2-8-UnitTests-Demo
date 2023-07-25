@@ -60,15 +60,21 @@ describe('WelcomeComponent', () => {
 
     // Тут используем второй опциональный параметр, чтобы показать сообщение,
     // когда тест не будет пройден
-    expect(content).withContext('"Welcome ..."').toContain('Welcome');
-    expect(content).withContext('expected name').toContain('Test User', );
+    expect(content)
+      .withContext('"Welcome ..."')
+      .toContain('Welcome');
+    expect(content)
+      .withContext('expected name')
+      .toContain('Test User', );
   });
 
 
   // WARNING: Angular v8 - это разные объекты, но в Angular v9 - это уже один и тот же объект
   // возможно, это ошибка
   it('stub object and injected WelcomeService SHOULD NOT BE the same', () => {
-    expect(welcomeServiceStub === welcomeService).toBe(true, 'doesnt work');
+    expect(welcomeServiceStub === welcomeService)
+      .withContext('doesnt work')
+      .toBe(true);
 
     // Изменение значения в стабе не меняет его в сервисе
     welcomeServiceStub.isLoggedIn = false;
@@ -92,7 +98,12 @@ describe('WelcomeComponent', () => {
     fixture.detectChanges();
     const content = el.textContent;
 
-    expect(content).not.toContain('Welcome', 'not welcomed');
-    expect(content).toMatch(/log in/i, '"log in"');
+    expect(content)
+      .withContext('not welcomed')
+      .not
+      .toContain('Welcome');
+    expect(content)
+      .withContext('"log in"')
+      .toMatch(/log in/i);
   });
 });
