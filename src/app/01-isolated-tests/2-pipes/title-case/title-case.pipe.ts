@@ -11,7 +11,7 @@ export class TitleCasePipe implements PipeTransform {
       ? ''
       : input.replace(
           /\w\S*/g,
-          txt => txt[0].toUpperCase() + txt.substr(1).toLowerCase()
+          txt => txt[0].toUpperCase() + txt.slice(1).toLowerCase()
         );
   }
 }

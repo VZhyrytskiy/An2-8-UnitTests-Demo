@@ -27,7 +27,7 @@ describe('UserComponent', () => {
     userEl = fixture.debugElement.query(By.css('.user'));
   });
 
-   // Важно! Иногда может возникать ошибка Uncaught TypeError: Cannot read property of undefined thrown
+  // Важно! Иногда может возникать ошибка Uncaught TypeError: Cannot read property of undefined thrown
   // проблема в том что не очищается значение fixture после каждого теста
   afterEach(() => {
     fixture.destroy();
@@ -69,7 +69,7 @@ describe('UserComponent', () => {
     // or
     // userEl.nativeElement.click();
     // or use testing-helpers function
-    click(userEl); 
+    click(userEl);
 
     expect(selectedUser).toBe(expectedUser);
   });

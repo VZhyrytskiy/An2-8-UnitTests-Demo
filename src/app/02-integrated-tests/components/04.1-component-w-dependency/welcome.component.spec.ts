@@ -60,8 +60,8 @@ describe('WelcomeComponent', () => {
 
     // Тут используем второй опциональный параметр, чтобы показать сообщение,
     // когда тест не будет пройден
-    expect(content).toContain('Welcome', '"Welcome ..."');
-    expect(content).toContain('Test User', 'expected name');
+    expect(content).withContext('"Welcome ..."').toContain('Welcome');
+    expect(content).withContext('expected name').toContain('Test User', );
   });
 
 
@@ -86,6 +86,7 @@ describe('WelcomeComponent', () => {
 
   // Тест проверяет, что компонент отображает правильное
   // сообщение, когда нет зарегистрированного пользователя.
+  // TODO:
   it('should request login if not logged in', () => {
     welcomeService.isLoggedIn = false;
     fixture.detectChanges();
