@@ -62,7 +62,9 @@ import { ParentComponent } from './02-integrated-tests/components/08-component-w
     IoComponent,
     TitleCasePipe,
     ChildComponent,
-    ParentComponent
+    ParentComponent,
+
+
   ],
   providers: [
     WelcomeService,
