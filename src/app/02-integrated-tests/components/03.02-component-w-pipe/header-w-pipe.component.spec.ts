@@ -8,7 +8,7 @@ import { DebugElement } from '@angular/core';
 import { HeaderWPipeComponent } from './header-w-pipe.component';
 
 describe('HeaderWPipeComponent', () => {
-  let component: HeaderWPipeComponent;
+  let component: HeaderWPipeComponent | null;
   let fixture: ComponentFixture<HeaderWPipeComponent>;
   let deH1, deInput: DebugElement;
   let elH1: HTMLElement;
@@ -20,25 +20,30 @@ describe('HeaderWPipeComponent', () => {
     fixture = TestBed.createComponent(HeaderWPipeComponent);
     component = fixture.componentInstance;
 
-    // Получаем элемент H1
+    // Получить элемент H1
     deH1 = fixture.debugElement.query(By.css('h1'));
     elH1 = deH1.nativeElement;
 
-    // Получаем элемент input
+    // Получить элемент input
     deInput = fixture.debugElement.query(By.css('input'));
     elInput = deInput.nativeElement;
+
+    // Запустить чендж детекшн
+    fixture.detectChanges();
+  });
+
+  // почистить после каждого теста
+  afterEach(() => {
+    fixture.destroy();
+    component = null;
   });
 
   it('should convert title to Title Case', async () => {
     elInput.value = 'my app';
     elInput.dispatchEvent(new Event('input'));
 
-    // fixture.detectChanges();
-
-    await fixture.whenStable();
     fixture.detectChanges();
 
     expect(elH1.textContent).toBe('My App');
-    // expect(component.title).toBe('My App');
   });
 });
