@@ -90,6 +90,6 @@ describe('HeaderInlineComponent', () => {
     // но уже после того, как проинициализировали свойство компонента новым значением
     fixture.detectChanges();
 
-    expect(h1.textContent).toContain('Test Title');
+    expect(h1.textContent).toContain(component.title);
   });
 });

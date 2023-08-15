@@ -3,8 +3,7 @@
  * Замечания по поводу компиляции компонентов.
  */
 
-// Импортируем дополнительную Ангуляр утилиту тестирования waitForAsync
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
@@ -20,18 +19,9 @@ describe('HeaderComponent', () => {
    * Следующий код важен только для среды тестирования без Angular CLI.
    * Если вы используете Angular CLI, то компилировать компоненты нет необходимости,
    * так как компоненты компилируются Angular CLI непосредственно перед запуском тестов.
-   *
-   * Предыдущая логика работы beforeEach разбита на два beforeEach
-   * Первый beforeEach - асинхронный для
-   *  1. настроки модуля,
-   *  2. загрузки шаблонов,
-   *  3. компиляции компонентов
-   * В асинхронном beforeEach используется функция waitForAsync(),
-   * которая в свою очередь принимает стрелочную функцию в качестве параметра
-   *
    */
-  beforeEach(waitForAsync(() => {
-    TestBed
+  beforeEach(async () => {
+    await TestBed
       // Настраиваем модуль
       .configureTestingModule({
         declarations: [HeaderComponent]
@@ -42,15 +32,7 @@ describe('HeaderComponent', () => {
     // Метод compileComponents возвращает промис
     // таким образом мы можем выполнять дополнительные задачи
     // сразу после его завершения.
-    // Например, можно переместить синхронный код с второго beforeEach
-    // в compileComponents().then(...) колбек
-    // и оставить только один beforeEach.
-    // Но предпочтительно использовать два beforeEach
-  }));
 
-  // Второй beforeEach - синхронный
-  // Содержит все остальные шаги настройки компонента для тестирования
-  beforeEach(() => {
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
 
