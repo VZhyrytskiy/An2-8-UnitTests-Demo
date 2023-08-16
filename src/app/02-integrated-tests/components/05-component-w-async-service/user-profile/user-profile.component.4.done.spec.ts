@@ -8,10 +8,11 @@ import { DebugElement } from '@angular/core';
 
 import { UserProfileComponent } from './user-profile.component';
 import { UserProfileService } from './user-profile.service';
-import { defer, of } from 'rxjs';
+import { defer, last, of } from 'rxjs';
 
 describe('UserProfileComponent', () => {
   let fixture: ComponentFixture<UserProfileComponent>;
+  let component: UserProfileComponent;
   let dePromise: DebugElement;
   let deObservable: DebugElement;
   let elPromise: HTMLElement;
@@ -44,6 +45,7 @@ describe('UserProfileComponent', () => {
      });
 
      fixture = TestBed.createComponent(UserProfileComponent);
+     component = fixture.componentInstance;
 
      // Получаем элементы по селектору
      dePromise = fixture.debugElement.query(By.css('.user-profile-promise > span:nth-child(2)'));
@@ -81,6 +83,33 @@ describe('UserProfileComponent', () => {
       fixture.detectChanges();
 
       expect(elObservable.textContent).toBe('TestFirstName TestLastName');
+      done();
+    });
+  });
+
+
+  it('should show user profile after getUserAsObservable use component property (done)', (done: DoneFn) => {
+    fixture.detectChanges();  // ngOnInit()
+
+    // Использовать компонент
+    component.userDataObservable$.pipe(last()).subscribe(() => {
+      // Запускаем передачу данных в шаблон
+      fixture.detectChanges();
+
+      expect(elObservable.textContent).toBe('TestFirstName TestLastName');
+      done();
+    });
+  });
+
+  it('should show user profile after getUserAsObservable use component property (done)', (done: DoneFn) => {
+    fixture.detectChanges();  // ngOnInit()
+
+    // Использовать компонент
+    component.userDataPromise.then(() => {
+      // Запускаем передачу данных в шаблон
+      fixture.detectChanges();
+
+      expect(elPromise.textContent).toBe('TestFirstName TestLastName');
       done();
     });
   });

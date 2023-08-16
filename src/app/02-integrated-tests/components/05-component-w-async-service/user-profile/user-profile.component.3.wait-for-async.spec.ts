@@ -25,35 +25,41 @@ describe('UserProfileComponent', () => {
 
     const userProfileSpyObj = jasmine.createSpyObj('UserProfileService', [
       'getUserAsPromise',
-      'getUserAsObservable'
+      'getUserAsObservable',
     ]);
 
     // Make the spy return a synchronous Promise or Observable with the testUserProfile
     getUserAsPromiseSpy = userProfileSpyObj.getUserAsPromise.and.returnValue(
       Promise.resolve(testUserProfile)
     );
-    getUserAsObservableSpy = userProfileSpyObj.getUserAsObservable.and.returnValue(
-      // of(testUserProfile)  // sync observable
-      defer(() => of(testUserProfile)) // async observable
-    );
+    getUserAsObservableSpy =
+      userProfileSpyObj.getUserAsObservable.and.returnValue(
+        // of(testUserProfile)  // sync observable
+        defer(() => of(testUserProfile)) // async observable
+      );
 
     TestBed.configureTestingModule({
       declarations: [UserProfileComponent],
-      providers: [{ provide: UserProfileService, useValue: userProfileSpyObj}]
+      providers: [{ provide: UserProfileService, useValue: userProfileSpyObj }],
     });
 
     fixture = TestBed.createComponent(UserProfileComponent);
 
     // Получаем элементы по селектору
-    dePromise = fixture.debugElement.query(By.css('.user-profile-promise > span:nth-child(2)'));
+    dePromise = fixture.debugElement.query(
+      By.css('.user-profile-promise > span:nth-child(2)')
+    );
     elPromise = dePromise.nativeElement;
-    deObservable = fixture.debugElement.query(By.css('.user-profile-observable > span:nth-child(2)'));
+    deObservable = fixture.debugElement.query(
+      By.css('.user-profile-observable > span:nth-child(2)')
+    );
     elObservable = deObservable.nativeElement;
   });
 
   // Использует функцию waitForAsync()
   it('should show user profile after getUserAsPromise/getUserAsObservable (waitForAsync)', waitForAsync(() => {
-    fixture.detectChanges();  // ngOnInit
+    // Вызвать ngOnInit
+    fixture.detectChanges();
 
     /**
      * fixture.whenStable метод возвращает промис,
@@ -61,7 +67,7 @@ describe('UserProfileComponent', () => {
      * Ждем результатов асинхронных методов
      */
     fixture.whenStable().then(() => {
-      // Запускаем передачу данных в шаблон
+      // Передать данные в шаблон
       fixture.detectChanges();
 
       expect(elPromise.textContent)
@@ -73,13 +79,14 @@ describe('UserProfileComponent', () => {
     });
   }));
 
-  // Использует функцию async function + await
+  // Использует async function + await
   it('should show user profile after getUser promise (async function + await)', async () => {
-    fixture.detectChanges(); // ngOnInit()
+    // Вызвать ngOnInit()
+    fixture.detectChanges();
 
     await fixture.whenStable();
 
-    // Запускаем передачу данных в шаблон
+    // Передать данные в шаблон
     fixture.detectChanges();
 
     expect(elPromise.textContent)
