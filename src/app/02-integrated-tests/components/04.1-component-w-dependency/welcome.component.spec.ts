@@ -65,7 +65,7 @@ describe('WelcomeComponent', () => {
       .toContain('Welcome');
     expect(content)
       .withContext('expected name')
-      .toContain('Test User', );
+      .toContain('Test User');
   });
 
 
@@ -86,13 +86,13 @@ describe('WelcomeComponent', () => {
     // Приветствие не будет доступно до вызова detectChanges
     welcomeService.user.name = 'Vitaliy';
     fixture.detectChanges();
+    const content = el.textContent;
 
-    expect(el.textContent).toContain('Welcome Vitaliy');
+    expect(content).toContain('Welcome Vitaliy');
   });
 
   // Тест проверяет, что компонент отображает правильное
   // сообщение, когда нет зарегистрированного пользователя.
-  // TODO:
   it('should request login if not logged in', () => {
     welcomeService.isLoggedIn = false;
     fixture.detectChanges();
