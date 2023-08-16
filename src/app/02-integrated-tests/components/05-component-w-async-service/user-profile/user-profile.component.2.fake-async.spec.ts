@@ -80,7 +80,7 @@ describe('UserProfileComponent', () => {
     // Вызвать эту функцию можно только в рамках тела fakeAsync функции
     tick();
 
-    // Запускаем передачу данных в шаблон
+    // Передать данные в шаблон
     fixture.detectChanges();
 
     expect(elPromise.textContent)
