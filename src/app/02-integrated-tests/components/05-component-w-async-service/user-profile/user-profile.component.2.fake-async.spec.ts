@@ -6,7 +6,8 @@ import {
   ComponentFixture,
   TestBed,
   fakeAsync,
-  tick
+  tick,
+  flush
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
@@ -89,10 +90,41 @@ describe('UserProfileComponent', () => {
   // функцию tick() необходимо передать это время
   it('should run timeout callback with delay after call tick with millis', fakeAsync(() => {
     let called = false;
-    setTimeout(() => { called = true; }, 100);
+    setTimeout(() => { called = true; }, 10_000);
 
-    tick(100); // pass 100ms
+    tick(10_000); // pass 10000ms = 10c
 
     expect(called).toBe(true);
+  }));
+
+
+  it ('should call nested setTimeout automatically', fakeAsync(() => {
+    let nestedTimeoutInvoked = false;
+    function funcWithNestedTimeout() {
+      setTimeout(() => {
+        nestedTimeoutInvoked = true;
+      });
+    };
+    setTimeout(funcWithNestedTimeout);
+    tick(0, {processNewMacroTasksSynchronously: true}); // true - call nested setTimeout
+    expect(nestedTimeoutInvoked).toBe(true);
+    flush(); // clear a queue of a timers
+  }));
+
+
+  it ('shouldnt call nested setTimeout: call it manually', fakeAsync(() => {
+    let nestedTimeoutInvoked = false;
+    function funcWithNestedTimeout() {
+      setTimeout(() => {
+        nestedTimeoutInvoked = true;
+      });
+    };
+    setTimeout(funcWithNestedTimeout);
+    tick(0, {processNewMacroTasksSynchronously: false});  // false - don't call nested setTimeout
+    expect(nestedTimeoutInvoked).toBe(false);
+
+    tick(0);  // call setTimeout if needed
+    expect(nestedTimeoutInvoked).toBe(true);
+    flush();  // clear a queue of a timers
   }));
 });
