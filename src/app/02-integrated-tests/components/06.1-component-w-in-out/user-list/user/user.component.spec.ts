@@ -59,16 +59,8 @@ describe('UserComponent', () => {
     // selected - looks like sync Observable
     component.selected.pipe(first()).subscribe((user: string) => (selectedUser = user));
 
-    // DebugElement.triggerEventHandler может сгенерить любое связанное
-    // с данными событие по имени события.
-    // Второй параметр - это объект события, переданный обработчику.
-    // В этом примере тест запускает событие «click»
-    // с наловым объектом события.
-
-    // userEl.triggerEventHandler('click', null);
-    // or
-    // userEl.nativeElement.click();
-    // or use testing-helpers function
+    
+    // Запустить событие клика (testing-helpers function)
     click(userEl);
 
     expect(selectedUser).toBe(expectedUser);

@@ -10,6 +10,13 @@ export const ButtonClickEvents = {
 };
 
 /** Simulate element click. Defaults to mouse left-button click event. */
+    // DebugElement.triggerEventHandler может сгенерить любое связанное
+    // с данными событие по имени события.
+    // Второй параметр - это объект события, переданный обработчику.
+
+    // userEl.triggerEventHandler('click', null);
+    // or
+    // userEl.nativeElement.click();
 export function click(
   el: DebugElement | HTMLElement,
   eventObj: any = ButtonClickEvents.left
