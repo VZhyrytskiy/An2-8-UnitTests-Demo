@@ -13,15 +13,16 @@ export * from './04.2-component-w-dependency-as-service/welcome1.component';
 export * from './05-component-w-async-service/user-profile/user-profile.component';
 export * from './05-component-w-async-service/user-profile/user-profile.service';
 
-export * from './06-component-w-input-output/user-list/user-list.component';
-export * from './06-component-w-input-output/user-list/user-list.service';
-export * from './06-component-w-input-output/user-list/user/user.component';
+export * from './06.1-component-w-in-out/user-list/user-list.component';
+export * from './06.1-component-w-in-out/user-list/user-list.service';
+export * from './06.1-component-w-in-out/user-list/user/user.component';
 
-export * from './07-component-inside-host/task-list/task-list.component';
-export * from './07-component-inside-host/task-list/task-list.service';
-export * from './07-component-inside-host/task-list/task/task.component';
+export * from './06.2-component-w-in-out-inside-host/task-list/task-list.component';
+export * from './06.2-component-w-in-out-inside-host/task-list/task-list.service';
+export * from './06.2-component-w-in-out-inside-host/task-list/task/task.component';
 
-
+export * from './08-component-w-view-child/parent/parent.component';
+export * from './08-component-w-view-child/child/child.component';
 
 export * from './09-routing-routed-components/09.01-product-list/product-list.component';
 export * from './09-routing-routed-components/09.01-product-list/product-list.service';
