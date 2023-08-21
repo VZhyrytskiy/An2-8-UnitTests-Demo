@@ -59,9 +59,9 @@ describe('UserComponent', () => {
     // selected - looks like sync Observable
     component.selected.pipe(first()).subscribe((user: string) => (selectedUser = user));
 
-    
-    // Запустить событие клика (testing-helpers function)
-    click(userEl);
+
+    // Запустить событие клика
+    click(userEl); // testing-helpers/click.function.ts
 
     expect(selectedUser).toBe(expectedUser);
   });

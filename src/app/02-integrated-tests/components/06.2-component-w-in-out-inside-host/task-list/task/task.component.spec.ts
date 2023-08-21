@@ -7,6 +7,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { TaskComponent } from './task.component';
+import { click } from 'src/app/testing-helpers';
 
 /**
  * Test Host Component
@@ -52,12 +53,7 @@ describe('TaskComponent when inside a test host', () => {
   });
 
   it('should raise selected event when clicked', () => {
-    // DebugElement.triggerEventHandler может сгенерить любое связанное
-    // с данными событие по имени события.
-    // Второй параметр - это объект события, переданный обработчику.
-    // В этом примере тест запускает событие «click»
-    // с наловым объектом события.
-    taskEl.triggerEventHandler('click', null);
+    click(taskEl, null); // testing-helpers/click.function.ts
 
     expect(testHost.selectedTask).toBe(testHost.task);
   });
